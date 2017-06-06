@@ -101,6 +101,19 @@
                                 </select>
                             </div>
                         </div>
+                        @if($level == 'X')
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select class="form-control" name="select_huyen" id="select_huyen">
+                                    <option value="all">--Chọn quận huyện--</option>
+                                    @foreach ($listhuyen as $huyen)
+                                        <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -184,11 +197,17 @@
 
     <script>
         $(function(){
-
-            $('#select_level').change(function() {
+            $('#select_level, #select_huyen').change(function() {
                 var current_path_url = '/users?';
-                var level =  '&level='+$('#select_level').val();
-                var url = current_path_url+level;
+                var level = '&level='+$('#select_level').val();
+                if($(this).attr('id') == 'select_level'){
+                    $('#select_huyen').val('all');
+                }
+                var mahuyen = '';
+                if($('#select_huyen').length > 0 ){
+                    var mahuyen = '&mahuyen='+$('#select_huyen').val();
+                }
+                var url = current_path_url+level+mahuyen;
                 window.location.href = url;
             });
         })

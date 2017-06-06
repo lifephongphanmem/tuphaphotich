@@ -91,16 +91,11 @@ License: You must have a valid license purchased only from themeforest(the above
 			<br>
 		</div>
 		{!! Form::close() !!}
-		<div class="forget-password">
+
+		<div class="create-account">
 			<p>
 				Bạn quên mật khẩu truy cập? Click <a href="{{url('forgot_password')}}">
 					here </a>
-			</p>
-		</div>
-		<div class="create-account">
-			<p>
-				Bạn chưa có tài khoản?&nbsp;<a data-target="#dangky-doanhnghiep" data-toggle="modal">
-					Đăng ký tài khoản </a>
 			</p>
 			<!--p>Bạn đã đăng ký tài khoản?&nbsp;<a href="{{url('register/tra_lai')}}" target="_blank">Kiểm tra tài khoản?</a> </p-->
 		</div>

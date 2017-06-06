@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Districts;
 use App\DmDvQl;
 use App\DnDvLt;
 use App\DnDvLtReg;
@@ -115,25 +116,31 @@ class UsersController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
-            $level = isset($inputs['level']) ? $inputs['level'] : 'T';
-            if (session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'sa') {
-                $model = Users::where('level', $level)
-                    ->get();
-            $index_unset = 0;
-            foreach ($model as $user) {
-                if ($user->sadmin == 'ssa') {
-                    unset($model[$index_unset]);
-                }
-                $index_unset++;
+            $huyen = isset($inputs['mahuyen']) ?  $inputs['mahuyen'] : 'all';
+            $level = isset($inputs['level']) ?  $inputs['level'] : 'T' ;
+
+
+            $users = User::where('level',$level);
+            if($level == 'T'){
+                $users = $users->where('sadmin','<>','ssa');
+            }elseif($level == 'X'){
+                $mahuyendf = Districts::first()->mahuyen;
+                $huyen = isset($inputs['mahuyen']) ?  $inputs['mahuyen'] : $mahuyendf;
+                $users = $users->where('mahuyen', $huyen);
             }
 
-            return view('system.users.index')
-                ->with('model', $model)
-                ->with('level', $level)
-                ->with('pageTitle', 'Danh sách tài khoản');
-            }else{
-                return view('errors.perm');
-            }
+            $model = $users->get();
+
+
+
+            $listhuyen = Districts::all();
+
+                return view('system.users.index')
+                    ->with('model', $model)
+                    ->with('listhuyen',$listhuyen)
+                    ->with('level', $level)
+                    ->with('mahuyen',$huyen)
+                    ->with('pageTitle', 'Danh sách tài khoản');
 
         } else {
             return view('errors.notlogin');
