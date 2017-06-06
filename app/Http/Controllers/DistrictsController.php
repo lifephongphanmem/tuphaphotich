@@ -39,7 +39,7 @@ class DistrictsController extends Controller
                 $user = new Users();
                 $user->name = $inputs['tenhuyen'];
                 $user->username = $inputs['username'];
-                $user->password = $inputs['password'];
+                $user->password = md5($inputs['password']);
                 $user->phone = $inputs['dienthoai'];
                 $user->email = $inputs['email'];
                 $user->status = 'Kích hoạt';
