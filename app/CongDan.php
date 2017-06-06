@@ -15,11 +15,15 @@ class CongDan extends Model
         'macongdan',
         'hoten',
         'gioitinh',
+        'dantoc',
+        'quoctich',
+        'tongiao',
         'ngaysinh',
         'quequan',
         'thuongtru',
         'socmnd',
         'trangthai',
+        'tttd',
         'action'
     ];
 }

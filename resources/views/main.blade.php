@@ -300,7 +300,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <span class="arrow "></span>
                                 </a>
                                 <ul class="sub-menu">
-                                        <li><a href="{{url('')}}"> Công dân</a></li>
+                                        <li><a href="{{url('congdan')}}"> Công dân</a></li>
                                 </ul>
                             </li>
                         @endif

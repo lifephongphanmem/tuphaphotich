@@ -22,10 +22,14 @@ class CreateCongdanTable extends Migration
             $table->string('hoten')->nullable();
             $table->string('gioitinh')->nullable();
             $table->date('ngaysinh')->nullable();
+            $table->string('dantoc')->nullable();
+            $table->string('quoctich')->nullable();
+            $table->string('tongiao')->nullable();
             $table->string('quequan')->nullable();
             $table->string('thuongtru')->nullable();
             $table->string('socmnd')->nullable();
             $table->string('trangthai')->nullable();
+            $table->text('tttd')->nullable();
             $table->string('action')->nullable();
             $table->timestamps();
         });

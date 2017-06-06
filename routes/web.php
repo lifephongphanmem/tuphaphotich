@@ -50,6 +50,9 @@ Route::post('towns/delete','TownsController@destroy');
 
 // </editor-fold>//End Setting
 
+Route::resource('congdan','CongDanController');
+
+
 
 
 
