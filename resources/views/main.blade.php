@@ -342,8 +342,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         <span class="arrow "></span>
                     </a>
                     <ul class="sub-menu">
-                            <li><a href="{{url('')}}"> Thông tin quận huyện</a></li>
-                            <li><a href="{{url('')}}"> Thông tin xã phường</a></li>
+                            <li><a href="{{url('districts')}}"> Thông tin quận huyện</a></li>
+                            <li><a href="{{url('towns')}}"> Thông tin xã phường</a></li>
                             <li><a href="{{url('users')}}"> Quản lý tài khoản</a></li>
                             <li><a href="{{url('cau_hinh_he_thong')}}">Cấu hình hệ thống</a></li>
                     </ul>

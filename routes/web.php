@@ -2,6 +2,12 @@
 
 Route::get('/', 'HomeController@index');
 
+//Ajax check
+Route::get('/checkmahuyen','AjaxController@checkmahuyen');
+Route::get('/checkmaxa','AjaxController@checkmaxa');
+Route::get('/checkuser','AjaxController@checkuser');
+//End ajax check
+
 // <editor-fold defaultstate="collapsed" desc="--Setting--">
 Route::get('cau_hinh_he_thong','GeneralConfigsController@index');
 Route::get('cau_hinh_he_thong/create','GeneralConfigsController@create');
@@ -10,7 +16,6 @@ Route::get('cau_hinh_he_thong/{id}/edit','GeneralConfigsController@edit');
 Route::patch('cau_hinh_he_thong/{id}','GeneralConfigsController@update');
 Route::get('/setting','GeneralConfigsController@setting');
 Route::post('/setting','GeneralConfigsController@upsetting');
-
 
 //Users
 Route::get('login','UsersController@login');
@@ -33,6 +38,15 @@ Route::get('users/unlock/{ids}','UsersController@unlockuser');
 
 Route::get('users/print/pl={pl}','UsersController@prints');
 //EndUsers
+
+//Thông tin quận/huyện
+Route::resource('districts','DistrictsController');
+Route::post('districts/delete','DistrictsController@destroy');
+//End Thông tin quận/huyện
+//Thông tin xã phường
+Route::resource('towns','TownsController');
+Route::post('towns/delete','TownsController@destroy');
+//End Thông tin xã phường
 
 // </editor-fold>//End Setting
 

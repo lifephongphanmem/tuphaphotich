@@ -101,21 +101,6 @@ class UsersController extends Controller
         }
     }
 
-    public function checkuser(Request $request)
-    {
-        $input = $request->all();
-        $newusser = $input['user'];
-
-        $model = Users::where('username', $newusser)
-            ->first();
-        if (isset($model)) {
-            echo 'cancel';
-        } else {
-            echo 'ok';
-        }
-    }
-
-
     public function logout()
     {
         if (Session::has('admin')) {
