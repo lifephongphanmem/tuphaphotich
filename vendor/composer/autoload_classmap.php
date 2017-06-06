@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateCongdanTable' => $baseDir . '/database/migrations/2017_06_06_175000_create_congdan_table.php',
     'CreateDistrictsTable' => $baseDir . '/database/migrations/2017_06_06_090717_create_districts_table.php',
     'CreateGeneralConfigsTable' => $baseDir . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
     'CreateTownsTable' => $baseDir . '/database/migrations/2017_06_06_090904_create_towns_table.php',
