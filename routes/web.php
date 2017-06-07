@@ -1,6 +1,11 @@
 <?php
 
 Route::get('/', 'HomeController@index');
+//Test FormWizard
+Route::get('/formwizard', function(){
+    return view('test.formwizard.index')
+        ->with('pageTitle','Sửa thông tin hồ sơ cán bộ');
+});
 
 //Ajax check
 Route::get('/checkmahuyen','AjaxController@checkmahuyen');
