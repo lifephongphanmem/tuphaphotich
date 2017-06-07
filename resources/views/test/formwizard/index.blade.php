@@ -17,19 +17,12 @@
 @stop
 
 @section('content')
+    <h3 class="page-title">
+        Thông tin khai sinh<small> thêm mới</small>
+    </h3>
     <div class="row">
         <div class="col-md-12">
             <div class="portlet box blue" id="form_wizard_1">
-                <div class="portlet-title">
-                    <div class="caption">
-                        THÊM MỚI HỒ SƠ CÁN BỘ
-                    </div>
-                    <div class="tools hidden-xs">
-                        <a href="javascript:;" class="collapse">
-                        </a>
-                    </div>
-                </div>
-
                 <div class="portlet-body form" id="form_wizard">
                     {!! Form::open(['url'=>'/nghiep_vu/ho_so/store','method'=>'post' , 'files'=>true, 'id' => 'create_hscb','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
                     <div class="form-body">
@@ -72,7 +65,7 @@
                         </ul>
 
                         <div id="bar" class="progress progress-striped" role="progressbar">
-                            <div class="progress-bar progress-bar-success">
+                            <div class="progress-bar progress-bar-blue">
                             </div>
                         </div>
 
@@ -83,24 +76,29 @@
                             @include('test.formwizard.luong')
                             @include('test.formwizard.khac')
                         </div>
-                    </div>
-                    <div class="form-actions">
+<hr>
                         <div class="row">
-                            <div class="col-md-offset-4 col-md-8">
-                                <button type="button" name="previous" value="Previous" class="btn btn-info button-previous">
-                                    <i class="fa fa-arrow-circle-o-left mrx"></i>Quay lại
+                            <div class="col-md-offset-1 col-md-1" style="text-align: left">
+                                <button type="button" name="previous" value="Previous" class="btn btn-info button-previous mlm">
+                                    <i class="fa fa-arrow-circle-o-left mrx"></i>&nbsp;Trước
                                 </button>
+                            </div>
+                            <div class="col-md-offset-8 col-md-1" style="text-align: right">
                                 <button id="btnnext" type="button" name="next" value="Next" class="btn btn-info button-next mlm">
-                                    Tiếp theo<i class="fa fa-arrow-circle-o-right mlx"></i></button>
-                                <!-- Kiem tra co quyen moi dc sửa, ko thì chỉ là xem -->
-                                <button type="submit" class="btn btn-success">Tạo hồ sơ</button>
+                                    &nbsp;Tiếp<i class="fa fa-arrow-circle-o-right mlx"></i></button>
                             </div>
                         </div>
-                    </div>
-                    {!! Form::close() !!}
 
+                    </div>
                 </div>
             </div>
+            <div style="text-align: center">
+                <a href="{{url('congdan')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
+                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+            </div>
         </div>
+
+        {!! Form::close() !!}
     </div>
 @stop
