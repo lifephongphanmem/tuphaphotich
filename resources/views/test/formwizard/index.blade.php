@@ -28,38 +28,29 @@
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
                             <li><a href="#tab1" data-toggle="tab" class="step">
-                                    <i class="glyphicon glyphicon-user"></i>
-
-                                    <p class="anchor">Bước 1</p>
-
-                                    <p class="description">Thông tin cơ bản</p></a>
+                                        <span class="badge badge-default">
+                                        1 </span>
+                                    <p class="description">Thông tin tuyển dụng</p>
+                                </a>
                             </li>
                             <li><a href="#tab2" data-toggle="tab" class="step">
-                                    <i class="glyphicon glyphicon-list-alt"></i>
-
-                                    <p class="anchor">Bước 2</p>
-
+                                    <span class="badge badge-default">
+                                        2 </span>
                                     <p class="description">Thông tin tuyển dụng</p></a>
                             </li>
                             <li><a href="#tab3" data-toggle="tab" class="step">
-                                    <i class="glyphicon glyphicon-plus-sign"></i>
-
-                                    <p class="anchor">Bước 3</p>
-
+                                     <span class="badge badge-default">
+                                        3 </span>
                                     <p class="description">Trình độ cán bộ</p></a>
                             </li>
                             <li><a href="#tab4" data-toggle="tab" class="step">
-                                    <i class="glyphicon glyphicon-check"></i>
-
-                                    <p class="anchor">Bước 4</p>
-
+                                    <span class="badge badge-default">
+                                        4 </span>
                                     <p class="description">Thông tin lương, phụ cấp</p></a>
                             </li>
                             <li><a href="#tab5" data-toggle="tab" class="step">
-                                    <i class="glyphicon glyphicon-paperclip"></i>
-
-                                    <p class="anchor">Bước 5</p>
-
+                                     <span class="badge badge-default">
+                                        5 </span>
                                     <p class="description">Thông tin khác</p></a>
                             </li>
                         </ul>
