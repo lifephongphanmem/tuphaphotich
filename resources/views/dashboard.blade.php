@@ -26,8 +26,8 @@
                 <div class="details">
                     <div class="number"></div>
                     <div class="desc">
-                        Giá dịch vụ lưu trú<br>
-                        <h5>Chờ nhận:</h5>
+                        Thông tin công dân<br>
+                        <h5>10000 công dân</h5>
                     </div>
                 </div>
                 <a class="more" href="">

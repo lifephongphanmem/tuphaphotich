@@ -11,6 +11,7 @@ Route::get('/formwizard', function(){
 Route::get('/checkmahuyen','AjaxController@checkmahuyen');
 Route::get('/checkmaxa','AjaxController@checkmaxa');
 Route::get('/checkuser','AjaxController@checkuser');
+Route::get('getXas','AjaxController@getXas');
 //End ajax check
 
 // <editor-fold defaultstate="collapsed" desc="--Setting--">
@@ -56,6 +57,10 @@ Route::post('towns/delete','TownsController@destroy');
 // </editor-fold>//End Setting
 
 Route::resource('congdan','CongDanController');
+Route::post('congdan/delete','CongDanController@destroy');
+
+Route::resource('khaisinh','KhaiSinhController');
+Route::post('khaisinh/delete','KhaiSinhController@destroy');
 
 
 

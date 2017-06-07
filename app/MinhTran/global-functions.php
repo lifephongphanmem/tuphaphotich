@@ -426,4 +426,10 @@ function getMoneyToDb ($value){
     $kq = str_replace('.','',$kq);
     return $kq;
 }
+
+function getmatinh(){
+    $model = \App\GeneralConfigs::first();
+    $matinh = $model->matinh;
+    return $matinh;
+}
 ?>

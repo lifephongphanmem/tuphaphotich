@@ -302,9 +302,12 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
     public static $classMap = array (
         'CreateChameconTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_202231_create_chamecon_table.php',
         'CreateCongdanTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_175000_create_congdan_table.php',
+        'CreateDantocTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095456_create_dantoc_table.php',
         'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090717_create_districts_table.php',
         'CreateGeneralConfigsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
         'CreateGiamhoTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_202208_create_giamho_table.php',
+        'CreateKhaisinhTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_152937_create_khaisinh_table.php',
+        'CreateQuoctichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',
         'CreateTownsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090904_create_towns_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

@@ -15,6 +15,7 @@ class CreateGeneralConfigsTable extends Migration
     {
         Schema::create('general-configs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('matinh')->nullable();
             $table->string('maqhns')->nullable();
             $table->string('tendv')->nullable();
             $table->string('diachi')->nullable();

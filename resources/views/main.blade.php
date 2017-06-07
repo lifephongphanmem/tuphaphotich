@@ -294,28 +294,23 @@ License: You must have a valid license purchased only from themeforest(the above
                     @if(canGeneral('congdan','index'))
                         @if(can('congdan','index'))
                             <li>
-                                <a href="">
+                                <a href="{{url('congdan')}}">
                                     <i class="icon-users"></i>
-                                    <span class="title">Quản lý công dân</span>
+                                    <span class="title">Thông tin công dân</span>
                                     <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">
-                                        <li><a href="{{url('congdan')}}"> Công dân</a></li>
-                                </ul>
                             </li>
                         @endif
                     @endif
                     @if(canGeneral('khaisinh','index'))
                         @if(can('khaisinh','index'))
                             <li>
-                                <a href="">
+                                <a href="{{url('khaisinh')}}">
                                     <i class="icon-users"></i>
-                                    <span class="title">Quản lý khai sinh</span>
+                                    <span class="title">Thông tin khai sinh</span>
                                     <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{url('')}}"> Khai sinh</a></li>
-                                </ul>
+
                             </li>
                         @endif
                     @endif

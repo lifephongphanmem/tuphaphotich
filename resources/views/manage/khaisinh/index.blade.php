@@ -31,7 +31,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh sách thông tin<small>&nbsp;công dân</small>
+        Danh sách thông tin<small>&nbsp;khaisinh</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -43,7 +43,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url('congdan/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        <a href="{{url('khaisinh/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
 
@@ -85,23 +85,19 @@
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
-                            <th width="10%" style="text-align: center">Ảnh</th>
+                            <th style="text-align: center" width="5%">Ngày đăng ký</th>
                             <th style="text-align: center" width="15%">Họ và tên</th>
                             <th style="text-align: center" width="5%">Ngày sinh</th>
                             <th style="text-align: center" width="5%">Giới tính</th>
                             <th style="text-align: center">Quê quán</th>
-                            <th style="text-align: center">Địa chỉ thường trú</th>
-                            <th style="text-align: center" width="15%">Thao tác</th>
+                            <th style="text-align: center" width="20%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td align="center" style="vertical-align: middle">
-                                    <img src="{{ url('images/avatar/no-image.png')}}" width="96">
-                                </td>
-                                <td class="active"><b>{{$tt->hoten}}</b><br>Mã quản lý: {{$tt->macongdan}}</td>
+                                <td class="active"><b>{{$tt->hoten}}</b><br>Mã khai sinh: {{$tt->makhaisinh}}<br>Mã quản lý: {{$tt->macongdan}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaysinh)}}</td>
                                 <td style="text-align: center">{{$tt->gioitinh}}</td>
                                 <td>{{$tt->quequan}}</td>
@@ -130,7 +126,7 @@
         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'congdan/delete','id' => 'frm_delete'])!!}
+                    {!! Form::open(['url'=>'khaisinh/delete','id' => 'frm_delete'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -152,7 +148,7 @@
         $(function(){
 
             $('#select_huyen, #select_xa').change(function() {
-                var current_path_url = '/congdan?';
+                var current_path_url = '/khaisinh?';
                 if($(this).attr('id') == 'select_huyen'){
                     $('#select_xa').val('all');
                 }

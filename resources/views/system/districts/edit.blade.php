@@ -13,7 +13,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin quận huyện<small> chỉnh sửa</small>
+        Thông tin quận huyện<small> thêm mới</small>
     </h3>
     <!-- END PAGE HEADER-->
 
@@ -26,7 +26,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'districts/'. $model->id, 'class'=>'horizontal-form']) !!}
+                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'districts/'. $model->id, 'class'=>'form-horizontal form-validate']) !!}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="form-body">
                             <div class="row">
@@ -70,6 +70,20 @@
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
                                         {!!Form::text('email', null , array('id' => 'email','class' => 'form-control'))!!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Username<span class="require">*</span></label>
+                                        {!!Form::text('username', null , array('id' => 'username','class' => 'form-control required'))!!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Mật khẩu<span class="require">*</span></label>
+                                        {!!Form::text('password', null, array('id' => 'password','class' => 'form-control required'))!!}
                                     </div>
                                 </div>
                             </div>
@@ -121,6 +135,28 @@
 
             });
         });
+
+        $('#username').change(function(){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: 'GET',
+                url: '/checkuser',
+                data: {
+                    _token: CSRF_TOKEN,
+                    username:$(this).val()
+                },
+                success: function (respond) {
+                    if(respond != 'ok'){
+                        toastr.error("Bạn cần nhập lại username", "Username nhập vào đã tồn tại!!!");
+                        $('#username').val('');
+                        $('#username').focus();
+                    }else
+                        toastr.success("Username sử dụng được!", "Thành công!");
+                }
+
+            });
+        });
+
     </script>
     @include('includes.script.create-header-scripts')
 @stop

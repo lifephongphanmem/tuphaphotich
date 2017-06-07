@@ -9,6 +9,7 @@ class GeneralConfigs extends Model
     protected $table = 'general-configs';
     protected $fillable = [
         'id',
+        'matinh',
         'maqhns',
         'tendv',
         'diachi',
