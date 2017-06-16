@@ -19,7 +19,7 @@ class CreateKhaiTuTable extends Migration
             $table->string('mahuyen')->nullable();
             $table->string('maxa')->nullable();
             $table->string('masohoso')->nullable();
-            $table->string('masocongdan')->nullable();
+            $table->string('macongdan')->nullable();
             $table->string('sosokt')->nullable();
             $table->string('quyenso')->nullable();
             $table->string('hoten')->nullable();
