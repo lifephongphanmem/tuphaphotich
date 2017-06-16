@@ -62,7 +62,24 @@ Route::post('congdan/delete','CongDanController@destroy');
 Route::resource('khaisinh','KhaiSinhController');
 Route::post('khaisinh/delete','KhaiSinhController@destroy');
 
+Route::group(['prefix'=>'khaitu'],function(){
+    Route::get('danhsach','KhaiTuController@index');
+    Route::get('create','KhaiTuController@create');
+    Route::post('store','KhaiTuController@store');
+    Route::post('delete','KhaiTuController@delete');
+    Route::get('/{id}/edit','KhaiTuController@edit');
+    Route::post('/{id}/edit','KhaiTuController@update');
+    Route::get('update','KhaiTuController@update');
+});
 
-
+Route::group(['prefix'=>'connuoi'],function(){
+    Route::get('danhsach','ConNuoiController@index');
+    Route::get('create','ConNuoiController@create');
+    Route::post('store','ConNuoiController@store');
+    Route::post('delete','ConNuoiController@delete');
+    Route::get('/{id}/edit','ConNuoiController@edit');
+    Route::post('/{id}/edit','ConNuoiController@update');
+    Route::get('update','ConNuoiController@update');
+});
 
 

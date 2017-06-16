@@ -323,7 +323,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <span class="arrow "></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="{{url('')}}"> Khai tử</a></li>
+                                    <li><a href="{{url('khaitu/danhsach')}}"> Khai tử</a></li>
                                 </ul>
                             </li>
                         @endif

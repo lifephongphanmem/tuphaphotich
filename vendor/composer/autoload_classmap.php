@@ -6,14 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateChameconTable' => $baseDir . '/database/migrations/2017_06_06_202231_create_chamecon_table.php',
+    'CreateConNuoiTable' => $baseDir . '/database/migrations/2017_06_09_154122_create_ConNuoi_table.php',
     'CreateCongdanTable' => $baseDir . '/database/migrations/2017_06_06_175000_create_congdan_table.php',
     'CreateDantocTable' => $baseDir . '/database/migrations/2017_06_07_095456_create_dantoc_table.php',
     'CreateDistrictsTable' => $baseDir . '/database/migrations/2017_06_06_090717_create_districts_table.php',
     'CreateGeneralConfigsTable' => $baseDir . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
+    'CreateKhaiTuTable' => $baseDir . '/database/migrations/2017_06_07_193700_create_KhaiTu_table.php',
     'CreateKhaisinhTable' => $baseDir . '/database/migrations/2017_06_07_152937_create_khaisinh_table.php',
     'CreateQuoctichTable' => $baseDir . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',
-    'CreateGiamhoTable' => $baseDir . '/database/migrations/2017_06_06_202208_create_giamho_table.php',
     'CreateTownsTable' => $baseDir . '/database/migrations/2017_06_06_090904_create_towns_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
