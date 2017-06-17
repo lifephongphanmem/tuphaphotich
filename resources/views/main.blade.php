@@ -193,15 +193,6 @@ License: You must have a valid license purchased only from themeforest(the above
             <ul class="nav navbar-nav pull-right">
                 <!-- BEGIN USER LOGIN DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <!--li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="http://democongbo.csdlgia.vn" class="dropdown-toggle" target="_blank">
-                        <i class="fa fa-cloud"></i>
-					<span class="badge badge-danger">
-					View</span>
-                    </a>
-                    <ul>
-                    </ul>
-                </li-->
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <a href="" class="dropdown-toggle" target="_blank">
                         <i class="fa fa-folder-open-o"></i>
@@ -308,21 +299,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin khai sinh</span>
                                 </a>
-
                             </li>
                         @endif
                     @endif
                     @if(canGeneral('khaitu','index'))
                         @if(can('khaitu','index'))
                             <li>
-                                <a href="">
+                                <a href="{{url('khaitu/danhsach')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin khai tử</span>
-                                    <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{url('khaitu/danhsach')}}"> Khai tử</a></li>
-                                </ul>
                             </li>
                         @endif
                     @endif
@@ -388,7 +374,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @endif
                     <li>
                         <a href="{{url('reports')}}">
-                            <i class="fa fa-file-o fa-fw"></i>
+                            <i class="icon-users"></i>
                             <span class="title">Sổ sách báo cáo</span>
                         </a>
                     </li>
