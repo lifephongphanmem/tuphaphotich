@@ -159,6 +159,18 @@
                                 </div>
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Tình trạng hôn nhân<span class="require">*</span></label>
+                                        {!! Form::select(
+                                        'tthonnhan',
+                                        $optiontthonnhan,null,
+                                        array('id' => 'tthonnhan', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     <!-- END FORM-->
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CongDan;
 use App\DanToc;
 use App\Districts;
 use App\KhaiSinh;
@@ -15,17 +16,11 @@ use Illuminate\Support\Facades\Session;
 
 class KhaiSinhController extends Controller
 {
-    protected function listHuyen() {
-        return Districts::all();
-    }
-
-    protected function listXa($huyen){
-        return Towns::where('mahuyen',$huyen)->get();
-    }
-
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $thang = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $nam = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             if(session('admin')->level == 'T') {
                 $huyendf = Districts::first()->mahuyen;
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : $huyendf;
@@ -48,13 +43,14 @@ class KhaiSinhController extends Controller
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
             }
 
-            $huyens = $this->listHuyen();
+            $huyens = listHuyen();
             $xas = array();
             if($huyen != 'all'){
-                $xas = $this->listXa($huyen);
+                $xas = listXa($huyen);
             }
 
-            $model = new KhaiSinh();
+            $model = KhaiSinh::whereMonth('ngaydangky', $thang)
+                ->whereYear('ngaydangky', $nam);
             if($huyen != 'all' && $huyen != ''){
                 $model = $model->where('mahuyen', $huyen);
             }
@@ -72,8 +68,10 @@ class KhaiSinhController extends Controller
                 -> with('xas', $xas)
                 -> with('mahuyen', $huyen)
                 -> with('maxa', $xa)
+                -> with('thang',$thang)
+                -> with('nam',$nam)
                 -> with('model', $model)
-                -> with('pageTitle','Thông tin khaisinh ('.$count.' hồ sơ)');
+                -> with('pageTitle','Thông tin khai sinh ('.$count.' hồ sơ)');
         }else
             return view('errors.notlogin');
     }
@@ -100,10 +98,11 @@ class KhaiSinhController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
 
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.khaisinh.create')
+                ->with('action','create')
                 ->with('huyens', $huyens)
                 ->with('mahuyen', $huyendf)
                 ->with('xas', $xas)
@@ -111,6 +110,136 @@ class KhaiSinhController extends Controller
                 ->with('dantocs', $dantocs)
                 ->with('quoctichs', $quoctichs)
                 ->with('pageTitle', 'Thêm mới thông tin khai sinh');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function store(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
+            $inputs['ngaysinhks'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhks'])));
+            $inputs['matinh'] = getmatinh();
+            $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
+            $inputs['ngaysinhme'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhme'])));
+            $inputs['ngaysinhcha'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhcha'])));
+            $inputs['trangthai'] = 'Chờ duyệt';
+            $model = new KhaiSinh();
+            $model->create($inputs);
+
+            return redirect('khaisinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function show($id){
+        if (Session::has('admin')) {
+
+            $model = KhaiSinh::find($id);
+            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
+
+            return view('manage.khaisinh.show')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle', 'Thông tin khai sinh');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function edit($id){
+        if (Session::has('admin')) {
+
+            $model = KhaiSinh::find($id);
+            $huyens = Districts::all();
+            $huyendf = $model->mahuyen;
+            $xas = Towns::where('mahuyen', $huyendf)
+                ->get();
+            $xadf = $model->maxa;
+
+            $modelcha = CongDan::where('macongdan',$model->macongdancha)
+                ->first();
+            $modelme = CongDan::where('macongdan',$model->macongdanme)
+                ->first();
+
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
+
+            return view('manage.khaisinh.edit')
+                ->with('action','edit')
+                ->with('modelcha',$modelcha)
+                ->with('modelme',$modelme)
+                ->with('huyens', $huyens)
+                ->with('mahuyen', $huyendf)
+                ->with('xas', $xas)
+                ->with('maxa', $xadf)
+                ->with('dantocs', $dantocs)
+                ->with('quoctichs', $quoctichs)
+                ->with('model',$model)
+                ->with('pageTitle', 'Thêm mới thông tin khai sinh');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function update(Request $request,$id){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
+            $inputs['ngaysinhks'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhks'])));
+            $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
+            $inputs['ngaysinhme'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhme'])));
+            $inputs['ngaysinhcha'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhcha'])));
+            $model = KhaiSinh::find($id);
+            $model->update($inputs);
+            return redirect('khaisinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroy(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = KhaiSinh::find($id);
+            $model->delete();
+            return redirect('khaisinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function duyet(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idduyet'];
+            $model = KhaiSinh::find($id);
+            $model->trangthai = 'Duyệt';
+            $model->save();
+            return redirect('khaisinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function prints(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idprints'];
+            $model = KhaiSinh::find($id);
+            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            if($inputs['plgiayks']== 'Bản chính'){
+                return view('reports.khaisinh.print')
+                    ->with('plgiayks',$inputs['plgiayks'])
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('pageTitle','In giấy khai sinh bản chính');
+            }else{
+
+            }
+
         }else
             return view('errors.notlogin');
     }

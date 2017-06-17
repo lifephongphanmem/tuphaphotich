@@ -187,6 +187,7 @@ class KhaiTuController extends Controller
         }else
             return view('errors.notlogin');
     }
+
     public function update(Request $request, $id)
     {
         $khaitu = KhaiTu::find($id);
@@ -220,6 +221,7 @@ class KhaiTuController extends Controller
         $khaitu->save();
         return redirect('khaitu/'.$id.'/edit');
     }
+
     public function delete(Request $request)
     {
         $khaitu = KhaiTu::where('id',$request->iddelete);

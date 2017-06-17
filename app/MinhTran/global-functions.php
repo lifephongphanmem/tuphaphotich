@@ -5,17 +5,17 @@ function getPermissionDefault($level) {
     $roles['T'] = array(
         'congdan' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaisinh' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaitu' => array(
             'index' => 1,
@@ -79,17 +79,17 @@ function getPermissionDefault($level) {
     $roles['H'] = array(
         'congdan' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaisinh' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaitu' => array(
             'index' => 1,
@@ -152,17 +152,17 @@ function getPermissionDefault($level) {
     $roles['X'] = array(
         'congdan' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaisinh' => array(
             'index' => 1,
-            'create' => 0,
-            'edit' => 0,
-            'delete' => 0,
-            'approve'=> 0
+            'create' => 1,
+            'edit' => 1,
+            'delete' => 1,
+            'approve'=> 1
         ),
         'khaitu' => array(
             'index' => 1,
@@ -222,8 +222,6 @@ function getPermissionDefault($level) {
         ),
 
     );
-
-
     return json_encode($roles[$level]);
 }
 
@@ -431,5 +429,37 @@ function getmatinh(){
     $model = \App\GeneralConfigs::first();
     $matinh = $model->matinh;
     return $matinh;
+}
+function getDanTocSelectOptions() {
+
+    $dantocs = \App\DanToc::all();
+
+    $options = array();
+
+    foreach ($dantocs as $dantoc) {
+
+        $options[$dantoc->dantoc] = $dantoc->dantoc;
+    }
+    return $options;
+}
+function getQuocTichSelectOptions() {
+
+    $quoctichs = \App\QuocTich::all();
+
+    $options = array();
+
+    foreach ($quoctichs as $quoctich) {
+
+        $options[$quoctich->quoctich] = $quoctich->quoctich;
+    }
+    return $options;
+}
+
+function listHuyen(){
+    return \App\Districts::all();
+}
+
+function listXa($huyen){
+    return \App\Towns::where('mahuyen',$huyen)->get();
 }
 ?>

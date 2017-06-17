@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\CongDan;
 use App\DmDvQl;
 use App\DnDvLt;
 use App\DnDvLtReg;
 use App\DonViDvVt;
 use App\DonViDvVtReg;
 use App\GeneralConfigs;
+use App\KhaiSinh;
 use App\Register;
 use App\Users;
 use Illuminate\Foundation\Auth\User;
@@ -25,7 +27,21 @@ class HomeController extends Controller
             if(session('admin')->sadmin == 'sa')
                 return redirect('cau_hinh_he_thong');
             else
+                $count = '';
+                if(session('admin')->level == 'T'){
+
+                    $count['slcd'] = CongDan::all()->count();
+                    $count['slks'] = KhaiSinh::all()->count();
+
+                }elseif(session('admin')->level =='H'){
+                    $count['slcd'] = CongDan::where('mahuyen',session('admin')->mahuyen)->count();
+                    $count['slks'] = KhaiSinh::where('mahuyen',session('admin')->mahuyen)->count();
+                }else{
+                    $count['slcd'] = CongDan::where('mahuyen',session('admin')->mahuyen)->where('maxa',session('admin')->maxa)->count();
+                    $count['slks'] = KhaiSinh::where('mahuyen',session('admin')->mahuyen)->where('maxa',session('admin')->maxa)->count();
+                }
                 return view('dashboard')
+                    ->with('count',$count)
                     ->with('pageTitle','Tổng quan');
         }else
             return view('welcome');

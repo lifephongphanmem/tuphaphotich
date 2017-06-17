@@ -31,6 +31,7 @@ class CreateCongdanTable extends Migration
             $table->string('thuongtru')->nullable();
             $table->string('socmnd')->nullable();
             $table->string('ttcmnd')->nullable();
+            $table->string('tthonnhan')->nullable();
             $table->string('trangthai')->nullable();
             $table->text('tttd')->nullable();
             $table->string('action')->nullable();

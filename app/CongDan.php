@@ -27,6 +27,7 @@ class CongDan extends Model
         'ttcmnd',
         'trangthai',
         'tttd',
+        'tthonnhan',
         'action'
     ];
 }

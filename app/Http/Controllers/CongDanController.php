@@ -142,6 +142,28 @@ class CongDanController extends Controller
             $quoctichs = QuocTich::all();
             $quoctichdf = $model->quoctich;
 
+            if($model->tthonnhan == 'Chưa kết hôn'){
+                $optiontthonnhan['Chưa kết hôn'] = 'Chưa kết hôn';
+                $optiontthonnhan['Kết hôn lần đầu'] = 'Kết hôn lần đầu';
+            }elseif($model->tthonnhan == 'Kết hôn lần đầu'){
+                $optiontthonnhan['Kết hôn lần đầu'] = 'Kết hôn lần đầu';
+                $optiontthonnhan['Ly hôn lần đầu'] = 'Ly hôn lần đầu';
+            }elseif($model->tthonnhan == 'Ly hôn lần đầu'){
+                $optiontthonnhan['Ly hôn lần đầu'] = 'Ly hôn lần đầu';
+                $optiontthonnhan['Kết hôn lần hai'] = 'Kết hôn lần hai';
+            }elseif($model->tthonnhan == 'Kết hôn lần hai'){
+                $optiontthonnhan['Kết hôn lần hai'] = 'Kết hôn lần hai';
+                $optiontthonnhan['Ly hôn lần hai'] = 'Ly hôn lần hai';
+            }elseif($model->tthonnhan == 'Ly hôn lần hai'){
+                $optiontthonnhan['Ly hôn lần hai'] = 'Ly hôn lần hai';
+                $optiontthonnhan['Kết hôn lần ba'] = 'Kết hôn lần ba';
+            }else{
+                $optiontthonnhan['Chưa kết hôn'] = 'Chưa kết hôn';
+                $optiontthonnhan['Kết hôn lần đầu'] = 'Kết hôn lần đầu';
+            }
+
+
+
             return view('manage.congdan.edit')
                 ->with('huyens',$huyens)
                 ->with('mahuyen',$huyendf)
@@ -152,6 +174,7 @@ class CongDanController extends Controller
                 ->with('quoctichs',$quoctichs)
                 ->with('quoctich',$quoctichdf)
                 ->with('model',$model)
+                ->with('optiontthonnhan',$optiontthonnhan)
                 ->with('pageTitle','Chỉnh sửa thông tin công dân');
         }else
             return view('errors.notlogin');

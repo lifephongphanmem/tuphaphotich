@@ -27,10 +27,10 @@
                     <div class="number"></div>
                     <div class="desc">
                         Thông tin công dân<br>
-                        <h5>10000 công dân</h5>
+                        <h5>{{$count['slcd']}} công dân</h5>
                     </div>
                 </div>
-                <a class="more" href="">
+                <a class="more" href="{{url('congdan')}}">
                     Xem chi tiết <i class="m-icon-swapright m-icon-white"></i>
                 </a>
             </div>
@@ -43,11 +43,11 @@
                 <div class="details">
                     <div class="number"></div>
                     <div class="desc">
-                        Giá vận tải xe khách<br>
-                        <h5>Chờ nhận:</h5>
+                        Thông tin khai sinh<br>
+                        <h5>{{$count['slks']}} khai sinh</h5>
                     </div>
                 </div>
-                <a class="more" href="">
+                <a class="more" href="{{url('khaisinh')}}">
                     Xem chi tiết <i class="m-icon-swapright m-icon-white"></i>
                 </a>
             </div>

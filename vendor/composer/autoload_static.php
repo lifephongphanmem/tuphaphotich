@@ -305,6 +305,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'CreateDantocTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095456_create_dantoc_table.php',
         'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090717_create_districts_table.php',
         'CreateGeneralConfigsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
+        'CreateKethonTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_12_102427_create_kethon_table.php',
         'CreateKhaiTuTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_193700_create_KhaiTu_table.php',
         'CreateKhaisinhTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_152937_create_khaisinh_table.php',
         'CreateQuoctichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',

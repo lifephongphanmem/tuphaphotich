@@ -160,6 +160,26 @@
                                 </div>
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Tình trạng hôn nhân<span class="require">*</span></label>
+                                        {!! Form::select(
+                                        'tthonnhan',
+                                        array(
+                                        'Chưa kết hôn' => 'Chưa kết hôn',
+                                        'Kết hôn lần đầu' => 'Kết hôn lần đầu',
+                                        'Ly dị lần đầu' => 'Ly dị lần đầu',
+                                        'Kết hôn lần hai' => 'Kết hôn lần hai',
+                                        'Ly dị lần hai' => 'Ly dị lần hai',
+                                        'Kết hôn lần ba' => 'Kết hôn lần ba',
+                                        'Ly dị lần ba' => 'Ly dị lần ba',
+                                        ),null,
+                                        array('id' => 'tthonnhan', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     <!-- END FORM-->
                 </div>

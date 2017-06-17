@@ -43,7 +43,9 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
+                        @if(can('congdan','create'))
                         <a href="{{url('congdan/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        @endif
                     </div>
                 </div>
 
@@ -91,6 +93,7 @@
                             <th style="text-align: center" width="5%">Giới tính</th>
                             <th style="text-align: center">Quê quán</th>
                             <th style="text-align: center">Địa chỉ thường trú</th>
+                            <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
@@ -106,10 +109,15 @@
                                 <td style="text-align: center">{{$tt->gioitinh}}</td>
                                 <td>{{$tt->quequan}}</td>
                                 <td>{{$tt->thuongtru}}</td>
+                                <td>{{$tt->trangthai}}</td>
                                 <td>
+                                    @if(can('congdan','edit'))
                                     <a href="{{url('congdan/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                    @endif
+                                    @if(can('congdan','delete'))
                                     <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                         Xóa</button>
+                                    @endif
                                 </td>
 
                             </tr>

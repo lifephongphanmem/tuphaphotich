@@ -24,6 +24,9 @@ class CreateTownsTable extends Migration
             $table->string('fax')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
+            $table->string('chucvunguoiky')->nullable();
+            $table->string('nguoiky')->nullable();
+            $table->string('nguoithuchien')->nullable();
             $table->timestamps();
         });
     }

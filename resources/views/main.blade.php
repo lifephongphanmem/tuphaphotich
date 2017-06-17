@@ -297,7 +297,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <a href="{{url('congdan')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin công dân</span>
-                                    <span class="arrow "></span>
                                 </a>
                             </li>
                         @endif
@@ -308,7 +307,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <a href="{{url('khaisinh')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin khai sinh</span>
-                                    <span class="arrow "></span>
                                 </a>
 
                             </li>
@@ -319,7 +317,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li>
                                 <a href="">
                                     <i class="icon-users"></i>
-                                    <span class="title">Quản lý khai tử</span>
+                                    <span class="title">Thông tin khai tử</span>
                                     <span class="arrow "></span>
                                 </a>
                                 <ul class="sub-menu">
@@ -328,6 +326,72 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                         @endif
                     @endif
+                    @if(canGeneral('tthonnhan','index'))
+                        @if(can('tthonnhan','index'))
+                            <li>
+                                <a href="{{url('tinhtranghonnhan')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Tình trạng hôn nhân</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canGeneral('kethon','index'))
+                        @if(can('kethon','index'))
+                            <li>
+                                <a href="{{url('kethon')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Thông tin kết hôn</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canGeneral('dkconnuoi','index'))
+                        @if(can('dkconnuoi','index'))
+                            <li>
+                                <a href="{{url('dangkyconnuoi')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Đăng ký con nuôi</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canGeneral('dkgiamho','index'))
+                        @if(can('dkgiamho','index'))
+                            <li>
+                                <a href="{{url('dangkygiamho')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Đăng ký giám hộ</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canGeneral('dknhanchamecon','index'))
+                        @if(can('dknhanchamecon','index'))
+                            <li>
+                                <a href="{{url('dangkynhanchamecon')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Đăng ký nhận cha mẹ con</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(canGeneral('capbansao','index'))
+                        @if(can('capbansao','index'))
+                            <li>
+                                <a href="{{url('trichluc')}}">
+                                    <i class="icon-users"></i>
+                                    <span class="title">Cấp trích lục (bản sao)</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    <li>
+                        <a href="{{url('reports')}}">
+                            <i class="fa fa-file-o fa-fw"></i>
+                            <span class="title">Sổ sách báo cáo</span>
+                        </a>
+                    </li>
                 @endif
                 @if(session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'ssa')
                 <li>
@@ -344,6 +408,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </ul>
                 </li>
                 @endif
+
             </ul>
 
             <!-- END SIDEBAR MENU -->

@@ -15,6 +15,9 @@ class Districts extends Model
         'dienthoai',
         'fax',
         'email',
-        'website'
+        'website',
+        'chucvunguoiky',
+        'nguoiky',
+        'nguoithuchien'
     ];
 }

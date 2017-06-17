@@ -108,6 +108,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->khaisinh->delete) && $permission->khaisinh->delete == 1) ? 'checked' : '' }} value="1" name="roles[khaisinh][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->khaisinh->approve) && $permission->khaisinh->approve == 1) ? 'checked' : '' }} value="1" name="roles[khaisinh][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
 
                                     </tbody>
                                 </table>

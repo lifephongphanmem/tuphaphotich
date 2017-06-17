@@ -1,218 +1,233 @@
 @extends('main')
 
 @section('custom-style')
+    <link href="{{url('assets/global/css/plugins.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
     <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
 @stop
 
-
 @section('custom-script')
-    <script type="text/javascript" src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}"></script>
-    <!--cript src="{{url('assets/admin/pages/scripts/form-validation.js')}}"></script-->
+    <script type="text/javascript" src="{{url('assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>
+    <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{url('assets/admin/pages/scripts/form-wizard.js')}}"></script>
     <script src="{{url('minhtran/jquery.inputmask.bundle.min.js')}}"></script>
     <script>
         $(document).ready(function(){
             $(":input").inputmask();
         });
     </script>
-
+    <script>
+        jQuery(document).ready(function() {
+            FormWizard.init();
+        });
+    </script>
 @stop
 
 @section('content')
     <h3 class="page-title">
-        Thông tin công dân<small> thêm mới</small>
+        Thông tin khai sinh<small> chỉnh sửa</small>
     </h3>
-    <!-- END PAGE HEADER-->
-
-    <!-- BEGIN DASHBOARD STATS -->
-    <div class="row center">
-        <div class="col-md-12 center">
-            <!-- BEGIN VALIDATION STATES-->
-            <div class="portlet box blue">
-                <!--div class="portlet-title">
-                </div-->
-                <div class="portlet-body form">
-                    <!-- BEGIN FORM-->
-                    {!! Form::model($model, ['method' => 'PATCH', 'url'=>'congdan/'. $model->id, 'class'=>'horizontal-form','id'=>'edit_congdan']) !!}
-                        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-                        <div class="form-body">
-                            <div class="row">
-                                <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
-                                    <div class="form-group">
-                                        <label class="control-label">Quận huyện<span class="require">*</span></label>
-                                        <select name="mahuyen" class="form-control required" autofocus>
-                                            @foreach($huyens as $huyen)
-                                                <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                                    <div class="form-group">
-                                        <label class="control-label">Xã phường<span class="require">*</span></label>
-                                        <select name="maxa" class="form-control required">
-                                            @foreach($xas as $xa)
-                                                <option value="{{$xa->maxa}}" {{$huyen->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Họ tên<span class="require">*</span></label>
-                                        {!!Form::text('hoten', null, array('id' => 'hoten','class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Tên gọi khác </label>
-                                        {!!Form::text('hotenk', null, array('id' => 'hotenk','class' => 'form-control'))!!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Ngày sinh<span class="require">*</span></label>
-                                        {!!Form::text('ngaysinh',date('d/m/Y',  strtotime($model->ngaysinh)), array('id' => 'ngaysinh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Nơi sinh</label>
-                                        {!!Form::text('noisinh', null, array('id' => 'noisinh','class' => 'form-control'))!!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Giới tính<span class="require">*</span></label>
-                                        {!! Form::select(
-                                        'gioitinh',
-                                        array(
-                                        'Nam' => 'Nam',
-                                        'Nữ' => 'Nữ',
-                                        ),null,
-                                        array('id' => 'gioitinh', 'class' => 'form-control'))
-                                        !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Dân tộc<span class="require">*</span></label>
-                                        <select name="dantoc" id="dantoc" class="form-control required">
-                                            @foreach($dantocs as $dantoc)
-                                                <option value="{{$dantoc->dantoc}}">{{$dantoc->dantoc}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Quốc tịch<span class="require">*</span></label>
-                                        <select name="quoctich" id="quoctich" class="form-control required">
-                                            @foreach($quoctichs as $quoctich)
-                                                <option value="{{$quoctich->quoctich}}">{{$quoctich->quoctich}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Tôn giáo<span class="require">*</span></label>
-                                        {!!Form::text('tongiao', 'Không', array('id' => 'tongiao','class' => 'form-control'))!!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Số CMND/Hộ chiếu</label>
-                                        {!!Form::text('socmnd', null , array('id' => 'socmnd','class' => 'form-control'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Thông tin CMND/Hộ chiếu</label>
-                                        {!!Form::text('ttcmnd', null , array('id' => 'ttcmnd','class' => 'form-control '))!!}
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Quê quán<span class="require">*</span></label>
-                                        {!!Form::text('quequan', null , array('id' => 'username','class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Thường trú<span class="require">*</span></label>
-                                        {!!Form::text('thuongtru', null , array('id' => 'username','class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-
+    <div class="row">
+        {!! Form::model($model, ['method' => 'PATCH', 'url'=>'khaisinh/'. $model->id, 'class'=>'horizontal-form']) !!}
+        {!!Form::hidden('plkhaisinh', $model->plkhaisinh, array('id' => 'plkhaisinh','class' => 'form-control'))!!}
+        <div class="col-md-12">
+            <div class="portlet box blue" id="form_wizard_1">
+                <div class="portlet-body form" id="form_wizard">
+                    <div class="form-body">
+                        <ul class="nav nav-pills nav-justified steps">
+                            <li><a href="#tab1" data-toggle="tab" class="step">
+                                        <span class="badge badge-default">
+                                        1 </span>
+                                    <p class="description">Thông tin khai sinh</p>
+                                </a>
+                            </li>
+                            <li><a href="#tab2" data-toggle="tab" class="step">
+                                    <span class="badge badge-default">
+                                        2 </span>
+                                    <p class="description">Thông tin người khai</p></a>
+                            </li>
+                            <li><a href="#tab3" data-toggle="tab" class="step">
+                                     <span class="badge badge-default">
+                                        3 </span>
+                                    <p class="description">Thông tin người khai sinh</p></a>
+                            </li>
+                            <li><a href="#tab4" data-toggle="tab" class="step">
+                                     <span class="badge badge-default">
+                                        4 </span>
+                                    <p class="description">Thông tin mẹ</p></a>
+                            </li>
+                            <li><a href="#tab5" data-toggle="tab" class="step">
+                                     <span class="badge badge-default">
+                                        5 </span>
+                                    <p class="description">Thông tin cha</p></a>
+                            </li>
+                        </ul>
+                        <div id="bar" class="progress progress-striped" role="progressbar">
+                            <div class="progress-bar progress-bar-blue">
                             </div>
                         </div>
-                    <!-- END FORM-->
+
+                        <div class="tab-content">
+                            @include('manage.khaisinh.include.hoso')
+                            @include('manage.khaisinh.include.ttnguoikhai')
+                            @include('manage.khaisinh.include.khaisinh')
+                            @include('manage.khaisinh.include.ttme')
+                            @include('manage.khaisinh.include.ttcha')
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-1" style="text-align: left">
+                                <button type="button" name="previous" value="Previous" class="btn default button-previous">
+                                    <i class="fa fa-arrow-circle-o-left mrx"></i>&nbsp;Trước
+                                </button>
+                            </div>
+                            <div class="col-md-offset-8 col-md-1" style="text-align: right">
+                                <button id="btnnext" type="button" name="next" value="Next" class="btn blue button-next">
+                                    Tiếp&nbsp;<i class="fa fa-arrow-circle-o-right mlx"></i></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <div style="text-align: center">
-                <a href="{{url('congdan')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('khaisinh')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>
-            {!! Form::close() !!}
-            <!-- END VALIDATION STATES-->
         </div>
+        {!! Form::close() !!}
     </div>
-    <script type="text/javascript">
+    <script>
         function validateForm(){
 
-            var validator = $("#edit_congdan").validate({
-                rules: {
-                    ten :"required"
-                },
-                messages: {
-                    ten :"Chưa nhập dữ liệu"
-                }
-            });
+            var str = '',strb1='',strb2='',strb3='',strb4='',strb5='';
+            var ok = true;
+
+            if($('#ngaydangky').val()==''){
+                strb1 += ' - Ngày đăng ký\n';
+                ok = false;
+            }
+            if($('#sokhaisinh').val()==''){
+                strb1 += ' - Số khai sinh\n';
+                ok = false;
+            }
+            if($('#quyenkhaisinh').val()==''){
+                strb1 += '  - Quyển khai sinh \n';
+                ok = false;
+            }
+            if($('#nguoiky').val()==''){
+                strb1 += '  - Người ký \n';
+                ok = false;
+            }
+            if($('#chucvunguoiky').val()==''){
+                strb1 += '  - Chức vụ người ký \n';
+                ok = false;
+            }
+            if($('#nguoithuchien').val()==''){
+                strb1 += '  - Người thực hiện \n';
+                ok = false;
+            }
+
+
+            if($('#hotennk').val()==''){
+                strb2 += ' - Họ tên \n';
+                ok = false;
+            }
+            if($('#sogiaytonk').val()==''){
+                strb2 += '  - Số giấy tờ \n';
+                ok = false;
+            }
+            if($('#noicapgtnk').val()==''){
+                strb2 += '  - Nơi cấp \n';
+                ok = false;
+            }
+            if($('#ngaycapgtnk').val()==''){
+                strb2 += '  - Ngày cấp \n';
+                ok = false;
+            }
+            if($('#diachink').val()==''){
+                strb2 += '  - Địa chỉ \n';
+                ok = false;
+            }
+            //b3
+            if($('#sodinhdanhcanhan').val()==''){
+                strb3 += ' - Số định danh cá nhân \n';
+                ok = false;
+            }
+            if($('#hotenks').val()==''){
+                strb3 += '  - Họ tên \n';
+                ok = false;
+            }
+            if($('#sochungsinh').val()==''){
+                strb3 += '  - Số chứng sinh \n';
+                ok = false;
+            }
+            if($('#ngaysinh').val()==''){
+                strb3 += '  - Ngày sinh \n';
+                ok = false;
+            }
+            if($('#ngaysinhksbangchu').val()==''){
+                strb3 += '  - Ngày sinh bằng chữ \n';
+                ok = false;
+            }
+            if($('#noisinh').val()==''){
+                strb3 += '  - Nơi sinh \n';
+                ok = false;
+            }
+            if($('#quequanks').val()==''){
+                strb3 += '  - Quê quán \n';
+                ok = false;
+            }
+            //B4
+            if($('#hotenme').val()==''){
+                strb4 += ' - Họ tên \n';
+                ok = false;
+            }
+            if($('#sogiaytome').val()==''){
+                strb4 += '  - Số giấy tờ \n';
+                ok = false;
+            }
+            if($('#ngaysinhme').val()==''){
+                strb4+= '  - Ngày sinh \n';
+                ok = false;
+            }
+            //B5
+            if($('#hotencha').val()==''){
+                strb5 += ' - Họ tên \n';
+                ok = false;
+            }
+            if($('#sogiaytocha').val()==''){
+                strb5 += '  - Số giấy tờ \n';
+                ok = false;
+            }
+            if($('#ngaysinhcha').val()==''){
+                strb5+= '  - Ngày sinh \n';
+                ok = false;
+            }
+
+
+            //Kết quả
+            if ( ok == false){
+                if(strb1!='')
+                    str+='Bước 1: Thông tin khai sinh \n '+strb1 ;
+                if(strb2!='')
+                    str+='Bước 2: Thông tin người khai \n '+strb2 ;
+                if(strb3!='')
+                    str+='Bước 3: Thông tin người khai sinh \n '+strb3 ;
+                if(strb4!='')
+                    str+='Bước 4: Thông tin về mẹ \n '+strb4 ;
+                if(strb5!='')
+                    str+='Bước 5: Thông tin về cha \n '+strb5 ;
+
+                alert('Thông tin không được để trống \n' + str );
+                $("form").submit(function (e) {
+                    e.preventDefault();
+                });
+            }
+            else{
+                $("form").unbind('submit').submit();
+            }
+
         }
     </script>
-    <script>
-        jQuery(function($){
-            $('select[name="mahuyen"]').change(function(){
-
-                if($(this).val() != 'all'){
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: '/getXas',
-                        type: 'GET',
-                        data: {
-                            _token: CSRF_TOKEN,
-                            mahuyen: $(this).val()
-                        },
-                        dataType: 'JSON',
-                        success: function (data) {
-                            if(data.status == 'success')
-                                $('select[name="maxa"]').replaceWith(data.message);
-                            else
-                                $('select[name="maxa"]').val();
-
-                        }
-                    });
-                } else {
-                    $('select[name="maxa"]').val('');
-                }
-            });
-        });
-    </script>
-    @include('includes.script.create-header-scripts')
 @stop
