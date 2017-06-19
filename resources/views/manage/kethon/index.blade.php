@@ -64,7 +64,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Danh sách thông tin<small>&nbsp;khai sinh</small>
+        Danh sách thông tin<small>&nbsp;kết hôn</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -76,8 +76,8 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(can('khaisinh','create'))
-                        <a href="{{url('khaisinh/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        @if(can('kethon','create'))
+                        <a href="{{url('kethon/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                         @endif
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         @if(session('admin')->level == 'T')
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <select id="select_huyen" class="form-control">
                                         @foreach ($huyens as $huyen)
@@ -125,7 +125,7 @@
                             </div>
                         @endif
                         @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                 @if(count($xas) > 0)
                                     <select id="select_xa" class="form-control">
@@ -147,12 +147,11 @@
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
                             <th style="text-align: center" width="5%">Ngày đăng ký</th>
-                            <th style="text-align: center" width="20%%">Họ và tên khai sinh</th>
+                            <th style="text-align: center" width="20%%">Họ và tên vợ</th>
                             <th style="text-align: center" width="5%">Ngày sinh</th>
-                            <th style="text-align: center" width="5%">Giới tính</th>
-                            <th style="text-align: center">Quê quán</th>
+                            <th style="text-align: center" width="20%%">Họ và tên chồng</th>
+                            <th style="text-align: center" width="5%">Ngày sinh</th>
                             <th style="text-align: center">Trạng thái</th>
-
                             <th style="text-align: center" width="20%">Thao tác</th>
                         </tr>
                         </thead>
@@ -161,10 +160,10 @@
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaydangky)}}</td>
-                                <td class="active"><b>{{$tt->hotenks}}</b></td>
-                                <td style="text-align: center">{{getDayVn($tt->ngaysinhks)}}</td>
-                                <td style="text-align: center">{{$tt->gioitinhks}}</td>
-                                <td>{{$tt->quequanks}}</td>
+                                <td class="active"><b>{{$tt->hotenvo}}</b></td>
+                                <td style="text-align: center">{{getDayVn($tt->ngaysinhvo)}}</td>
+                                <td class="active"><b>{{$tt->hotenchong}}</b></td>
+                                <td style="text-align: center">{{getDayVn($tt->ngaysinhchong)}}</td>
                                 @if($tt->trangthai == 'Chờ duyệt')
                                     <td align="center"><span class="badge badge-blue">{{$tt->trangthai}}</span>
                                     </td>
@@ -173,16 +172,16 @@
                                     </td>
                                 @endif
                                 <td>
-                                    <a href="{{url('khaisinh/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url('kethon/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                     @if($tt->trangthai == 'Chờ duyệt')
-                                        @if(can('khaisinh','edit'))
-                                            <a href="{{url('khaisinh/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        @if(can('kethon','edit'))
+                                            <a href="{{url('kethon/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-                                        @if(can('khaisinh','delete'))
+                                        @if(can('kethon','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
                                         @endif
-                                        @if(can('khaisinh','approve'))
+                                        @if(can('kethon','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else
@@ -208,7 +207,7 @@
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'khaisinh/delete','id' => 'frm_delete'])!!}
+                {!! Form::open(['url'=>'kethon/delete','id' => 'frm_delete'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -227,7 +226,7 @@
     <div class="modal fade" id="duyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'khaisinh/duyet','id' => 'frm_duyet'])!!}
+                {!! Form::open(['url'=>'kethon/duyet','id' => 'frm_duyet'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Đồng ý duyệt?</h4>
@@ -246,23 +245,23 @@
     <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'khaisinh/prints','id' => 'frm_prints','target'=>'_blank'])!!}
+                {!! Form::open(['url'=>'kethon/prints','id' => 'frm_prints','target'=>'_blank'])!!}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">In giấy khai sinh</h4>
+                    <h4 class="modal-title">In giấy kết hôn</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-md-4 control-label"><b>Giấy khai sinh</b></label>
+                            <label class="col-md-4 control-label"><b>Phân loại in</b></label>
                             <div class="col-md-6 ">
                                 {!! Form::select(
-                                'plgiayks',
+                                'plgiay',
                                 array(
                                 'Bản chính' => 'Bản chính',
                                 'Bản sao' => 'Bản sao'
                                 ),null,
-                                array('id' => 'plgiayks', 'class' => 'form-control'))
+                                array('id' => 'plgiay', 'class' => 'form-control'))
                                 !!}
                             </div>
                         </div>

@@ -159,18 +159,11 @@ class KhaiSinhController extends Controller
                 ->get();
             $xadf = $model->maxa;
 
-            $modelcha = CongDan::where('macongdan',$model->macongdancha)
-                ->first();
-            $modelme = CongDan::where('macongdan',$model->macongdanme)
-                ->first();
-
             $dantocs = getDanTocSelectOptions();
             $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.khaisinh.edit')
                 ->with('action','edit')
-                ->with('modelcha',$modelcha)
-                ->with('modelme',$modelme)
                 ->with('huyens', $huyens)
                 ->with('mahuyen', $huyendf)
                 ->with('xas', $xas)
@@ -178,7 +171,7 @@ class KhaiSinhController extends Controller
                 ->with('dantocs', $dantocs)
                 ->with('quoctichs', $quoctichs)
                 ->with('model',$model)
-                ->with('pageTitle', 'Thêm mới thông tin khai sinh');
+                ->with('pageTitle', 'Chỉnh sửa thông tin khai sinh');
         }else
             return view('errors.notlogin');
     }

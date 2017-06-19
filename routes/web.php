@@ -54,6 +54,7 @@ Route::post('towns/delete','TownsController@destroy');
 // <editor-fold defaultstate="collapsed" desc="--Reports--">
 Route::get('reports','ReportsController@index');
 Route::post('reports/sokhaisinh','ReportsController@sokhaisinh');
+Route::post('reports/sokethon','ReportsController@sokethon');
 // </editor-fold>//End Reports
 
 // <editor-fold defaultstate="collapsed" desc="--Manage--">
@@ -68,6 +69,9 @@ Route::post('khaisinh/delete','KhaiSinhController@destroy');
 Route::post('khaisinh/duyet','KhaiSinhController@duyet');
 Route::post('khaisinh/prints','KhaiSinhController@prints');
 
+//End khai sinh
+
+//khai tử
 Route::group(['prefix'=>'khaitu'],function(){
     Route::get('danhsach','KhaiTuController@index');
     Route::get('create','KhaiTuController@create');
@@ -88,4 +92,12 @@ Route::group(['prefix'=>'connuoi'],function(){
     Route::get('update','ConNuoiController@update');
 });
 // </editor-fold>//End Manage
+
+//Kết hôn
+Route::resource('kethon','KetHonController');
+Route::get('kethon/{id}/show','KetHonController@show');
+Route::post('kethon/delete','KetHonController@destroy');
+Route::post('kethon/duyet','KetHonController@duyet');
+Route::post('kethon/prints','KetHonController@prints');
+//End kết hôn
 
