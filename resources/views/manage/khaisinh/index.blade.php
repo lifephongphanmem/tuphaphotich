@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         @if(session('admin')->level == 'T')
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <select id="select_huyen" class="form-control">
                                         @foreach ($huyens as $huyen)
@@ -125,7 +125,7 @@
                             </div>
                         @endif
                         @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                 @if(count($xas) > 0)
                                     <select id="select_xa" class="form-control">

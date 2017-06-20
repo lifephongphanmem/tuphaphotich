@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Districts;
+use App\GeneralConfigs;
 use App\KetHon;
 use App\Towns;
 use Illuminate\Http\Request;
@@ -215,7 +216,11 @@ class KetHonController extends Controller
             $inputs = $request->all();
             $id = $inputs['idprints'];
             $model = KetHon::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $xa = $modelxa->tenxa;
+            $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
             if($inputs['plgiay']== 'Bản chính'){
                 return view('reports.kethon.print')
                     ->with('plgiay',$inputs['plgiay'])
@@ -223,7 +228,12 @@ class KetHonController extends Controller
                     ->with('xa',$xa)
                     ->with('pageTitle','In giấy kết hôn bản chính');
             }else{
-
+                return view('reports.kethon.printtrichluc')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('huyen',$huyen)
+                    ->with('tinh',$tinh)
+                    ->with('pageTitle','In giấy kết hôn bản sao');
             }
 
         }else

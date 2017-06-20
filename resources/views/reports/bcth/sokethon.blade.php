@@ -9,7 +9,6 @@
         body {
             font: normal 14px/16px time, serif;
         }
-
         table, p {
             width: 98%;
             margin: auto;
