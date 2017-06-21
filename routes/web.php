@@ -101,3 +101,11 @@ Route::post('kethon/duyet','KetHonController@duyet');
 Route::post('kethon/prints','KetHonController@prints');
 //End kết hôn
 
+//Trích lục
+Route::resource('capbansaotrichluc','CapBanSaoTrichLucController');
+//End Trích lục
+//Sổ hộ tịch
+Route::resource('sohotich','SoHoTichController');
+//End Trích lục
+
+

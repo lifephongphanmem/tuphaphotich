@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateCapbansaotrichlucTable' => $baseDir . '/database/migrations/2017_06_20_154235_create_capbansaotrichluc_table.php',
     'CreateConNuoiTable' => $baseDir . '/database/migrations/2017_06_09_154122_create_ConNuoi_table.php',
     'CreateCongdanTable' => $baseDir . '/database/migrations/2017_06_06_175000_create_congdan_table.php',
     'CreateDantocTable' => $baseDir . '/database/migrations/2017_06_07_095456_create_dantoc_table.php',
@@ -15,6 +16,7 @@ return array(
     'CreateKhaiTuTable' => $baseDir . '/database/migrations/2017_06_07_193700_create_KhaiTu_table.php',
     'CreateKhaisinhTable' => $baseDir . '/database/migrations/2017_06_07_152937_create_khaisinh_table.php',
     'CreateQuoctichTable' => $baseDir . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',
+    'CreateSohotichTable' => $baseDir . '/database/migrations/2017_06_21_085715_create_sohotich_table.php',
     'CreateTownsTable' => $baseDir . '/database/migrations/2017_06_06_090904_create_towns_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

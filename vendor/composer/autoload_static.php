@@ -300,6 +300,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
     );
 
     public static $classMap = array (
+        'CreateCapbansaotrichlucTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_20_154235_create_capbansaotrichluc_table.php',
         'CreateConNuoiTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_09_154122_create_ConNuoi_table.php',
         'CreateCongdanTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_175000_create_congdan_table.php',
         'CreateDantocTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095456_create_dantoc_table.php',
@@ -309,6 +310,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'CreateKhaiTuTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_193700_create_KhaiTu_table.php',
         'CreateKhaisinhTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_152937_create_khaisinh_table.php',
         'CreateQuoctichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',
+        'CreateSohotichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_21_085715_create_sohotich_table.php',
         'CreateTownsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090904_create_towns_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
