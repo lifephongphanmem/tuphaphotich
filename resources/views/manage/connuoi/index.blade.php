@@ -22,9 +22,21 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
-
+        function getIdDuyet(id){
+            document.getElementById("idduyet").value=id;
+        }
+        function getIdPrints(id){
+            document.getElementById("idprints").value=id;
+        }
         function ClickDelete(){
             $('#frm_delete').submit();
+        }
+        function ClickDuyet(){
+            $('#frm_duyet').submit();
+        }
+        function ClickPrints(){
+            $('#frm_prints').submit();
+            $('#prints-modal').modal("hide");
         }
     </script>
 @stop
@@ -43,7 +55,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url('connuoi/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        <a href="{{url('dangkyconnuoi/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
 
@@ -90,6 +102,7 @@
                                 <th style="text-align: center">Ngày sinh</th>
                                 <th style="text-align: center">Dân tộc</th>
                                 <th style="text-align: center">Quốc tịch</th>
+                                <th style="text-align: center">Trạng thái</th>
                                 <th style="text-align: center">Thao tác</th>
                             </tr>
                             </thead>
@@ -102,10 +115,30 @@
                                     <td style="text-align: center">{{getDayVn($cn->ngaysinhconnuoi)}}</td>
                                     <td style="text-align: center">{{$cn->dantocconnuoi}}</td>
                                     <td>{{$cn->quoctichconnuoi}}</td>
+                                    @if($cn->trangthai == 'Chờ duyệt')
+                                        <td align="center"><span class="badge badge-blue">{{$cn->trangthai}}</span>
+                                        </td>
+                                    @elseif($cn->trangthai == 'Duyệt')
+                                        <td align="center"><span class="badge badge-warning">Đã duyệt</span>
+                                        </td>
+                                    @endif
                                     <td>
-                                        <a href="{{url('connuoi/'.$cn->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                        <button type="button" onclick="getId('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                            Xóa</button>
+                                        <a href="{{url('dangkyconnuoi/'.$cn->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        @if($cn->trangthai == 'Chờ duyệt')
+                                            @if(can('dkconnuoi','edit'))
+                                                <a href="{{url('dangkyconnuoi/'.$cn->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                            @endif
+                                            @if(can('dkconnuoi','delete'))
+                                                <button type="button" onclick="getId('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                                    Xóa</button>
+                                            @endif
+                                            @if(can('dkconnuoi','approve'))
+                                                <button type="button" onclick="getIdDuyet('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
+                                            @endif
+                                        @else
+                                            <button type="button" onclick="getIdPrints('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
+                                                In</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -124,7 +157,7 @@
         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'connuoi/delete','id' => 'frm_delete'])!!}
+                    {!! Form::open(['url'=>'dangkyconnuoi/delete','id' => 'frm_delete'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -142,11 +175,68 @@
         </div>
     </div>
 
+    <div class="modal fade" id="duyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'dangkyconnuoi/duyet','id' => 'frm_duyet'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý duyệt?</h4>
+                </div>
+                <input type="hidden" name="idduyet" id="idduyet">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickDuyet()">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'dangkyconnuoi/prints','id' => 'frm_prints','target'=>'_blank'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">In giấy khai sinh</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"><b>Giấy dk con nuôi</b></label>
+                            <div class="col-md-6 ">
+                                {!! Form::select(
+                                'plgiayks',
+                                array(
+                                'Bản chính' => 'Bản chính',
+                                'Bản sao' => 'Bản sao'
+                                ),null,
+                                array('id' => 'plgiayks', 'class' => 'form-control'))
+                                !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="idprints" id="idprints">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <script>
         $(function(){
 
             $('#select_huyen, #select_xa').change(function() {
-                var current_path_url = '/connuoi?';
+                var current_path_url = '/dangkyconnuoi?';
                 if($(this).attr('id') == 'select_huyen'){
                     $('#select_xa').val('all');
                 }

@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="portlet box blue" id="form_wizard_1">
                 <div class="portlet-body form" id="form_wizard">
-                    {!! Form::model($connuoi,['url'=>'connuoi/'.$connuoi->id.'/edit','method'=>'post' ,'class'=>'horizontal-form']) !!}
+                    {!! Form::model($connuoi,['url'=>'dangkyconnuoi/'.$connuoi->id,'method' => 'PATCH' ,'class'=>'horizontal-form']) !!}
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
                             <li><a href="#tab1" data-toggle="tab" class="step">
@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div style="text-align: center">
-                <a href="{{url('connuoi/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+                <a href="{{url('dangkyconnuoi')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
                 <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
             </div>

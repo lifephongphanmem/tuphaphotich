@@ -22,9 +22,21 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
-
+        function getIdDuyet(id){
+            document.getElementById("idduyet").value=id;
+        }
+        function getIdPrints(id){
+            document.getElementById("idprints").value=id;
+        }
         function ClickDelete(){
             $('#frm_delete').submit();
+        }
+        function ClickDuyet(){
+            $('#frm_duyet').submit();
+        }
+        function ClickPrints(){
+            $('#frm_prints').submit();
+            $('#prints-modal').modal("hide");
         }
     </script>
 @stop
@@ -81,19 +93,20 @@
                         <div class="table-toolbar">
 
                         </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center">STT</th>
-                            <th style="text-align: center">Họ tên</th>
-                            <th style="text-align: center">Giới tính</th>
-                            <th style="text-align: center">Ngày sinh</th>
-                            <th style="text-align: center">Dân tộc</th>
-                            <th style="text-align: center">Quốc tịch</th>
-                            <th style="text-align: center">Thao tác</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                        <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">STT</th>
+                                <th style="text-align: center">Họ tên</th>
+                                <th style="text-align: center">Giới tính</th>
+                                <th style="text-align: center">Ngày sinh</th>
+                                <th style="text-align: center">Dân tộc</th>
+                                <th style="text-align: center">Quốc tịch</th>
+                                <th style="text-align: center">Trạng thái</th>
+                                <th style="text-align: center">Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             @foreach($model as $key=>$kt)
                                 <tr>
                                     <td style="text-align: center">{{$key+1}}</td>
@@ -102,25 +115,45 @@
                                     <td style="text-align: center">{{getDayVn($kt->ngaysinh)}}</td>
                                     <td style="text-align: center">{{$kt->dantoc}}</td>
                                     <td>{{$kt->quoctich}}</td>
+                                    @if($kt->trangthai == 'Chờ duyệt')
+                                        <td align="center"><span class="badge badge-blue">{{$kt->trangthai}}</span>
+                                        </td>
+                                    @elseif($kt->trangthai == 'Duyệt')
+                                        <td align="center"><span class="badge badge-warning">Đã duyệt</span>
+                                        </td>
+                                    @endif
                                     <td>
-                                        <a href="{{url('khaitu/'.$kt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                        <button type="button" onclick="getId('{{$kt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                            Xóa</button>
+                                        <a href="{{url('khaitu/'.$kt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                        @if($kt->trangthai == 'Chờ duyệt')
+                                            @if(can('khaitu','edit'))
+                                                <a href="{{url('khaitu/'.$kt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                            @endif
+                                            @if(can('khaitu','delete'))
+                                                <button type="button" onclick="getId('{{$kt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                                    Xóa</button>
+                                            @endif
+                                            @if(can('khaitu','approve'))
+                                                <button type="button" onclick="getIdDuyet('{{$kt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
+                                            @endif
+                                        @else
+                                            <button type="button" onclick="getIdPrints('{{$kt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
+                                                In</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-    </div>
 
-    <!-- BEGIN DASHBOARD STATS -->
+        <!-- BEGIN DASHBOARD STATS -->
 
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -142,11 +175,68 @@
         </div>
     </div>
 
+    <div class="modal fade" id="duyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'khaitu/duyet','id' => 'frm_duyet'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Đồng ý duyệt?</h4>
+                </div>
+                <input type="hidden" name="idduyet" id="idduyet">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickDuyet()">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'khaitu/prints','id' => 'frm_prints','target'=>'_blank'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">In giấy khai tử</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"><b>Giấy khai sinh</b></label>
+                            <div class="col-md-6 ">
+                                {!! Form::select(
+                                'plgiayks',
+                                array(
+                                'Bản chính' => 'Bản chính',
+                                'Bản sao' => 'Bản sao'
+                                ),null,
+                                array('id' => 'plgiayks', 'class' => 'form-control'))
+                                !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="idprints" id="idprints">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <script>
         $(function(){
 
             $('#select_huyen, #select_xa').change(function() {
-                var current_path_url = '/khaitu?';
+                var current_path_url = 'khaitu?';
                 if($(this).attr('id') == 'select_huyen'){
                     $('#select_xa').val('all');
                 }

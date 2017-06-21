@@ -54,6 +54,7 @@ Route::post('towns/delete','TownsController@destroy');
 // <editor-fold defaultstate="collapsed" desc="--Reports--">
 Route::get('reports','ReportsController@index');
 Route::post('reports/sokhaisinh','ReportsController@sokhaisinh');
+Route::post('reports/sokhaitu','ReportsController@sokhaitu');
 Route::post('reports/sokethon','ReportsController@sokethon');
 // </editor-fold>//End Reports
 
@@ -72,25 +73,17 @@ Route::post('khaisinh/prints','KhaiSinhController@prints');
 //End khai sinh
 
 //khai tử
-Route::group(['prefix'=>'khaitu'],function(){
-    Route::get('danhsach','KhaiTuController@index');
-    Route::get('create','KhaiTuController@create');
-    Route::post('store','KhaiTuController@store');
-    Route::post('delete','KhaiTuController@delete');
-    Route::get('/{id}/edit','KhaiTuController@edit');
-    Route::post('/{id}/edit','KhaiTuController@update');
-    Route::get('update','KhaiTuController@update');
-});
+Route::resource('khaitu','KhaiTuController');
+Route::get('khaitu/{id}/show','KhaiTuController@show');
+Route::post('khaitu/duyet','KhaiTuController@duyet');
+Route::post('khaitu/delete','KhaiTuController@destroy');
+Route::post('khaitu/prints','KhaiTuController@prints');
 
-Route::group(['prefix'=>'connuoi'],function(){
-    Route::get('danhsach','ConNuoiController@index');
-    Route::get('create','ConNuoiController@create');
-    Route::post('store','ConNuoiController@store');
-    Route::post('delete','ConNuoiController@delete');
-    Route::get('/{id}/edit','ConNuoiController@edit');
-    Route::post('/{id}/edit','ConNuoiController@update');
-    Route::get('update','ConNuoiController@update');
-});
+Route::resource('dangkyconnuoi','ConNuoiController');
+Route::get('dangkyconnuoi/{id}/show','ConNuoiController@show');
+Route::post('dangkyconnuoi/duyet','ConNuoiController@duyet');
+Route::post('dangkyconnuoi/delete','ConNuoiController@destroy');
+Route::post('dangkyconnuoi/prints','ConNuoiController@prints');
 // </editor-fold>//End Manage
 
 //Kết hôn

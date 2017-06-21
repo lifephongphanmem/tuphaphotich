@@ -82,6 +82,7 @@ class CreateConNuoiTable extends Migration
             $table->string('tinhtrangsk')->nullable();
             $table->string('phanloaiconnuoi')->nullable();
             $table->string('tuoiconnuoi')->nullable();
+            $table->string('trangthai')->nullable();
             $table->timestamps();
         });
     }

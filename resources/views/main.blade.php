@@ -311,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @if(canGeneral('khaitu','index'))
                         @if(can('khaitu','index'))
                             <li>
-                                <a href="{{url('khaitu/danhsach')}}">
+                                <a href="{{url('khaitu')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin khai tử</span>
                                 </a>
