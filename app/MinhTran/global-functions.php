@@ -404,4 +404,6 @@ function listHuyen(){
 function listXa($huyen){
     return \App\Towns::where('mahuyen',$huyen)->get();
 }
+
+
 ?>

@@ -101,7 +101,7 @@
         <td colspan="3">Đăng ký khai sinh tại: ..{{$xa}}..</td>
     </tr>
     <tr>
-        <td colspan="3">Số:..{{$model->sokhaisinh}}.., ngày ..{{getDayVn($model->ngaydangky)}}..</td>
+        <td colspan="3">Số:..{{$model->so}}.., ngày ..{{getDayVn($model->ngaydangky)}}..</td>
     </tr>
     <tr>
         <td colspan="3"><b>Ghi chú:</b></td>

@@ -21,8 +21,8 @@ class CreateKhaisinhTable extends Migration
             $table->string('plkhaisinh')->nullable();//TT,BR,CXD,MTH
             $table->string('pldangky')->nullable();//DKmới, Đk lại
             $table->string('dunghanquahan')->nullabe();//Đúng hạn, quá hạn
-            $table->string('sokhaisinh')->nullable();
-            $table->string('quyenkhaisinh')->nullable();
+            $table->string('so')->nullable();
+            $table->string('quyen')->nullable();
             $table->date('ngaydangky')->nullable();
             $table->string('nguoiky')->nullable();
             $table->string('chucvu')->nullable();

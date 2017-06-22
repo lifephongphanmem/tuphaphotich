@@ -118,6 +118,7 @@ Route::resource('capbansaotrichluc','CapBanSaoTrichLucController');
 //End Trích lục
 //Sổ hộ tịch
 Route::resource('sohotich','SoHoTichController');
+Route::post('sohotich/delete','SoHoTichController@destroy');
 //End Trích lục
 
 

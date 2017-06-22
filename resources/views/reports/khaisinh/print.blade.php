@@ -6,7 +6,7 @@
 </head>
 <body style="font-size: 16px; width:99%;">
 <div style="text-align: right">
-    <span>Số: ..{{$model->sokhaisinh}}..</span>
+    <span>Số: ..{{$model->so}}..</span>
 </div>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin:120px auto auto auto">
 </table>

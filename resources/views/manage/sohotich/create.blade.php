@@ -108,26 +108,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Số kết thúc</label>
-                                        {!!Form::number('soketthuc', 100 , array('id' => 'sokethuc','class' => 'form-control required'))!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label class="control-label">Ngày bắt đầu</label>
                                         {!!Form::text('ngaybatdau','01/01/'.intval(date('Y')), array('id' => 'ngaybatdau','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Ngày kết thúc<span class="require">*</span></label>
                                         {!!Form::text('ngayketthuc','31/12/'.intval(date('Y')), array('id' => 'ngayketthuc','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     <!-- END FORM-->

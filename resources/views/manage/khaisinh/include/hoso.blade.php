@@ -54,26 +54,26 @@
 
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Sổ khai sinh<span class="require">*</span></label>
-                    <div class="col-sm-8 controls">
-                        {!!Form::text('sokhaisinh', null, array('id' => 'sokhaisinh','class' => 'form-control'))!!}
+        @if($action == 'edit')
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Quyển<span class="require">*</span></label>
+                        <div class="col-sm-8 controls">
+                            <span style="color: blue">{{$model->quyen}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Số</label>
+                        <div class="col-sm-8 controls">
+                            <span style="color: blue">{{$model->so}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-
-                    <label class="col-sm-4 control-label">Quyển khai sinh</label>
-
-                    <div class="col-sm-8 controls">
-                        {!!Form::text('quyenkhaisinh', null, array('id' => 'quyenkhaisinh','class' => 'form-control'))!!}
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -136,16 +136,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <!--div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Số bản sao<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!!Form::number('sobansao',isset($model->sobansao) ? $model->sobansao : 0, array('id' => 'sobansao','class' => 'form-control','data-mask'=>'fdecimal'))!!}
                     </div>
                 </div>
-            </div>
+            </div-->
         </div>
-        <div class="row">
+
+        <!--div class="row">
 
             <div class="col-md-12">
                 <div class="form-group">
@@ -155,7 +156,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
 
     </div>
 </div>

@@ -14,8 +14,8 @@
                         <td><b>Đăng ký khai sinh:</b>&nbsp;{{$model->dunghanquahan}}</td>
                     </tr>
                     <tr>
-                        <td><b>Vào sổ khai sinh:</b>&nbsp;{{$model->sokhaisinh}}</td>
-                        <td><b>Vào quyển khai sinh:</b>&nbsp;{{$model->quyenkhaisinh}}</td>
+                        <td><b>Vào quyển khai sinh:</b>&nbsp;{{$model->quyen}}</td>
+                        <td><b>Số khai sinh:</b>&nbsp;{{$model->so}}</td>
                     </tr>
                     <tr>
                         <td><b>Người ký:</b>&nbsp;{{$model->nguoiky}}</td>

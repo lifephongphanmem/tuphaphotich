@@ -8,6 +8,7 @@ use App\Districts;
 use App\GeneralConfigs;
 use App\KhaiSinh;
 use App\QuocTich;
+use App\SoHoTich;
 use App\Towns;
 use Illuminate\Http\Request;
 
@@ -117,7 +118,14 @@ class KhaiSinhController extends Controller
 
     public function store(Request $request){
         if (Session::has('admin')) {
+
             $inputs = $request->all();
+            $modelsohotich =  SoHoTich::where('plhotich','Khai sinh')
+                ->where('namso',date('Y'))->first()->quyenhotich;
+            $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
+
+            $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
+
             $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
             $inputs['ngaysinhks'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhks'])));
             $inputs['matinh'] = getmatinh();
@@ -132,6 +140,20 @@ class KhaiSinhController extends Controller
 
         }else
             return view('errors.notlogin');
+    }
+
+    public function getSoHoTich($maxa,$mahuyen,$quyen){
+        $idmax = KhaiSinh::where('maxa',$maxa)
+            ->where('mahuyen',$mahuyen)
+            ->where('quyen',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =KhaiSinh::where('id', $idmax)->first();
+            $stt = $model->so + 1;
+        }
+        return $stt;
     }
 
     public function show($id){

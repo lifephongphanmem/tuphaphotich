@@ -120,4 +120,56 @@ class SoHoTichController extends Controller
         }else
             return view('errors.notlogin');
     }
+
+    public function edit($id){
+        if (Session::has('admin')) {
+            $model = SoHoTich::find($id);
+            $huyens = Districts::all();
+            $huyendf = $model->mahuyen;
+            $xas = Towns::where('mahuyen', $huyendf)
+                ->get();
+            $xadf = $model->maxa;
+
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
+
+            return view('manage.sohotich.edit')
+                ->with('huyens', $huyens)
+                ->with('mahuyen', $huyendf)
+                ->with('xas', $xas)
+                ->with('maxa', $xadf)
+                ->with('dantocs', $dantocs)
+                ->with('quoctichs', $quoctichs)
+                ->with('model',$model)
+                ->with('pageTitle', 'Chỉnh sửa thông tin sổ hộ tịch');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function update(Request $request,$id){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['ngaybatdau'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaybatdau'])));
+            $inputs['ngayketthuc'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngayketthuc'])));
+            $model = SoHoTich::find($id);
+            $model->update($inputs);
+
+            return redirect('sohotich');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroy(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = SoHoTich::find($id);
+            $model->delete();
+            return redirect('sohotich');
+
+        }else
+            return view('errors.notlogin');
+    }
 }
