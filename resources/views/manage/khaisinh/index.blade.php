@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         @if(session('admin')->level == 'T')
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <select id="select_huyen" class="form-control">
                                         @foreach ($huyens as $huyen)
@@ -125,7 +125,7 @@
                             </div>
                         @endif
                         @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                 @if(count($xas) > 0)
                                     <select id="select_xa" class="form-control">
@@ -189,7 +189,6 @@
                                         <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
                                             In</button>
                                     @endif
-                                    <a href="{{url('khaisinh/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                 </td>
 
                             </tr>

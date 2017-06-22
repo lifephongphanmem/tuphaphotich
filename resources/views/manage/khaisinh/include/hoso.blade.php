@@ -122,7 +122,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Chức vụ người ký</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('chucvunguoiky', null, array('id' => 'chucvunguoiky','class' => 'form-control'))!!}
+                        {!!Form::text('chucvu', null, array('id' => 'chucvu','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>

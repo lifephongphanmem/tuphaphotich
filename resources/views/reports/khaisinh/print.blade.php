@@ -10,9 +10,6 @@
 </div>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin:120px auto auto auto">
 </table>
-<div style="text-align: center">
-<span><b style="text-transform: uppercase">({{$plgiayks}})</b></span>
-</div>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin:20px auto">
     <tr>
         <td colspan="3"><b>Họ, chữ đệm, tên: </b> <span style="text-transform: uppercase">{{$model->hotenks}}</span></td>

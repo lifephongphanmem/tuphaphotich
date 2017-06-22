@@ -282,6 +282,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                 </li>
                 @if(session('admin')->sadmin != 'sa')
+                    <li>
+                        <a href="{{url('sohotich')}}">
+                            <i class="icon-users"></i>
+                            <span class="title">Danh mục sổ hộ tịch</span>
+                        </a>
+                    </li>
                     @if(canGeneral('congdan','index'))
                         @if(can('congdan','index'))
                             <li>
@@ -305,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @if(canGeneral('khaitu','index'))
                         @if(can('khaitu','index'))
                             <li>
-                                <a href="{{url('khaitu/danhsach')}}">
+                                <a href="{{url('khaitu')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Thông tin khai tử</span>
                                 </a>
@@ -365,7 +371,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @if(canGeneral('capbansao','index'))
                         @if(can('capbansao','index'))
                             <li>
-                                <a href="{{url('trichluc')}}">
+                                <a href="{{url('capbansaotrichluc')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Cấp trích lục (bản sao)</span>
                                 </a>

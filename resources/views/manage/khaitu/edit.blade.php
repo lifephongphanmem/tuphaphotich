@@ -31,7 +31,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::model($khaitu,['url'=>'khaitu/'.$khaitu->id.'/edit','method'=>'post' ,'class'=>'horizontal-form']) !!}
+                    {!! Form::model($khaitu,['url'=>'khaitu/'. $khaitu->id,'method' => 'PATCH' ,'class'=>'horizontal-form']) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
                     <div class="form-body">
                         <div class="row">
@@ -215,7 +215,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Ngày đăng ký<span class="require">*</span></label>
-                                    {!!Form::text('ngaydangkykt',null, array('id' => 'ngaydangkykt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!!Form::text('ngaydangkykt',isset($khaitu->ngaydangkykt) ? date('d/m/Y',strtotime($khaitu->ngaydangkykt)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaydangkykt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -258,7 +258,7 @@
         </div>
 
         <div style="text-align: center">
-            <a href="{{url('khaitu/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            <a href="{{url('khaitu')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
             <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
             <button type="submit" class="btn green" ><i class="fa fa-check"></i> Cập nhật</button>
         </div>

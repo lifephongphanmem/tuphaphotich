@@ -55,6 +55,8 @@ Route::post('towns/delete','TownsController@destroy');
 Route::get('reports','ReportsController@index');
 Route::post('reports/sokhaisinh','ReportsController@sokhaisinh');
 Route::post('reports/sotthonnhan','ReportsController@sotthonnhan');
+Route::post('reports/sokhaitu','ReportsController@sokhaitu');
+Route::post('reports/sokethon','ReportsController@sokethon');
 // </editor-fold>//End Reports
 
 // <editor-fold defaultstate="collapsed" desc="--Manage--">
@@ -69,16 +71,20 @@ Route::post('khaisinh/delete','KhaiSinhController@destroy');
 Route::post('khaisinh/duyet','KhaiSinhController@duyet');
 Route::post('khaisinh/prints','KhaiSinhController@prints');
 
-Route::group(['prefix'=>'khaitu'],function(){
-    Route::get('danhsach','KhaiTuController@index');
-    Route::get('create','KhaiTuController@create');
-    Route::post('store','KhaiTuController@store');
-    Route::post('delete','KhaiTuController@delete');
-    Route::get('/{id}/edit','KhaiTuController@edit');
-    Route::post('/{id}/edit','KhaiTuController@update');
-    Route::get('update','KhaiTuController@update');
-});
+//End khai sinh
 
+//khai tử
+Route::resource('khaitu','KhaiTuController');
+Route::get('khaitu/{id}/show','KhaiTuController@show');
+Route::post('khaitu/duyet','KhaiTuController@duyet');
+Route::post('khaitu/delete','KhaiTuController@destroy');
+Route::post('khaitu/prints','KhaiTuController@prints');
+
+Route::resource('dangkyconnuoi','ConNuoiController');
+Route::get('dangkyconnuoi/{id}/show','ConNuoiController@show');
+Route::post('dangkyconnuoi/duyet','ConNuoiController@duyet');
+Route::post('dangkyconnuoi/delete','ConNuoiController@destroy');
+Route::post('dangkyconnuoi/prints','ConNuoiController@prints');
 //Tình trạn hôn nhân
 
 Route::resource('tthonnhan','TTHonNhanController');
@@ -98,4 +104,20 @@ Route::group(['prefix'=>'connuoi'],function(){
     Route::get('update','ConNuoiController@update');
 });
 // </editor-fold>//End Manage
+
+//Kết hôn
+Route::resource('kethon','KetHonController');
+Route::get('kethon/{id}/show','KetHonController@show');
+Route::post('kethon/delete','KetHonController@destroy');
+Route::post('kethon/duyet','KetHonController@duyet');
+Route::post('kethon/prints','KetHonController@prints');
+//End kết hôn
+
+//Trích lục
+Route::resource('capbansaotrichluc','CapBanSaoTrichLucController');
+//End Trích lục
+//Sổ hộ tịch
+Route::resource('sohotich','SoHoTichController');
+//End Trích lục
+
 

@@ -267,37 +267,15 @@ function can($module = null, $action = null)
 function canGeneral($module = null, $action =null)
 {
     $model = \App\GeneralConfigs::first();
+    if(isset($model)){
+
+    }
     $setting = json_decode($model->setting, true);
 
     if(isset($setting[$module][$action]) && $setting[$module][$action] ==1 )
         return true;
     else
         return false;
-}
-
-function canDvCc($module = null, $action = null)
-{
-    $permission = !empty(session('ttdnvt')->dvcc) ? session('ttdnvt')->dvcc : getDvCcDefault('T');
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-
-}
-
-function canDV($perm=null,$module = null, $action = null){
-    if($perm == ''){
-        return false;
-    }else {
-        $permission = json_decode($perm,true);
-        if (isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-            return true;
-        } else
-            return false;
-    }
 }
 
 function getGeneralConfigs() {
@@ -312,29 +290,6 @@ function getDouble($str)
     //if (is_double($str))
         $sKQ = $str;
     return floatval($sKQ);
-}
-
-function canDVVT($setting = null,$module = null, $action = null){
-    $setting = json_decode($setting, true);
-
-    //check permission
-    if(isset($setting[$module][$action]) && $setting[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-}
-
-function canshow($module = null, $action = null)
-{
-    $permission = !empty(session('admin')->dvvtcc) ? session('admin')->dvvtcc : '{"dvvt":{"vtxk":"1","vtxb":"1","vtxtx":"1","vtch":"1"}}';
-    $permission = json_decode($permission, true);
-
-    //check permission
-    if(isset($permission[$module][$action]) && $permission[$module][$action] == 1) {
-        return true;
-    }else
-        return false;
-
 }
 
 function chuyenkhongdau($str)
@@ -377,19 +332,6 @@ function chuanhoatruong($text)
     $text = str_replace("---", "_", $text);
     $text = str_replace("--", "_", $text);
     return $text;
-}
-
-function getAddMap($diachi){
-    $str = chuyenkhongdau($diachi);
-    $str = str_replace(' ','+',$str);
-    $geocode = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$str.'&sensor=false');
-    $output = json_decode($geocode);
-    if($output->status == 'OK'){
-        $kq = $output->results[0]->geometry->location->lat. ',' .$output->results[0]->geometry->location->lng;
-    }else{
-        $kq = '';
-    }
-    return $kq;
 }
 
 function getPhanTram1($giatri, $thaydoi){

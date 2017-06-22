@@ -116,66 +116,31 @@ class ConNuoiController extends Controller
     }
     public function store(Request $request)
     {
-        $connuoi = new ConNuoi();
-        $connuoi->mahuyen = $request->mahuyen;
-        $connuoi->maxa = $request->maxa;
-        $connuoi->hotenconnuoi = $request->hotenconnuoi;
-        $connuoi->gioitinhconnuoi = $request->gioitinhconnuoi;
-        $connuoi->ngaysinhconnuoi = $request->ngaysinhconnuoi;
-        $connuoi->dantocconnuoi = $request->dantocconnuoi;
-        $connuoi->quoctichconnuoi = $request->quoctichconnuoi;
-        $connuoi->noisinhconnuoi = $request->noisinhconnuoi;
-        $connuoi->thuongtruconnuoi = $request->thuongtruconnuoi;
-        $connuoi->tinhtrangsk = $request->tinhtrangsk;
-        $connuoi->hotenchanuoi = $request->hotenchanuoi;
-        $connuoi->ngaysinhchanuoi = $request->ngaysinhchanuoi;
-        $connuoi->dantocchanuoi = $request->dantocchanuoi;
-        $connuoi->quoctichchanuoi = $request->quoctichchanuoi;
-        $connuoi->cmndchanuoi = $request->cmndchanuoi;
-        $connuoi->noicapgtcn = $request->noicapgtcn;
-        $connuoi->ngaycapgtcn = $request->ngaycapgtcn;
-        $connuoi->thuongtrucn = $request->thuongtrucn;
-        $connuoi->hotenmenuoi = $request->hotenmenuoi;
-        $connuoi->ngaysinhmenuoi = $request->ngaysinhmenuoi;
-        $connuoi->dantocmenuoi = $request->dantocmenuoi;
-        $connuoi->quoctichmenuoi = $request->quoctichmenuoi;
-        $connuoi->cmndmenuoi = $request->cmndmenuoi;
-        $connuoi->noicapgtmn = $request->noicapgtmn;
-        $connuoi->ngaycapgtmn = $request->ngaycapgtmn;
-        $connuoi->thuongtrumn = $request->thuongtrumn;
-        $connuoi->hotenchagiao = $request->hotenchagiao;
-        $connuoi->ngaysinhchagiao = $request->ngaysinhchagiao;
-        $connuoi->dantocchagiao = $request->dantocchagiao;
-        $connuoi->quoctichchagiao = $request->quoctichchagiao;
-        $connuoi->cmndchagiao = $request->cmndchagiao;
-        $connuoi->noicapgtcg = $request->noicapgtcg;
-        $connuoi->ngaycapgtcg = $request->ngaycapgtcg;
-        $connuoi->thuongtrucg = $request->thuongtrucg;
-        $connuoi->hotenmegiao = $request->hotenmegiao;
-        $connuoi->ngaysinhmegiao = $request->ngaysinhmegiao;
-        $connuoi->dantocmegiao = $request->dantocmegiao;
-        $connuoi->quoctichmegiao = $request->quoctichmegiao;
-        $connuoi->cmndmegiao = $request->cmndmegiao;
-        $connuoi->noicapgtmg = $request->noicapgtmg;
-        $connuoi->ngaycapgtmg = $request->ngaycapgtmg;
-        $connuoi->thuongtrumg = $request->thuongtrumg;
-        $connuoi->soqd = $request->soqd;
-        $connuoi->ngaythangqd = $request->ngaythangqd;
-        $connuoi->noidkconnuoi = $request->noidkconnuoi;
-        $connuoi->tencsnuoiduong = $request->tencsnuoiduong;
-        $connuoi->nguoidaidiencsnd = $request->nguoidaidiencsnd;
-        $connuoi->chucvundd = $request->chucvundd;
-        $connuoi->soso = $request->soso;
-        $connuoi->quyen = $request->quyen;
-        $connuoi->phanloaiconnuoi = $request->phanloaiconnuoi;
-        $connuoi->ngaythangdk = $request->ngaythangdk;
-        $connuoi->lydo = $request->lydo;
-        $connuoi->quanhenguoigiao = $request->quanhenguoigiao;
-        $connuoi->ghichu = $request->ghichu;
-        $connuoi->nguoithuchien = $request->nguoithuchien;
-        $connuoi->nguoikygiaycn = $request->nguoikygiaycn;
-        $connuoi->save();
-        return redirect('connuoi/danhsach');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $connuoi = new ConNuoi();
+            $inputs['trangthai']= "Chờ duyệt";
+            $connuoi->create($inputs);
+            return redirect('dangkyconnuoi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function show($id){
+        if (Session::has('admin')) {
+
+            $connuoi = ConNuoi::find($id);
+            $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$connuoi->mahuyen)->first()->tenhuyen;
+
+            return view('manage.connuoi.show')
+                ->with('connuoi',$connuoi)
+                ->with('xa',$xa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle', 'Thông tin đăng ký con nuôi');
+        }else
+            return view('errors.notlogin');
     }
 
     public function edit ($id)
@@ -275,12 +240,51 @@ class ConNuoiController extends Controller
         $connuoi->nguoithuchien = $request->nguoithuchien;
         $connuoi->nguoikygiaycn = $request->nguoikygiaycn;
         $connuoi->save();
-        return redirect('connuoi/'.$id.'/edit');
+        return redirect('dangkyconnuoi/'.$id.'/edit');
     }
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
-        $connuoi = ConNuoi::where('id',$request->iddelete);
-        $connuoi->delete();
-        return redirect('connuoi/danhsach');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $connuoi = ConNuoi::find($id);
+            $connuoi->delete();
+            return redirect('dangkyconnuoi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function duyet(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idduyet'];
+            $connuoi = ConNuoi::find($id);
+            $connuoi->trangthai = 'Duyệt';
+            $connuoi->save();
+            return redirect('dangkyconnuoi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function prints(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idprints'];
+            $connuoi = ConNuoi::find($id);
+            $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
+            if($inputs['plgiayks']== 'Bản chính'){
+                return view('reports.dangkyconnuoi.print')
+                    ->with('plgiayks',$inputs['plgiayks'])
+                    ->with('connuoi',$connuoi)
+                    ->with('xa',$xa)
+                    ->with('pageTitle','In giấy đăng ký con nuôi bản chính');
+            }else{
+
+            }
+
+        }else
+            return view('errors.notlogin');
     }
 }

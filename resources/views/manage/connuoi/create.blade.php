@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="portlet box blue" id="form_wizard_1">
                 <div class="portlet-body form" id="form_wizard">
-                    {!! Form::open(['url'=>'connuoi/store','method'=>'post' , 'files'=>true, 'id' => '','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
+                    {!! Form::open(['url'=>'dangkyconnuoi','method'=>'post' , 'files'=>true, 'id' => '','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
                     <div class="form-body">
                         <ul class="nav nav-pills nav-justified steps">
                             <li><a href="#tab1" data-toggle="tab" class="step">

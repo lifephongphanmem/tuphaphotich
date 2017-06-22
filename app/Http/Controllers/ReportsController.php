@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Districts;
 use App\GeneralConfigs;
+use App\KetHon;
 use App\KhaiSinh;
 use App\Towns;
 use App\TTHonNhan;
@@ -15,38 +16,47 @@ use Illuminate\Support\Facades\Session;
 
 class ReportsController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         if (Session::has('admin')) {
             $day = date('Y-m-d');
             $som = date("Y-m-01", strtotime($day));
             $eom = date("Y-m-t", strtotime($day));
-            if (session('admin')->level == 'T') {
-                $huyens = Districts::all();
+            $inputs = $request->all();
+            if(session('admin')->level == 'T') {
                 $huyendf = Districts::first()->mahuyen;
-                $xas = Towns::where('mahuyen', $huyendf)
-                    ->get();
-                $xadf = $xas->first()->maxa;
-            } elseif (session('admin')->level == 'H') {
-                $huyens = Districts::all();
-                $huyendf = Districts::where('mahuyen', session('admin')->mahuyen)->first()->mahuyen;
-                $xas = Towns::where('mahuyen', $huyendf)
-                    ->get();
-                $xadf = $xas->first()->maxa;
-            } else {
-                $huyens = Districts::all();
-                $huyendf = Districts::where('mahuyen', session('admin')->mahuyen)->first()->mahuyen;
-                $xas = Towns::where('mahuyen', $huyendf)
-                    ->get();
-                $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : $huyendf;
+                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
+                if(isset($inputs['maxa'])) {
+                    if ($inputs['maxa'] == "all")
+                        $xa = $xadf;
+                    else
+                        $xa = $inputs['maxa'];
+                }else {
+                    $xa = $xadf;
+                }
+
+            }elseif(session('admin')->level == 'H'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
+                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+            }else{
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
+            }
+
+            $huyens = listHuyen();
+            $xas = array();
+            if($huyen != 'all'){
+                $xas = listXa($huyen);
             }
 
             return view('reports.bcth.index')
                 ->with('som',date('d/m/Y',strtotime($som)))
                 ->with('eom',date('d/m/Y',strtotime($eom)))
-                ->with('huyens', $huyens)
-                ->with('mahuyen', $huyendf)
-                ->with('xas', $xas)
-                ->with('maxa', $xadf)
+                -> with('huyens', $huyens)
+                -> with('xas', $xas)
+                -> with('mahuyen', $huyen)
+                -> with('maxa', $xa)
                 ->with('pageTitle', 'Báo cáo sổ sách tổng hợp');
 
         } else {
@@ -61,23 +71,17 @@ class ReportsController extends Controller
             //dd($inputs);
             $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
             $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
-            if(session('admin')->level == 'T'){
-                $tencq = GeneralConfigs::first()->tendv;
-            }elseif(session('admin')=='H'){
-                $huyen = Districts::where('mahuyen',session('admin')->mahuyen)
-                    ->first()->tenhuyen;
-                $tinh = GeneralConfigs::first()->tendv;
-                $tencq = $huyen .' - '.$tinh;
-            }else{
-                $xa = Towns::where('maxa',session('admin')->maxa)->first()->tenxa;
-                $huyen = Districts::where('mahuyen',session('admin')->mahuyen)
-                    ->first()->tenhuyen;
-                $tinh = GeneralConfigs::first()->tendv;
-                $tencq = $xa.' - '.$huyen .' - '.$tinh;
-            }
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
             $model = KhaiSinh::where('trangthai','Duyệt')
-                ->where('maxa',$inputs['maxa'])
-                ->where('mahuyen',$inputs['mahuyen'])
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
 
@@ -122,6 +126,38 @@ class ReportsController extends Controller
                 ->with('model',$model)
                 ->with('tencq',$tencq)
                 ->with('pageTitle','Sổ cấp giấy xác nhận tình trạng hôn nhân');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sokethon(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = KetHon::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sokethon')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ đăng ký kết hôn');
 
         } else {
             return view('errors.notlogin');

@@ -7,6 +7,7 @@ use App\Districts;
 use App\KhaiTu;
 use App\QuocTich;
 use App\Towns;
+use App\GeneralConfigs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -117,36 +118,31 @@ class KhaiTuController extends Controller
 
     public function store(Request $request)
     {
-        $khaitu = new KhaiTu();
-        $khaitu->sosokt = $request->sosokt;
-        $khaitu->mahuyen = $request->mahuyen;
-        $khaitu->maxa = $request->maxa;
-        $khaitu->quyenso = $request->quyenso;
-        $khaitu->hoten = $request->hoten;
-        $khaitu->gioitinh = $request->gioitinh;
-        $khaitu->ngaysinh = $request->ngaysinh;
-        $khaitu->dantoc = $request->dantoc;
-        $khaitu->quoctich = $request->quoctich;
-        $khaitu->cmnd = $request->cmnd;
-        $khaitu->noisinh = $request->noisinh;
-        $khaitu->giotu = $request->giotu;
-        $khaitu->phuttu = $request->phuttu;
-        $khaitu->ngaychet = $request->ngaychet;
-        $khaitu->noichet = $request->noichet;
-        $khaitu->nguyennhan = $request->nguyennhan;
-        $khaitu->giaybaotu = $request->giaybaotu;
-        $khaitu->donvicapgbt = $request->donvicapgbt;
-        $khaitu->ngaycapgbt = $request->ngaycapgbt;
-        $khaitu->phanloaikt = $request->phanloaikt;
-        $khaitu->noidangkykt = $request->noidangkykt;
-        $khaitu->ngaydangkykt = $request->ngaydangkykt;
-        $khaitu->ghichukt = $request->ghichukt;
-        $khaitu->hotennk = $request->hotennk;
-        $khaitu->quanhe = $request->quanhe;
-        $khaitu->nguoithuchien = $request->nguoithuchien;
-        $khaitu->nguoikygct = $request->nguoikygct;
-        $khaitu->save();
-        return redirect('khaitu/danhsach');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $khaitu = new KhaiTu();
+            $inputs['trangthai'] = 'Chờ duyệt';
+            $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
+            $khaitu->create($inputs);
+            return redirect('khaitu');
+        }
+        else
+            return view('errors.notlogin');
+    }
+
+    public function show($id){
+        if (Session::has('admin')) {
+            $khaitu = KhaiTu::find($id);
+            $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$khaitu->mahuyen)->first()->tenhuyen;
+
+            return view('manage.khaitu.show')
+                ->with('khaitu',$khaitu)
+                ->with('xa',$xa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle', 'Thông tin khai tử');
+        }else
+            return view('errors.notlogin');
     }
 
     public function edit ($id)
@@ -190,42 +186,58 @@ class KhaiTuController extends Controller
 
     public function update(Request $request, $id)
     {
-        $khaitu = KhaiTu::find($id);
-        $khaitu->sosokt = $request->sosokt;
-        $khaitu->mahuyen = $request->mahuyen;
-        $khaitu->maxa = $request->maxa;
-        $khaitu->quyenso = $request->quyenso;
-        $khaitu->hoten = $request->hoten;
-        $khaitu->gioitinh = $request->gioitinh;
-        $khaitu->ngaysinh = $request->ngaysinh;
-        $khaitu->dantoc = $request->dantoc;
-        $khaitu->quoctich = $request->quoctich;
-        $khaitu->cmnd = $request->cmnd;
-        $khaitu->noisinh = $request->noisinh;
-        $khaitu->giotu = $request->giotu;
-        $khaitu->phuttu = $request->phuttu;
-        $khaitu->ngaychet = $request->ngaychet;
-        $khaitu->noichet = $request->noichet;
-        $khaitu->nguyennhan = $request->nguyennhan;
-        $khaitu->giaybaotu = $request->giaybaotu;
-        $khaitu->donvicapgbt = $request->donvicapgbt;
-        $khaitu->ngaycapgbt = $request->ngaycapgbt;
-        $khaitu->phanloaikt = $request->phanloaikt;
-        $khaitu->noidangkykt = $request->noidangkykt;
-        $khaitu->ngaydangkykt = $request->ngaydangkykt;
-        $khaitu->ghichukt = $request->ghichukt;
-        $khaitu->hotennk = $request->hotennk;
-        $khaitu->quanhe = $request->quanhe;
-        $khaitu->nguoithuchien = $request->nguoithuchien;
-        $khaitu->nguoikygct = $request->nguoikygct;
-        $khaitu->save();
-        return redirect('khaitu/'.$id.'/edit');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
+            $khaitu = KhaiTu::find($id);
+            $khaitu->update($inputs);
+            return redirect('khaitu');
+
+        }else
+            return view('errors.notlogin');
     }
 
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
-        $khaitu = KhaiTu::where('id',$request->iddelete);
-        $khaitu->delete();
-        return redirect('khaitu/danhsach');
+        if (Session::has('admin')) {
+            $khaitu = KhaiTu::where('id', $request->iddelete);
+            $khaitu->delete();
+            return redirect('khaitu');
+        }
+        else
+            return view('errors.notlogin');
+    }
+
+    public function duyet(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idduyet'];
+            $khaitu = KhaiTu::find($id);
+            $khaitu->trangthai = 'Duyệt';
+            $khaitu->save();
+            return redirect('khaitu');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function prints(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idprints'];
+            $khaitu = KhaiTu::find($id);
+            $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
+            if($inputs['plgiayks']== 'Bản chính'){
+                return view('reports.khaitu.print')
+                    ->with('plgiayks',$inputs['plgiayks'])
+                    ->with('khaitu',$khaitu)
+                    ->with('xa',$xa)
+                    ->with('pageTitle','In giấy khai tử bản chính');
+            }else{
+
+            }
+
+        }else
+            return view('errors.notlogin');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CongDan;
 use App\DanToc;
 use App\Districts;
+use App\GeneralConfigs;
 use App\KhaiSinh;
 use App\QuocTich;
 use App\Towns;
@@ -159,18 +160,11 @@ class KhaiSinhController extends Controller
                 ->get();
             $xadf = $model->maxa;
 
-            $modelcha = CongDan::where('macongdan',$model->macongdancha)
-                ->first();
-            $modelme = CongDan::where('macongdan',$model->macongdanme)
-                ->first();
-
             $dantocs = getDanTocSelectOptions();
             $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.khaisinh.edit')
                 ->with('action','edit')
-                ->with('modelcha',$modelcha)
-                ->with('modelme',$modelme)
                 ->with('huyens', $huyens)
                 ->with('mahuyen', $huyendf)
                 ->with('xas', $xas)
@@ -178,7 +172,7 @@ class KhaiSinhController extends Controller
                 ->with('dantocs', $dantocs)
                 ->with('quoctichs', $quoctichs)
                 ->with('model',$model)
-                ->with('pageTitle', 'Thêm mới thông tin khai sinh');
+                ->with('pageTitle', 'Chỉnh sửa thông tin khai sinh');
         }else
             return view('errors.notlogin');
     }
@@ -229,15 +223,23 @@ class KhaiSinhController extends Controller
             $inputs = $request->all();
             $id = $inputs['idprints'];
             $model = KhaiSinh::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $xa = $modelxa->tenxa;
+            $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
             if($inputs['plgiayks']== 'Bản chính'){
                 return view('reports.khaisinh.print')
-                    ->with('plgiayks',$inputs['plgiayks'])
                     ->with('model',$model)
                     ->with('xa',$xa)
                     ->with('pageTitle','In giấy khai sinh bản chính');
             }else{
-
+                return view('reports.khaisinh.printtrichluc')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('huyen',$huyen)
+                    ->with('tinh',$tinh)
+                    ->with('pageTitle','In giấy khai sinh bản sao');
             }
 
         }else
