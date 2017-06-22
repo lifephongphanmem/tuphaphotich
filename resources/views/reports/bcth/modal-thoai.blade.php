@@ -61,8 +61,8 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" name="huyen" id="huyen" value="{{$mahuyen}}">
-                <input type="text" name="xa" id="xa" value="{{$maxa}}">
+                <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>

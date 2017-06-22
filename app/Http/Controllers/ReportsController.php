@@ -121,7 +121,7 @@ class ReportsController extends Controller
                 ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngayxn', [$ngaytu, $ngayden])
                 ->get();
-            return view('reports.tthonnhan.sotthonnhan')
+            return view('reports.bcth.sotthonnhan')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
