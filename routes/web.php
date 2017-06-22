@@ -74,19 +74,23 @@ Route::post('khaisinh/prints','KhaiSinhController@prints');
 //End khai sinh
 
 //Khai tử
+
 Route::resource('khaitu','KhaiTuController');
 Route::get('khaitu/{id}/show','KhaiTuController@show');
 Route::post('khaitu/duyet','KhaiTuController@duyet');
 Route::post('khaitu/delete','KhaiTuController@destroy');
 Route::post('khaitu/prints','KhaiTuController@prints');
+
 //End khai tử
 
 //Con nuôi
+
 Route::resource('dangkyconnuoi','ConNuoiController');
 Route::get('dangkyconnuoi/{id}/show','ConNuoiController@show');
 Route::post('dangkyconnuoi/duyet','ConNuoiController@duyet');
 Route::post('dangkyconnuoi/delete','ConNuoiController@destroy');
 Route::post('dangkyconnuoi/prints','ConNuoiController@prints');
+
 //End con nuôi
 
 //Tình trạn hôn nhân
