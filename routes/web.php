@@ -73,18 +73,22 @@ Route::post('khaisinh/prints','KhaiSinhController@prints');
 
 //End khai sinh
 
-//khai tử
+//Khai tử
 Route::resource('khaitu','KhaiTuController');
 Route::get('khaitu/{id}/show','KhaiTuController@show');
 Route::post('khaitu/duyet','KhaiTuController@duyet');
 Route::post('khaitu/delete','KhaiTuController@destroy');
 Route::post('khaitu/prints','KhaiTuController@prints');
+//End khai tử
 
+//Con nuôi
 Route::resource('dangkyconnuoi','ConNuoiController');
 Route::get('dangkyconnuoi/{id}/show','ConNuoiController@show');
 Route::post('dangkyconnuoi/duyet','ConNuoiController@duyet');
 Route::post('dangkyconnuoi/delete','ConNuoiController@destroy');
 Route::post('dangkyconnuoi/prints','ConNuoiController@prints');
+//End con nuôi
+
 //Tình trạn hôn nhân
 
 Route::resource('tthonnhan','TTHonNhanController');
@@ -93,16 +97,6 @@ Route::post('tthonnhan/delete','TTHonNhanController@destroy');
 Route::post('tthonnhan/duyet','TTHonNhanController@duyet');
 Route::post('tthonnhan/prints','TTHonNhanController@prints');
 
-
-Route::group(['prefix'=>'connuoi'],function(){
-    Route::get('danhsach','ConNuoiController@index');
-    Route::get('create','ConNuoiController@create');
-    Route::post('store','ConNuoiController@store');
-    Route::post('delete','ConNuoiController@delete');
-    Route::get('/{id}/edit','ConNuoiController@edit');
-    Route::post('/{id}/edit','ConNuoiController@update');
-    Route::get('update','ConNuoiController@update');
-});
 // </editor-fold>//End Manage
 
 //Kết hôn
