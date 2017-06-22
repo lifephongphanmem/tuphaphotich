@@ -1,5 +1,5 @@
 
-<!--Modal Thoại Sổ khai sinh-->
+<!--Modal Thoại Sổ khai sinh Rp1-->
 <div id="SoKs-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
     <div class="modal-dialog">
         {!! Form::open(['url'=>'/reports/sokhaisinh','target'=>'_blank' , 'id' => 'frm_SoKs', 'class'=>'form-horizontal form-validate']) !!}
@@ -35,7 +35,45 @@
         </div>
     </div>
 </div>
-<!--Modal Thoại Sổ kết hôn-->
+
+<!--Modal Thoại Sổ xác định tình trạng hôn nhân RP3-->
+<div id="SoXdTtHn-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/sotthonnhan','target'=>'_blank' , 'id' => 'frm_SoXdTtHn', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Sổ cấp giấy xác nhận tình trạng hôn nhân</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="huyen" id="huyen" value="{{$mahuyen}}">
+                <input type="text" name="xa" id="xa" value="{{$maxa}}">
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport3()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<!--Modal Thoại Sổ kết hôn Rp4-->
 <div id="SoKh-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
     <div class="modal-dialog">
         {!! Form::open(['url'=>'/reports/sokethon','target'=>'_blank' , 'id' => 'frm_SoKh', 'class'=>'form-horizontal form-validate']) !!}
@@ -72,6 +110,9 @@
     </div>
 </div>
 
+
+
+
 <script>
     function ClickReport1(){
         $('#frm_SoKs').submit();
@@ -79,4 +120,8 @@
     function ClickReport4(){
         $('#frm_SoKh').submit();
     }
+    function ClickReport3(){
+        $('#frm_SoXdTtHn').submit();
+    }
+
 </script>

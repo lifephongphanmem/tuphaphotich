@@ -117,8 +117,8 @@ class ReportsController extends Controller
                 $tencq = $xa.' - '.$huyen .' - '.$tinh;
             }
             $model = TTHonNhan::where('trangthai','Duyệt')
-                ->where('maxa',$inputs['maxa'])
-                ->where('mahuyen',$inputs['mahuyen'])
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngayxn', [$ngaytu, $ngayden])
                 ->get();
             return view('reports.tthonnhan.sotthonnhan')

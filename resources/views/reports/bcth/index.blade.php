@@ -13,11 +13,34 @@
             $(":input").inputmask();
         });
     </script>
+    <script>
+        $(function(){
+
+            $('#select_huyen, #select_xa').change(function() {
+                var current_path_url = '/reports?';
+                if($(this).attr('id') == 'select_huyen'){
+                    $('#select_xa').val('all');
+                }
+                var maxa = '';
+                if($('#select_xa').length > 0 ){
+                    var maxa = '&maxa='+$('#select_xa').val();
+                }
+                var mahuyen = '';
+                if($('#select_huyen').length > 0 ){
+                    var mahuyen = '&mahuyen='+$('#select_huyen').val();
+                }
+                var url = current_path_url+mahuyen+maxa;
+                window.location.href = url;
+            });
+        })
+
+
+    </script>
+
+
 @stop
 
 @section('content')
-
-
     <h3 class="page-title">
         Sổ sách báo cáo tổng hợp<small>tư pháp hộ tịch</small>
     </h3>
@@ -66,25 +89,15 @@
                         <div class="col-lg-12">
                             <ol>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai sinh</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
-                                <li><a data-target="#SoXNHN" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ kết hôn</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ nhận cha mẹ con</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>
-                                <li><a data-target="#SoKt-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
-                                <li><a data-target="#SoXdtthn-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
-                                <li><a data-target="#SoKh-thoai-confirm" data-toggle="modal" onclick="getMa()">Sổ đăng ký kết hôn</a></li>
-                                <li><a data-target="#SoGh-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
-                                <li><a data-target="#SoCdgh-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
-                                <li><a data-target="#SoCmc-thoai-confirm" data-toggle="modal">Sổ nhận cha mẹ con</a></li>
-                                <li><a data-target="#SoTl-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
-                                <li><a data-target="#SoTd-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
-                                <li><a data-target="#SoLh-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>
-
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
+                                <li><a data-target="#SoXdTtHn-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
+                                <li><a data-target="#SoKh-thoai-confirm" data-toggle="modal">Sổ đăng ký kết hôn</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ nhận cha mẹ con</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
+                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>
                             </ol>
                         </div>
                     </div>
@@ -92,8 +105,5 @@
             </div>
         </div>
     </div>
-
-
     @include('reports.bcth.modal-thoai')
-    @include('reports.tthonnhan.modal-thoai')
 @stop
