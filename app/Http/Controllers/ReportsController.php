@@ -6,6 +6,7 @@ use App\Districts;
 use App\GeneralConfigs;
 use App\KhaiSinh;
 use App\Towns;
+use App\TTHonNhan;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -85,6 +86,42 @@ class ReportsController extends Controller
                 ->with('model',$model)
                 ->with('tencq',$tencq)
                 ->with('pageTitle','Sổ khai sinh');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+    public function sotthonnhan(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+            if(session('admin')->level == 'T'){
+                $tencq = GeneralConfigs::first()->tendv;
+            }elseif(session('admin')=='H'){
+                $huyen = Districts::where('mahuyen',session('admin')->mahuyen)
+                    ->first()->tenhuyen;
+                $tinh = GeneralConfigs::first()->tendv;
+                $tencq = $huyen .' - '.$tinh;
+            }else{
+                $xa = Towns::where('maxa',session('admin')->maxa)->first()->tenxa;
+                $huyen = Districts::where('mahuyen',session('admin')->mahuyen)
+                    ->first()->tenhuyen;
+                $tinh = GeneralConfigs::first()->tendv;
+                $tencq = $xa.' - '.$huyen .' - '.$tinh;
+            }
+            $model = TTHonNhan::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['maxa'])
+                ->where('mahuyen',$inputs['mahuyen'])
+                ->whereBetween('ngayxn', [$ngaytu, $ngayden])
+                ->get();
+            return view('reports.tthonnhan.sotthonnhan')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ cấp giấy xác nhận tình trạng hôn nhân');
 
         } else {
             return view('errors.notlogin');

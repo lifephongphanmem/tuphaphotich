@@ -54,6 +54,7 @@ Route::post('towns/delete','TownsController@destroy');
 // <editor-fold defaultstate="collapsed" desc="--Reports--">
 Route::get('reports','ReportsController@index');
 Route::post('reports/sokhaisinh','ReportsController@sokhaisinh');
+Route::post('reports/sotthonnhan','ReportsController@sotthonnhan');
 // </editor-fold>//End Reports
 
 // <editor-fold defaultstate="collapsed" desc="--Manage--">
@@ -77,6 +78,15 @@ Route::group(['prefix'=>'khaitu'],function(){
     Route::post('/{id}/edit','KhaiTuController@update');
     Route::get('update','KhaiTuController@update');
 });
+
+//Tình trạn hôn nhân
+
+Route::resource('tthonnhan','TTHonNhanController');
+Route::get('tthonnhan/{id}/show','TTHonNhanController@show');
+Route::post('tthonnhan/delete','TTHonNhanController@destroy');
+Route::post('tthonnhan/duyet','TTHonNhanController@duyet');
+Route::post('tthonnhan/prints','TTHonNhanController@prints');
+
 
 Route::group(['prefix'=>'connuoi'],function(){
     Route::get('danhsach','ConNuoiController@index');

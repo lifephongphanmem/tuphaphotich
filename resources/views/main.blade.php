@@ -315,7 +315,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @if(canGeneral('tthonnhan','index'))
                         @if(can('tthonnhan','index'))
                             <li>
-                                <a href="{{url('tinhtranghonnhan')}}">
+                                <a href="{{url('tthonnhan')}}">
                                     <i class="icon-users"></i>
                                     <span class="title">Tình trạng hôn nhân</span>
                                 </a>

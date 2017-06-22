@@ -34,7 +34,7 @@
                             <ol>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai sinh</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
-                                <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
+                                <li><a data-target="#SoXNHN" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ kết hôn</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
@@ -42,7 +42,6 @@
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>
-
                             </ol>
                         </div>
                     </div>
@@ -51,4 +50,5 @@
         </div>
     </div>
     @include('reports.bcth.modal-thoai')
+    @include('reports.tthonnhan.modal-thoai')
 @stop
