@@ -240,29 +240,15 @@ class KhaiSinhController extends Controller
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
             $model = KhaiSinh::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
             $xa = $modelxa->tenxa;
-            $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
-            $huyen = $modelhuyen->tenhuyen;
-            $tinh = GeneralConfigs::first()->tendv;
-            if($inputs['plgiayks']== 'Bản chính'){
-                return view('reports.khaisinh.print')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
-                    ->with('pageTitle','In giấy khai sinh bản chính');
-            }else{
-                return view('reports.khaisinh.printtrichluc')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
-                    ->with('huyen',$huyen)
-                    ->with('tinh',$tinh)
-                    ->with('pageTitle','In giấy khai sinh bản sao');
-            }
+            return view('reports.khaisinh.print')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('pageTitle','In giấy khai sinh bản chính');
 
         }else
             return view('errors.notlogin');

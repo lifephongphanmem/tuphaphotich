@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ConNuoi;
 use App\Districts;
+use App\KetHon;
+use App\KhaiSinh;
+use App\KhaiTu;
+use App\SoHoTich;
 use App\Towns;
+use App\TTHonNhan;
 use App\Users;
 use Illuminate\Http\Request;
 
@@ -69,7 +75,7 @@ class AjaxController extends Controller
 
         if(isset($inputs['mahuyen'])){
             $xas = Towns::where('mahuyen', $inputs['mahuyen'])->get();
-            $result['message'] = '<select name="maxa" class="form-control">';
+            $result['message'] = '<select name="maxa" id="maxa" class="form-control">';
             if(count($xas) > 0){
                 foreach($xas as $xa){
                     $result['message'] .= '<option value="'.$xa->maxa.'">'.$xa->tenxa.'</option>';

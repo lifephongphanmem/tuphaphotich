@@ -10,15 +10,14 @@ class CapBanSaoTrichLuc extends Model
     protected $table = 'capbansaotrichluc';
     protected $fillable = [
         'id',
-        'matinh',
-        'mahuyen',
-        'maxa',
-        'level',
+        'madv',
         'ngaycap',
+        'level',
         'sotrichluc',
         'quyentrichluc',
         'plbstrichluc',
-        'mahs',
+        'quyenhotich',
+        'sohotich',
         'nguoiky',
         'chucvu',
         'soluongbs',
@@ -26,5 +25,6 @@ class CapBanSaoTrichLuc extends Model
         'hotennyc',
         'plgiaytonyc',
         'sogiaytonyc',
+        'trangthai'
     ];
 }

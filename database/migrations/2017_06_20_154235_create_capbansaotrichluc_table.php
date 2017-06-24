@@ -15,15 +15,14 @@ class CreateCapbansaotrichlucTable extends Migration
     {
         Schema::create('capbansaotrichluc', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('matinh')->nullable();
-            $table->string('mahuyen')->nullable();
-            $table->string('maxa')->nullable();
+            $table->string('madv')->nullable();
             $table->string('level')->nullable();
             $table->date('ngaycap')->nullable();
             $table->string('sotrichluc')->nullable();
             $table->string('quyentrichluc')->nullable();
             $table->string('plbstrichluc')->nullable();
-            $table->string('mahs')->nullable();
+            $table->string('quyenhotich')->nullable();
+            $table->string('sohotich')->nullable();
             $table->string('nguoiky')->nullable();
             $table->string('chucvu')->nullable();
             $table->string('soluongbs')->nullable();
@@ -31,6 +30,7 @@ class CreateCapbansaotrichlucTable extends Migration
             $table->string('hotennyc')->nullable();
             $table->string('plgiaytonyc')->nullable();
             $table->string('sogiaytonyc')->nullable();
+            $table->string('trangthai')->nullable();
             $table->timestamps();
         });
     }

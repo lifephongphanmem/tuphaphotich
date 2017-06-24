@@ -69,7 +69,7 @@ Route::resource('khaisinh','KhaiSinhController');
 Route::get('khaisinh/{id}/show','KhaiSinhController@show');
 Route::post('khaisinh/delete','KhaiSinhController@destroy');
 Route::post('khaisinh/duyet','KhaiSinhController@duyet');
-Route::post('khaisinh/prints','KhaiSinhController@prints');
+Route::get('khaisinh/{id}/prints','KhaiSinhController@prints');
 
 Route::group(['prefix'=>'khaitu'],function(){
     Route::get('danhsach','KhaiTuController@index');
@@ -134,6 +134,10 @@ Route::post('kethon/prints','KetHonController@prints');
 
 //Trích lục
 Route::resource('capbansaotrichluc','CapBanSaoTrichLucController');
+Route::get('capbansaotrichluc/{id}/show','CapBanSaoTrichLucController@show');
+Route::post('capbansaotrichluc/delete','CapBanSaoTrichLucController@destroy');
+Route::post('capbansaotrichluc/duyet','CapBanSaoTrichLucController@duyet');
+Route::get('capbansaotrichluc/{id}/prints','CapBanSaoTrichLucController@prints');
 //End Trích lục
 //Sổ hộ tịch
 Route::resource('sohotich','SoHoTichController');

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\CapBanSaoTrichLuc;
 use App\Districts;
+use App\GeneralConfigs;
+use App\KhaiSinh;
+use App\SoHoTich;
 use App\Towns;
 use Illuminate\Http\Request;
 
@@ -25,11 +28,10 @@ class CapBanSaoTrichLucController extends Controller
                 $model = $model->where('level','T');
             }elseif(session('admin')->level == 'H'){
                 $model = $model->where('level','H')
-                    ->where('mahuyen',session('admin')->mahuyen);
+                    ->where('madv',session('admin')->mahuyen);
             }else{
                 $model = $model->where('level','X')
-                    ->where('mahuyen',session('admin')->mahuyen)
-                    ->where('maxa',session('admin')->maxa);
+                    ->where('madv',session('admin')->maxa);
             }
             $model = $model->get();
             $count = $model->count();
@@ -45,7 +47,166 @@ class CapBanSaoTrichLucController extends Controller
 
     public function create(){
         if (Session::has('admin')) {
+            if(session('admin')->level == 'T') {
+                $quyenhotichs = getQuyenHoTichT('Khai sinh');
+            }elseif(session('admin')->level == 'H'){
+                $quyenhotichs = getQuyenHoTichH(session('admin')->mahuyen,'Khai sinh');
+            }else {
+                $quyenhotichs = getQuyenHoTichX(session('admin')->maxa,session('admin')->mahuyen, 'Khai sinh');
+            }
+            return view('manage.capbansaotrichluc.create')
+                ->with('quyenhotichs',$quyenhotichs)
+                ->with('pageTitle','Thêm mới thông tin cấp bản sao trích lục');
         }else
             return view('errors.notlogin');
     }
+
+    public function store(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+
+            $inputs['trangthai'] = 'Chờ duyệt';
+
+            $inputs['ngaycap'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycap'])));
+            if(session('admin')->level == 'T'){
+                $inputs['madv'] = getmatinh();
+                $inputs['level'] = 'T';
+                $inputs['quyentrichluc'] = $inputs['madv'].'TLBS'.date('Y');
+                $inputs['sotrichluc'] = $this->getSoHoTich($inputs['madv'],$inputs['quyentrichluc'] );
+            }elseif(session('admin')->levle == 'H'){
+                $inputs['madv'] = session('admin')->mahuyen;
+                $inputs['level'] = 'H';
+                $inputs['quyentrichluc'] = $inputs['madv'].'TLBS'.date('Y');
+                $inputs['sotrichluc'] = $this->getSoHoTich($inputs['madv'],$inputs['quyentrichluc'] );
+            }else{
+                $inputs['madv'] = session('admin')->maxa;
+                $inputs['level'] = 'X';
+                $inputs['quyentrichluc'] = $inputs['madv'].'TLBS'.date('Y');
+                $inputs['sotrichluc'] = $this->getSoHoTich($inputs['madv'],$inputs['quyentrichluc'] );
+            }
+            $model = new CapBanSaoTrichLuc();
+            $model->create($inputs);
+            return redirect('capbansaotrichluc');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function getSoHoTich($madv,$quyen){
+        $idmax = CapBanSaoTrichLuc::where('madv',$madv)
+            ->where('quyentrichluc',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =CapBanSaoTrichLuc::where('id', $idmax)->first();
+            $stt = $model->sotrichluc + 1;
+        }
+        return $stt;
+    }
+
+    public function show($id){
+        if (Session::has('admin')) {
+            $model = CapBanSaoTrichLuc::find($id);
+            if($model->plbstrichluc == 'Khai sinh') {
+                $modeltt = KhaiSinh::where('quyen',$model->quyenhotich)
+                    ->where('so',$model->sohotich)
+                    ->first();
+
+                return view('manage.capbansaotrichluc.show')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('pageTitle', 'Thông tin cấp trích lục bản sao');
+            }
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function edit($id){
+        if (Session::has('admin')) {
+            $model = CapBanSaoTrichLuc::find($id);
+
+                return view('manage.capbansaotrichluc.edit')
+                    ->with('model', $model)
+                    ->with('pageTitle', 'Chỉnh sửa thông tin cấp trích lục bản sao');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function update(Request $request,$id){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $inputs['ngaycap'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycap'])));
+            $model = CapBanSaoTrichLuc::find($id);
+            $model->update($inputs);
+            return redirect('capbansaotrichluc');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroy(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = CapBanSaoTrichLuc::find($id);
+            $model->delete();
+            return redirect('capbansaotrichluc');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function duyet(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idduyet'];
+            $model = CapBanSaoTrichLuc::find($id);
+            $model->trangthai = 'Duyệt';
+            $model->save();
+            return redirect('capbansaotrichluc');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function prints($id){
+        if (Session::has('admin')) {
+
+            $model = CapBanSaoTrichLuc::find($id);
+
+            if($model->level == 'T'){
+                $tinh = GeneralConfigs::first()->tendv;
+                $huyen = '';
+                $xa = '';
+            }elseif($model->level == 'H'){
+                $tinh = GeneralConfigs::first()->tendv;
+                $huyen = Districts::where('mahuyen',$model->madv)->first()->tenhuyen;
+                $xa = '';
+            }else{
+                $tinh = GeneralConfigs::first()->tendv;
+                $modelxa = Towns::where('maxa',$model->madv)->first();
+                $xa = $modelxa->tenxa;
+                $modelhuyen = Districts::where('mahuyen',$modelxa->maxa)->first();
+                $huyen = $modelhuyen->tenhuyen;
+            }
+            if($model->plbstrichluc == 'Khai sinh') {
+                $modeltt = KhaiSinh::where('quyen',$model->quyenhotich)
+                    ->where('so',$model->sohotich)
+                    ->first();
+
+                $noidkks = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
+                return view('reports.khaisinh.printtrichluc')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('tinh', $tinh)
+                    ->with('huyen', $huyen)
+                    ->with('xa', $xa)
+                    ->with('noidkks',$noidkks)
+                    ->with('pageTitle', 'In giấy khai sinh bản sao');
+            }
+
+        }else
+            return view('errors.notlogin');
+    }
+
 }

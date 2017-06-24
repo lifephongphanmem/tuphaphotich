@@ -282,12 +282,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                 </li>
                 @if(session('admin')->sadmin != 'sa')
-                    <li>
+                    <!--li>
                         <a href="{{url('sohotich')}}">
                             <i class="icon-users"></i>
                             <span class="title">Danh mục sổ hộ tịch</span>
                         </a>
-                    </li>
+                    </li-->
                     @if(canGeneral('congdan','index'))
                         @if(can('congdan','index'))
                             <li>

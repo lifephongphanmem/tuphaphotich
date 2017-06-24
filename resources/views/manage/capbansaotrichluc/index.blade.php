@@ -24,19 +24,13 @@
         function getIdDuyet(id){
             document.getElementById("idduyet").value=id;
         }
-        function getIdPrints(id){
-            document.getElementById("idprints").value=id;
-        }
         function ClickDelete(){
             $('#frm_delete').submit();
         }
         function ClickDuyet(){
             $('#frm_duyet').submit();
         }
-        function ClickPrints(){
-            $('#frm_prints').submit();
-            $('#prints-modal').modal("hide");
-        }
+
     </script>
     <script>
         $(function(){
@@ -65,9 +59,6 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        @if(can('capbansao','create'))
-                        <a href="{{url('capbansaotrichluc/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
-                        @endif
                     </div>
                 </div>
 
@@ -112,23 +103,22 @@
                             <th style="text-align: center" width="2%">STT</th>
                             <th style="text-align: center" width="5%">Ngày cấp</th>
                             <th style="text-align: center" width="20%%">Họ và tên người yêu cầu</th>
-                            <th style="text-align: center" width="10%">Giấy tờ</th>
                             <th style="text-align: center" width="10%%">Loại bản sao trích lục</th>
                             <th style="text-align: center" width="5%%">Số lượng</th>
-                            <th style="text-align: center" width="5%%">Người ký</th>
-                            <th style="text-align: center">Trạng thái</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
+                            <th style="text-align: center" width="15%%">Người ký</th>
+                            <th style="text-align: center" width="10%">Trạng thái</th>
+                            <th style="text-align: center">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
-                                <td style="text-align: center">{{getDayVn($tt->ngaydangky)}}</td>
-                                <td class="active"><b>{{$tt->hotenvo}}</b></td>
-                                <td style="text-align: center">{{getDayVn($tt->ngaysinhvo)}}</td>
-                                <td class="active"><b>{{$tt->hotenchong}}</b></td>
-                                <td style="text-align: center">{{getDayVn($tt->ngaysinhchong)}}</td>
+                                <td style="text-align: center">{{getDayVn($tt->ngaycap)}}</td>
+                                <td class="active"><b>{{$tt->hotennyc}}<br>{{$tt->plgiaytonyc}}-{{$tt->sogiaytonyc}}</b></td>
+                                <td class="active" style="text-align: center;"><b>{{$tt->plbstrichluc}}</b></td>
+                                <td style="text-align: center">{{number_format($tt->soluongbs)}}</td>
+                                <td class="active"><b>{{$tt->nguoiky}}-{{$tt->chucvu}}</b></td>
                                 @if($tt->trangthai == 'Chờ duyệt')
                                     <td align="center"><span class="badge badge-blue">{{$tt->trangthai}}</span>
                                     </td>
@@ -137,21 +127,20 @@
                                     </td>
                                 @endif
                                 <td>
-                                    <a href="{{url('kethon/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url('capbansaotrichluc/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
                                     @if($tt->trangthai == 'Chờ duyệt')
-                                        @if(can('kethon','edit'))
-                                            <a href="{{url('kethon/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        @if(can('capbansao','edit'))
+                                            <a href="{{url('capbansaotrichluc/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-                                        @if(can('kethon','delete'))
+                                        @if(can('capbansao','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
                                         @endif
-                                        @if(can('kethon','approve'))
+                                        @if(can('capbansao','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else
-                                        <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                            In</button>
+                                        <a href="{{url('capbansaotrichluc/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                     @endif
                                 </td>
 
@@ -199,42 +188,6 @@
                 <input type="hidden" name="idduyet" id="idduyet">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDuyet()">Đồng ý</button>
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
-                {!! Form::close() !!}
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {!! Form::open(['url'=>'capbansaotrichluc/prints','id' => 'frm_prints','target'=>'_blank'])!!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">In giấy kết hôn</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"><b>Phân loại in</b></label>
-                            <div class="col-md-6 ">
-                                {!! Form::select(
-                                'plgiay',
-                                array(
-                                'Bản chính' => 'Bản chính',
-                                'Bản sao' => 'Bản sao'
-                                ),null,
-                                array('id' => 'plgiay', 'class' => 'form-control'))
-                                !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" name="idprints" id="idprints">
-                <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}

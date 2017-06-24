@@ -24,18 +24,11 @@
         function getIdDuyet(id){
             document.getElementById("idduyet").value=id;
         }
-        function getIdPrints(id){
-            document.getElementById("idprints").value=id;
-        }
         function ClickDelete(){
             $('#frm_delete').submit();
         }
         function ClickDuyet(){
             $('#frm_duyet').submit();
-        }
-        function ClickPrints(){
-            $('#frm_prints').submit();
-            $('#prints-modal').modal("hide");
         }
     </script>
     <script>
@@ -186,8 +179,7 @@
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else
-                                        <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                            In</button>
+                                        <a href="{{url('khaisinh/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                     @endif
                                 </td>
 
@@ -235,42 +227,6 @@
                 <input type="hidden" name="idduyet" id="idduyet">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickDuyet()">Đồng ý</button>
-                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-                </div>
-                {!! Form::close() !!}
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {!! Form::open(['url'=>'khaisinh/prints','id' => 'frm_prints','target'=>'_blank'])!!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">In giấy khai sinh</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"><b>Giấy khai sinh</b></label>
-                            <div class="col-md-6 ">
-                                {!! Form::select(
-                                'plgiayks',
-                                array(
-                                'Bản chính' => 'Bản chính',
-                                'Bản sao' => 'Bản sao'
-                                ),null,
-                                array('id' => 'plgiayks', 'class' => 'form-control'))
-                                !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" name="idprints" id="idprints">
-                <div class="modal-footer">
-                    <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
                 </div>
                 {!! Form::close() !!}

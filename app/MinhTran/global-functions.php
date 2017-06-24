@@ -225,7 +225,6 @@ function getPermissionDefault($level) {
     return json_encode($roles[$level]);
 }
 
-
 function getDayVn($date) {
     if($date != null || $date != '')
         $newday = date('d/m/Y',strtotime($date));
@@ -233,6 +232,7 @@ function getDayVn($date) {
         $newday='';
     return $newday;
 }
+
 function getDateTime($date) {
     if($date != null)
         $newday = date('d/m/Y H:i:s',strtotime($date));
@@ -397,6 +397,43 @@ function getQuocTichSelectOptions() {
     return $options;
 }
 
+function getQuyenHoTichT($plhotich){
+    $quyenhotichs = \App\SoHoTich::where('plhotich',$plhotich)
+        ->get();
+
+    $options = array();
+
+    foreach ($quyenhotichs as $quyenhotich) {
+
+        $options[$quyenhotich->quyenhotich] = $quyenhotich->quyenhotich;
+    }
+    return $options;
+}
+function getQuyenHoTichH($mahuyen,$plhotich){
+    $quyenhotichs = \App\SoHoTich::where('plhotich',$plhotich)
+        ->where('mahuyen',$mahuyen)
+        ->get();
+
+    $options = array();
+
+    foreach ($quyenhotichs as $quyenhotich) {
+
+        $options[$quyenhotich->quyenhotich] = $quyenhotich->quyenhotich;
+    }
+    return $options;
+}
+function getQuyenHoTichX($maxa,$mahuyen,$plhotich){
+    $quyenhotichs = \App\SoHoTich::where('plhotich',$plhotich)
+        ->where('mahuyen',$mahuyen)
+        ->where('maxa',$maxa)
+        ->get();
+    $options = array();
+    foreach ($quyenhotichs as $quyenhotich) {
+        $options[$quyenhotich->quyenhotich] = $quyenhotich->quyenhotich;
+    }
+    return $options;
+}
+
 function listHuyen(){
     return \App\Districts::all();
 }
@@ -404,6 +441,5 @@ function listHuyen(){
 function listXa($huyen){
     return \App\Towns::where('mahuyen',$huyen)->get();
 }
-
 
 ?>

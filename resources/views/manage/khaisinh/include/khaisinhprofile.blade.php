@@ -64,7 +64,6 @@
                         <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachink}}</td>
                     </tr>
 
-
                     </tbody>
                 </table>
                 <!-- end of table profile -->
@@ -72,3 +71,4 @@
         </div>
     </div>
 </div>
+

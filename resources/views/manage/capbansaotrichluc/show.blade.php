@@ -31,27 +31,13 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <h3 class="page-title">
-                        Thông tin<small>&nbsp;kết hôn</small>
+                        Thông tin<small>&nbsp;cấp bản sao trích lục</small>
                     </h3>
                 </div>
                 <div class="portlet-body">
-                    <div class="tabbable-line boxless">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#tab_1" data-toggle="tab">
-                            Thông tin khai sinh </a>
-                    </li>
-                    <li>
-                        <a href="#tab_2" data-toggle="tab">
-                            Thông tin thay đổi </a>
-                    </li>
-
-                </ul>
-                <div class="tab-content">
-                    @include('manage.kethon.include.kethonprofile')
-                    @include('manage.kethon.include.thaydoiprofile')
-                </div>
-            </div>
+                    @if($model->plbstrichluc == 'Khai sinh')
+                        @include('manage.capbansaotrichluc.include.khaisinhprofile')
+                    @endif
                 </div>
             </div>
         </div>

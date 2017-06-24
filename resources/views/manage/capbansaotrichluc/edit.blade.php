@@ -16,162 +16,130 @@
             $(":input").inputmask();
         });
     </script>
-    <script>
-        jQuery(document).ready(function() {
-            FormWizard.init();
-        });
-    </script>
+
 @stop
 
 @section('content')
     <h3 class="page-title">
-        Thông tin khai sinh<small> chỉnh sửa</small>
+        Thông tin cấp bản sao trích lục<small> chỉnh sửa</small>
     </h3>
-    <div class="row">
-        {!! Form::model($model, ['method' => 'PATCH', 'url'=>'kethon/'. $model->id, 'class'=>'horizontal-form']) !!}
-        <div class="col-md-12">
-            <div class="portlet box blue" id="form_wizard_1">
-                <div class="portlet-body form" id="form_wizard">
-                    <div class="form-body">
-                        <ul class="nav nav-pills nav-justified steps">
-                            <li><a href="#tab1" data-toggle="tab" class="step">
-                                        <span class="badge badge-default">
-                                        1 </span>
-                                    <p class="description">Thông tin kết hôn</p>
-                                </a>
-                            </li>
-                            <li><a href="#tab2" data-toggle="tab" class="step">
-                                    <span class="badge badge-default">
-                                        2 </span>
-                                    <p class="description">Thông tin vợ</p></a>
-                            </li>
-                            <li><a href="#tab3" data-toggle="tab" class="step">
-                                     <span class="badge badge-default">
-                                        3 </span>
-                                    <p class="description">Thông tin chồng</p></a>
-                            </li>
-                        </ul>
-                        <div id="bar" class="progress progress-striped" role="progressbar">
-                            <div class="progress-bar progress-bar-blue">
-                            </div>
-                        </div>
+    <div class="row center">
+        <div class="col-md-12 center">
+            <!-- BEGIN VALIDATION STATES-->
+            <div class="portlet box blue">
+                <!--div class="portlet-title">
+                </div-->
+                <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                {!! Form::model($model, ['method' => 'PATCH', 'url'=>'capbansaotrichluc/'. $model->id, 'class'=>'horizontal-form','id'=>'edit_capbansaotrichluc']) !!}
+                <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-                        <div class="tab-content">
-                            @include('manage.kethon.include.hoso')
-                            @include('manage.kethon.include.ttvo')
-                            @include('manage.kethon.include.ttchong')
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-offset-1 col-md-1" style="text-align: left">
-                                <button type="button" name="previous" value="Previous" class="btn default button-previous">
-                                    <i class="fa fa-arrow-circle-o-left mrx"></i>&nbsp;Trước
-                                </button>
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Ngày cấp<span class="require">*</span></label>
+                                {!!Form::text('ngaycap',date('d/m/Y',  strtotime($model->ngaycap)), array('id' => 'ngaycap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                             </div>
-                            <div class="col-md-offset-8 col-md-1" style="text-align: right">
-                                <button id="btnnext" type="button" name="next" value="Next" class="btn blue button-next">
-                                    Tiếp&nbsp;<i class="fa fa-arrow-circle-o-right mlx"></i></button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Ghi chú</label>
+                                {!! Form::select(
+                                'ghichu',
+                                array(
+                                'Từ Sổ đăng ký hộ tịch ' => 'Từ Sổ đăng ký hộ tịch ',
+                                'Cơ sở dữ liệu hộ tịch điện tử theo quy trình tin học' => 'Cơ sở dữ liệu hộ tịch điện tử theo quy trình tin học',
+                                ),null,
+                                array('id' => 'ghichu', 'class' => 'form-control required'))
+                                !!}
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Người ký<span class="require">*</span></label>
+                                {!!Form::text('nguoiky', null, array('id' => 'nguoiky','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Chức vụ<span class="require">*</span></label>
+                                {!!Form::text('chucvu', null, array('id' => 'chucvu','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Người thực hiện<span class="require">*</span></label>
+                                {!!Form::text('nguoithuchien', null, array('id' => 'nguoithuchien','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Số lượng bản sao<span class="require">*</span></label>
+                                {!!Form::number('soluongbs', null, array('id' => 'soluongbs','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Họ tên người yêu cầu</label>
+                                {!!Form::text('hotennyc', null, array('id' => 'hotennyc','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Giấy tờ</label>
+                                    {!! Form::select(
+                                    'plgiaytonyc',
+                                    array(
+                                    'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                                    'Hộ chiếu' => 'Hộ chiếu',
+                                    'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                                    ),null,
+                                    array('id' => 'plgiaytonyc', 'class' => 'form-control required'))
+                                    !!}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Thông tin giấy tờ<span class="require">*</span></label>
+                                {!!Form::text('sogiaytonyc',null, array('id' => 'sogiaytonyc','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div style="text-align: center">
-                <a href="{{url('kethon')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
+                <!-- END FORM-->
             </div>
         </div>
+
+        <div style="text-align: center">
+            <a href="{{url('capbansaotrichluc')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
+            <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Hoàn thành</button>
+        </div>
         {!! Form::close() !!}
+        </div>
     </div>
-    <script>
+    <script type="text/javascript">
         function validateForm(){
 
-            var str = '',strb1='',strb2='',strb3='';
-            var ok = true;
-
-            if($('#ngaydangky').val()==''){
-                strb1 += ' - Ngày đăng ký\n';
-                ok = false;
-            }
-            if($('#sokethon').val()==''){
-                strb1 += ' - Số kết hôn\n';
-                ok = false;
-            }
-            if($('#quyenkethon').val()==''){
-                strb1 += '  - Quyển kết hôn\n';
-                ok = false;
-            }
-            if($('#nguoiky').val()==''){
-                strb1 += '  - Người ký \n';
-                ok = false;
-            }
-            if($('#chucvunguoiky').val()==''){
-                strb1 += '  - Chức vụ người ký \n';
-                ok = false;
-            }
-            if($('#nguoithuchien').val()==''){
-                strb1 += '  - Người thực hiện \n';
-                ok = false;
-            }
-
-
-            if($('#hotenvo').val()==''){
-                strb2 += ' - Họ, chữ đệm, tên vợ\n';
-                ok = false;
-            }
-            if($('#sogiaytovo').val()==''){
-                strb2 += '  - Số giấy tờ vợ\n';
-                ok = false;
-            }
-
-            if($('#diachivo').val()==''){
-                strb2 += '  - Địa chỉ vợ \n';
-                ok = false;
-            }
-            if($('#ngaysinhvo').val()==''){
-                strb2 += '  - Ngày sinh vợ \n';
-                ok = false;
-            }
-
-            if($('#hotenchong').val()==''){
-                strb3 += ' - Họ, chữ đệm, tên chong\n';
-                ok = false;
-            }
-            if($('#sogiaytochong').val()==''){
-                strb3 += '  - Số giấy tờ chong\n';
-                ok = false;
-            }
-
-            if($('#diachichong').val()==''){
-                strb3 += '  - Địa chỉ chồng \n';
-                ok = false;
-            }
-            if($('#ngaysinhchong').val()==''){
-                strb3 += '  - Ngày sinh chồng \n';
-                ok = false;
-            }
-
-
-
-            //Kết quả
-            if ( ok == false){
-                if(strb1!='')
-                    str+='Bước 1: Thông tin kết hôn \n '+strb1 ;
-                if(strb2!='')
-                    str+='Bước 2: Thông tin người vợ \n '+strb2 ;
-                if(strb3!='')
-                    str+='Bước 3: Thông tin người chồng \n '+strb3 ;
-
-                alert('Thông tin không được để trống \n' + str );
-                $("form").submit(function (e) {
-                    e.preventDefault();
-                });
-            }
-            else{
-                $("form").unbind('submit').submit();
-            }
-
+            var validator = $("#edit_capbansaotrichluc").validate({
+                rules: {
+                    ten :"required"
+                },
+                messages: {
+                    ten :"Chưa nhập dữ liệu"
+                }
+            });
         }
     </script>
 @stop
