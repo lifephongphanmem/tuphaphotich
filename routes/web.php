@@ -71,6 +71,27 @@ Route::post('khaisinh/delete','KhaiSinhController@destroy');
 Route::post('khaisinh/duyet','KhaiSinhController@duyet');
 Route::post('khaisinh/prints','KhaiSinhController@prints');
 
+Route::group(['prefix'=>'khaitu'],function(){
+    Route::get('danhsach','KhaiTuController@index');
+    Route::get('create','KhaiTuController@create');
+    Route::post('store','KhaiTuController@store');
+    Route::post('delete','KhaiTuController@delete');
+    Route::get('/{id}/edit','KhaiTuController@edit');
+    Route::post('/{id}/edit','KhaiTuController@update');
+    Route::get('update','KhaiTuController@update');
+});
+Route::resource('dangkygiamho','giamhoController');
+Route::post('dangkygiamho/delete','giamhoController@destroy');
+Route::get('dangkygiamho/{id}/show','giamhoController@show');
+Route::post('dangkygiamho/duyet','giamhoController@duyet');
+Route::post('dangkygiamho/prints','giamhoController@prints');
+
+Route::resource('dangkynhanchamecon','chameconController');
+Route::post('dangkynhanchamecon/delete','chameconController@destroy');
+Route::get('dangkynhanchamecon/{id}/show','chameconController@show');
+Route::post('dangkynhanchamecon/duyet','chameconController@duyet');
+Route::post('dangkynhanchamecon/prints','chameconController@prints');
+
 //End khai sinh
 
 //Khai tử
