@@ -109,7 +109,43 @@
         </div>
     </div>
 </div>
-
+<!--Modal Thoại Sổ cấp bản sao Rp8-->
+<div id="SoTrichLuc-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/sotrichluc','target'=>'_blank' , 'id' => 'frm_SoTrichLuc', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Sổ trích lục</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 "><b>Ghi chú: Sổ cấp bản sao trích lục chỉ in tại đơn vị không chọn được đơn vị để in</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport8()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
 
 
 
@@ -122,6 +158,9 @@
     }
     function ClickReport3(){
         $('#frm_SoXdTtHn').submit();
+    }
+    function ClickReport8(){
+        $('#frm_SoTrichLuc').submit();
     }
 
 </script>

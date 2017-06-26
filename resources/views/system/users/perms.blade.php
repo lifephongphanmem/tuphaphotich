@@ -112,7 +112,6 @@
                                         <td><input type="checkbox" {{ (isset($permission->khaisinh->approve) && $permission->khaisinh->approve == 1) ? 'checked' : '' }} value="1" name="roles[khaisinh][approve]"/></td>
                                         <td>Xét duyệt</td>
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -146,7 +145,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->khaitu->delete) && $permission->khaitu->delete == 1) ? 'checked' : '' }} value="1" name="roles[khaitu][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->khaitu->approve) && $permission->khaitu->approve == 1) ? 'checked' : '' }} value="1" name="roles[khaitu][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -180,7 +182,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->tthonnhan->delete) && $permission->tthonnhan->delete == 1) ? 'checked' : '' }} value="1" name="roles[tthonnhan][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->tthonnhan->approve) && $permission->tthonnhan->approve == 1) ? 'checked' : '' }} value="1" name="roles[tthonnhan][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -213,6 +218,10 @@
                                     <tr>
                                         <td><input type="checkbox" {{ (isset($permission->kethon->delete) && $permission->kethon->delete == 1) ? 'checked' : '' }} value="1" name="roles[kethon][delete]"/></td>
                                         <td>Xóa</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->kethon->approve) && $permission->kethon->approve == 1) ? 'checked' : '' }} value="1" name="roles[kethon][approve]"/></td>
+                                        <td>Xét duyệt</td>
                                     </tr>
 
                                     </tbody>
@@ -248,6 +257,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->dkgiamho->delete) && $permission->dkgiamho->delete == 1) ? 'checked' : '' }} value="1" name="roles[dkgiamho][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->dkgiamho->approve) && $permission->dkgiamho->approve == 1) ? 'checked' : '' }} value="1" name="roles[dkgiamho][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
 
                                     </tbody>
                                 </table>
@@ -282,7 +295,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->dknhanchamecon->delete) && $permission->dknhanchamecon->delete == 1) ? 'checked' : '' }} value="1" name="roles[dknhanchamecon][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->dknhanchamecon->approve) && $permission->dknhanchamecon->approve == 1) ? 'checked' : '' }} value="1" name="roles[dknhanchamecon][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -316,7 +332,10 @@
                                         <td><input type="checkbox" {{ (isset($permission->capbansao->delete) && $permission->capbansao->delete == 1) ? 'checked' : '' }} value="1" name="roles[capbansao][delete]"/></td>
                                         <td>Xóa</td>
                                     </tr>
-
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->capbansao->approve) && $permission->capbansao->approve == 1) ? 'checked' : '' }} value="1" name="roles[capbansao][approve]"/></td>
+                                        <td>Xét duyệt</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -349,6 +368,10 @@
                                     <tr>
                                         <td><input type="checkbox" {{ (isset($permission->chungthuc->delete) && $permission->chungthuc->delete == 1) ? 'checked' : '' }} value="1" name="roles[chungthuc][delete]"/></td>
                                         <td>Xóa</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($permission->chungthuc->approve) && $permission->chungthuc->approve == 1) ? 'checked' : '' }} value="1" name="roles[chungthuc][approve]"/></td>
+                                        <td>Xét duyệt</td>
                                     </tr>
 
                                     </tbody>

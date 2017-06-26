@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CapBanSaoTrichLuc;
 use App\Districts;
 use App\GeneralConfigs;
 use App\KetHon;
@@ -158,6 +159,47 @@ class ReportsController extends Controller
                 ->with('model',$model)
                 ->with('tencq',$tencq)
                 ->with('pageTitle','Sổ đăng ký kết hôn');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sotrichluc(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            if(session('admin')->level == 'T') {
+                $model = CapBanSaoTrichLuc::where('trangthai', 'Duyệt')
+                    ->where('level','T')
+                    ->whereBetween('ngaycap', [$ngaytu, $ngayden])
+                    ->get();
+                $tendv = GeneralConfigs::first()->tendv;
+            }elseif(session('admin')->level == 'H') {
+                $model = CapBanSaoTrichLuc::where('trangthai', 'Duyệt')
+                    ->where('level', 'H')
+                    ->where('madv',session('admin')->mahuyen)
+                    ->whereBetween('ngaycap', [$ngaytu, $ngayden])
+                    ->get();
+                $tendv = Districts::where('mahuyen',session('admin')->mahuyen)->first()->tenhuyen;
+            }else{
+                $model = CapBanSaoTrichLuc::where('trangthai', 'Duyệt')
+                    ->where('level', 'X')
+                    ->where('madv',session('admin')->maxa)
+                    ->whereBetween('ngaycap', [$ngaytu, $ngayden])
+                    ->get();
+                $tendv = Towns::where('maxa',session('admin')->maxa)->first()->tenxa;
+            }
+
+            return view('reports.bcth.sotrichluc')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tendv',$tendv)
+                ->with('pageTitle','Sổ cấp bản sao trích lục');
 
         } else {
             return view('errors.notlogin');

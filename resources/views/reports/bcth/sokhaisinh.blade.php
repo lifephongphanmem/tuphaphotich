@@ -100,7 +100,7 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8">
     <tr>
         <td style="text-align: left;">
-            Số:..{{$tt->sokhaisinh}}.. Quyển..{{$tt->quyenkhaisinh}}..
+            Số:..{{$tt->so}}.. Quyển..{{$tt->quyen}}..
         </td>
 
         <td style="text-align: right;">
@@ -114,7 +114,7 @@
             <table>
                 <tr><td colspan="6"><b>Người được đăng ký khai sinh</b>  </td></tr>
                 <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenks}}</span></td></tr>
-                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} ghi bằng chữ: ..{{$tt->ngaysinhksbangchu}}..</td></tr>
+                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} ghi bằng chữ: ..{{getDateText($tt->ngaysinhks)}}..</td></tr>
                 <tr>
                     <td colspan="2">Giới tính: ..{{$tt->gioitinhkks}}..</td>
                     <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>

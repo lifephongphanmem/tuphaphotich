@@ -380,7 +380,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     @endif
                     <li>
                         <a href="{{url('reports')}}">
-                            <i class="icon-users"></i>
+                            <i class="fa fa-file-o fa-fw"></i>
                             <span class="title">Sổ sách báo cáo</span>
                         </a>
                     </li>

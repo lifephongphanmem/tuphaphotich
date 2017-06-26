@@ -57,6 +57,7 @@ Route::post('reports/sokhaisinh','ReportsController@sokhaisinh');
 Route::post('reports/sotthonnhan','ReportsController@sotthonnhan');
 Route::post('reports/sokhaitu','ReportsController@sokhaitu');
 Route::post('reports/sokethon','ReportsController@sokethon');
+Route::post('reports/sotrichluc','ReportsController@sotrichluc');
 // </editor-fold>//End Reports
 
 // <editor-fold defaultstate="collapsed" desc="--Manage--">
@@ -144,4 +145,7 @@ Route::resource('sohotich','SoHoTichController');
 Route::post('sohotich/delete','SoHoTichController@destroy');
 //End Trích lục
 
+Route::get('test',function(){
+    dd(getDateText('2017-05-05'));
+});
 
