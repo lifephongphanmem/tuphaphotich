@@ -264,10 +264,8 @@ class TTHonNhanController extends Controller
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
             $model = TTHonNhan::find($id);
             $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;

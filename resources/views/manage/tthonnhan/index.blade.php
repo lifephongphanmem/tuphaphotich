@@ -186,8 +186,7 @@
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else
-                                        <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                            In</button>
+                                        <a href="{{url('tthonnhan/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                         <a href="{{url('tthonnhan/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                     @endif
 

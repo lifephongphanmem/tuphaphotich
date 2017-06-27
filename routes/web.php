@@ -121,7 +121,7 @@ Route::resource('tthonnhan','TTHonNhanController');
 Route::get('tthonnhan/{id}/show','TTHonNhanController@show');
 Route::post('tthonnhan/delete','TTHonNhanController@destroy');
 Route::post('tthonnhan/duyet','TTHonNhanController@duyet');
-Route::post('tthonnhan/prints','TTHonNhanController@prints');
+Route::get('tthonnhan/{id}/prints','TTHonNhanController@prints');
 
 // </editor-fold>//End Manage
 
