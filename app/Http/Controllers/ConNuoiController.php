@@ -6,6 +6,7 @@ use App\DanToc;
 use App\Districts;
 use App\ConNuoi;
 use App\QuocTich;
+use App\SoHoTich;
 use App\Towns;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,8 @@ class ConNuoiController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $thang = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $nam = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             if(session('admin')->level == 'T') {
                 $huyendf = Districts::first()->mahuyen;
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : $huyendf;
@@ -54,7 +57,8 @@ class ConNuoiController extends Controller
                 $xas = $this->listXa($huyen);
             }
 
-            $model = new ConNuoi();
+            $model = ConNuoi::whereMonth('ngaythangdk', $thang)
+                ->whereYear('ngaythangdk', $nam);
             if($huyen != 'all' && $huyen != ''){
                 $model = $model->where('mahuyen', $huyen);
             }
@@ -72,6 +76,8 @@ class ConNuoiController extends Controller
                 -> with('xas', $xas)
                 -> with('mahuyen', $huyen)
                 -> with('maxa', $xa)
+                -> with('thang', $thang)
+                -> with('nam', $nam)
                 -> with('model', $model)
                 -> with('pageTitle','Thông tin đăng ký con nuôi ('.$count.' hồ sơ)');
         }else
@@ -100,8 +106,8 @@ class ConNuoiController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
 
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.connuoi.create')
                 ->with('huyens', $huyens)
@@ -119,12 +125,41 @@ class ConNuoiController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $connuoi = new ConNuoi();
+            $modelsohotich =  SoHoTich::where('plhotich','Khai tử')
+                ->where('namso',date('Y'))->first()->quyenhotich;
+            $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
+            $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
+            $inputs['ngaysinhchanuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhchanuoi'])));
+            $inputs['ngaycapgtcn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtcn'])));
+            $inputs['ngaysinhmenuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhmenuoi'])));
+            $inputs['ngaycapgtmn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtmn'])));
+            $inputs['ngaysinhconnuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhconnuoi'])));
+            $inputs['ngaysinhchagiao'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhchagiao'])));
+            $inputs['ngaycapgtcg'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtcg'])));
+            $inputs['ngaysinhmegiao'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhmegiao'])));
+            $inputs['ngaycapgtmg'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtmg'])));
+            $inputs['ngaythangdk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangdk'])));
+            $inputs['ngaythangqd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangqd'])));
             $inputs['trangthai']= "Chờ duyệt";
             $connuoi->create($inputs);
             return redirect('dangkyconnuoi');
 
         }else
             return view('errors.notlogin');
+    }
+
+    public function getSoHoTich($maxa,$mahuyen,$quyen){
+        $idmax = ConNuoi::where('maxa',$maxa)
+            ->where('mahuyen',$mahuyen)
+            ->where('quyen',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =ConNuoi::where('id', $idmax)->first();
+            $stt = $model->so + 1;
+        }
+        return $stt;
     }
 
     public function show($id){
@@ -166,8 +201,8 @@ class ConNuoiController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
             $connuoi = ConNuoi::find($id);
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.connuoi.edit')
                 ->with('huyens', $huyens)
@@ -177,70 +212,31 @@ class ConNuoiController extends Controller
                 ->with('dantocs', $dantocs)
                 ->with('quoctichs', $quoctichs)
                 ->with('connuoi',$connuoi)
-                ->with('pageTitle', 'Sửa thông tin khai tử');
+                ->with('pageTitle', 'Sửa thông tin con nuôi');
         }else
             return view('errors.notlogin');
     }
     public function update(Request $request, $id)
     {
-        $connuoi = ConNuoi::find($id);
-        $connuoi->hotenconnuoi = $request->hotenconnuoi;
-        $connuoi->gioitinhconnuoi = $request->gioitinhconnuoi;
-        $connuoi->ngaysinhconnuoi = $request->ngaysinhconnuoi;
-        $connuoi->dantocconnuoi = $request->dantocconnuoi;
-        $connuoi->quoctichconnuoi = $request->quoctichconnuoi;
-        $connuoi->noisinhconnuoi = $request->noisinhconnuoi;
-        $connuoi->thuongtruconnuoi = $request->thuongtruconnuoi;
-        $connuoi->tinhtrangsk = $request->tinhtrangsk;
-        $connuoi->hotenchanuoi = $request->hotenchanuoi;
-        $connuoi->ngaysinhchanuoi = $request->ngaysinhchanuoi;
-        $connuoi->dantocchanuoi = $request->dantocchanuoi;
-        $connuoi->quoctichchanuoi = $request->quoctichchanuoi;
-        $connuoi->cmndchanuoi = $request->cmndchanuoi;
-        $connuoi->noicapgtcn = $request->noicapgtcn;
-        $connuoi->ngaycapgtcn = $request->ngaycapgtcn;
-        $connuoi->thuongtrucn = $request->thuongtrucn;
-        $connuoi->hotenmenuoi = $request->hotenmenuoi;
-        $connuoi->ngaysinhmenuoi = $request->ngaysinhmenuoi;
-        $connuoi->dantocmenuoi = $request->dantocmenuoi;
-        $connuoi->quoctichmenuoi = $request->quoctichmenuoi;
-        $connuoi->cmndmenuoi = $request->cmndmenuoi;
-        $connuoi->noicapgtmn = $request->noicapgtmn;
-        $connuoi->ngaycapgtmn = $request->ngaycapgtmn;
-        $connuoi->thuongtrumn = $request->thuongtrumn;
-        $connuoi->hotenchagiao = $request->hotenchagiao;
-        $connuoi->ngaysinhchagiao = $request->ngaysinhchagiao;
-        $connuoi->dantocchagiao = $request->dantocchagiao;
-        $connuoi->quoctichchagiao = $request->quoctichchagiao;
-        $connuoi->cmndchagiao = $request->cmndchagiao;
-        $connuoi->noicapgtcg = $request->noicapgtcg;
-        $connuoi->ngaycapgtcg = $request->ngaycapgtcg;
-        $connuoi->thuongtrucg = $request->thuongtrucg;
-        $connuoi->hotenmegiao = $request->hotenmegiao;
-        $connuoi->ngaysinhmegiao = $request->ngaysinhmegiao;
-        $connuoi->dantocmegiao = $request->dantocmegiao;
-        $connuoi->quoctichmegiao = $request->quoctichmegiao;
-        $connuoi->cmndmegiao = $request->cmndmegiao;
-        $connuoi->noicapgtmg = $request->noicapgtmg;
-        $connuoi->ngaycapgtmg = $request->ngaycapgtmg;
-        $connuoi->thuongtrumg = $request->thuongtrumg;
-        $connuoi->soqd = $request->soqd;
-        $connuoi->ngaythangqd = $request->ngaythangqd;
-        $connuoi->noidkconnuoi = $request->noidkconnuoi;
-        $connuoi->tencsnuoiduong = $request->tencsnuoiduong;
-        $connuoi->nguoidaidiencsnd = $request->nguoidaidiencsnd;
-        $connuoi->chucvundd = $request->chucvundd;
-        $connuoi->soso = $request->soso;
-        $connuoi->quyen = $request->quyen;
-        $connuoi->phanloaiconnuoi = $request->phanloaiconnuoi;
-        $connuoi->ngaythangdk = $request->ngaythangdk;
-        $connuoi->lydo = $request->lydo;
-        $connuoi->quanhenguoigiao = $request->quanhenguoigiao;
-        $connuoi->ghichu = $request->ghichu;
-        $connuoi->nguoithuchien = $request->nguoithuchien;
-        $connuoi->nguoikygiaycn = $request->nguoikygiaycn;
-        $connuoi->save();
-        return redirect('dangkyconnuoi/'.$id.'/edit');
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $connuoi = ConNuoi::find($id);
+            $inputs['ngaysinhchanuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhchanuoi'])));
+            $inputs['ngaycapgtcn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtcn'])));
+            $inputs['ngaysinhmenuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhmenuoi'])));
+            $inputs['ngaycapgtmn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtmn'])));
+            $inputs['ngaysinhconnuoi'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhconnuoi'])));
+            $inputs['ngaysinhchagiao'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhchagiao'])));
+            $inputs['ngaycapgtcg'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtcg'])));
+            $inputs['ngaysinhmegiao'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhmegiao'])));
+            $inputs['ngaycapgtmg'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtmg'])));
+            $inputs['ngaythangdk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangdk'])));
+            $inputs['ngaythangqd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangqd'])));
+            $connuoi->update($inputs);
+            return redirect('dangkyconnuoi/'.$id.'/edit');
+
+        }else
+            return view('errors.notlogin');
     }
     public function destroy(Request $request)
     {
@@ -268,22 +264,15 @@ class ConNuoiController extends Controller
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
-            $connuoi = ConNuoi::find($id);
-            $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
-            if($inputs['plgiayks']== 'Bản chính'){
-                return view('reports.dangkyconnuoi.print')
-                    ->with('plgiayks',$inputs['plgiayks'])
-                    ->with('connuoi',$connuoi)
-                    ->with('xa',$xa)
-                    ->with('pageTitle','In giấy đăng ký con nuôi bản chính');
-            }else{
-
-            }
-
+            $model = ConNuoi::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $xa = $modelxa->tenxa;
+            return view('reports.connuoi.print')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('pageTitle','In giấy chứng nhận con nuôi bản chính');
         }else
             return view('errors.notlogin');
     }

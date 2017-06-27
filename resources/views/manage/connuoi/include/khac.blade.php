@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày QĐ <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('ngaythangqd',null, array('id' => 'ngaythangqd','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaythangqd',isset($connuoi->ngaythangqd) ? date('d/m/Y',strtotime($connuoi->ngaythangqd)) : null, array('id' => 'ngaythangqd','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -57,24 +57,6 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Số sổ </label>
-                    <div class="col-sm-8">
-                        {!!Form::text('soso', null, array('id' => 'soso','class' => 'form-control'))!!}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Quyển số </label>
-                    <div class="col-sm-8">
-                        {!!Form::text('quyen', null, array('id' => 'quyen','class' => 'form-control'))!!}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
                     <label class="col-sm-4 control-label">Phân loại </label>
                     <div class="col-sm-8">
                         {!!Form::text('phanloaiconnuoi', null, array('id' => 'phanloaiconnuoi','class' => 'form-control'))!!}
@@ -85,7 +67,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày đăng ký <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('ngaythangdk',null, array('id' => 'ngaythangdk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaythangdk',isset($connuoi->ngaythangdk) ? date('d/m/Y',strtotime($connuoi->ngaythangdk)) : null, array('id' => 'ngaythangdk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

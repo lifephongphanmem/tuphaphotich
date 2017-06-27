@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày sinh <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('ngaysinhchagiao',null, array('id' => 'ngaysinhchagiao','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaysinhchagiao',isset($connuoi->ngaysinhchagiao) ? date('d/m/Y',strtotime($connuoi->ngaysinhchagiao)) : null, array('id' => 'ngaysinhchagiao','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -23,11 +23,11 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Dân tộc <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="dantocchagiao" id="dantocchagiao" class="form-control required">
-                            @foreach($dantocs as $dantoc)
-                                <option value="{{$dantoc->dantoc}}">{{$dantoc->dantoc}}</option>
-                            @endforeach
-                        </select>
+                        {!! Form::select(
+                        'dantocks',
+                        $dantocs,null,
+                        array('id' => 'dantocks', 'class' => 'form-control'))
+                        !!}
                     </div>
                 </div>
             </div>
@@ -35,11 +35,11 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Quốc tịch <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="quoctichchagiao" id="quoctichchagiao" class="form-control required">
-                            @foreach($quoctichs as $quoctich)
-                                <option value="{{$quoctich->quoctich}}">{{$quoctich->quoctich}}</option>
-                            @endforeach
-                        </select>
+                        {!! Form::select(
+                        'quoctichks',
+                        $quoctichs,null,
+                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                        !!}
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày cấp <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('ngaycapgtcg',null, array('id' => 'ngaycapgtcg','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaycapgtcg',isset($connuoi->ngaycapgtcg) ? date('d/m/Y',strtotime($connuoi->ngaycapgtcg)) : null, array('id' => 'ngaycapgtcg','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

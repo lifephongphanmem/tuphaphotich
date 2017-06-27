@@ -20,12 +20,12 @@ class CreateKhaiTuTable extends Migration
             $table->string('maxa')->nullable();
             $table->string('masohoso')->nullable();
             $table->string('macongdan')->nullable();
-            $table->string('sosokt')->nullable();
-            $table->string('quyenso')->nullable();
+            $table->string('so')->nullable();
+            $table->string('quyen')->nullable();
             $table->string('hoten')->nullable();
             $table->string('gioitinh')->nullable();
             $table->date('ngaysinh')->nullable();
-            $table->date('noisinh')->nullable();
+            $table->string('noisinh')->nullable();
             $table->string('dantoc')->nullable();
             $table->string('quoctich')->nullable();
             $table->string('thuongtru')->nullable();

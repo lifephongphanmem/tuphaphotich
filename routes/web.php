@@ -72,15 +72,6 @@ Route::post('khaisinh/delete','KhaiSinhController@destroy');
 Route::post('khaisinh/duyet','KhaiSinhController@duyet');
 Route::get('khaisinh/{id}/prints','KhaiSinhController@prints');
 
-Route::group(['prefix'=>'khaitu'],function(){
-    Route::get('danhsach','KhaiTuController@index');
-    Route::get('create','KhaiTuController@create');
-    Route::post('store','KhaiTuController@store');
-    Route::post('delete','KhaiTuController@delete');
-    Route::get('/{id}/edit','KhaiTuController@edit');
-    Route::post('/{id}/edit','KhaiTuController@update');
-    Route::get('update','KhaiTuController@update');
-});
 Route::resource('dangkygiamho','giamhoController');
 Route::post('dangkygiamho/delete','giamhoController@destroy');
 Route::get('dangkygiamho/{id}/show','giamhoController@show');
@@ -101,7 +92,7 @@ Route::resource('khaitu','KhaiTuController');
 Route::get('khaitu/{id}/show','KhaiTuController@show');
 Route::post('khaitu/duyet','KhaiTuController@duyet');
 Route::post('khaitu/delete','KhaiTuController@destroy');
-Route::post('khaitu/prints','KhaiTuController@prints');
+Route::get('khaitu/{id}/prints','KhaiTuController@prints');
 
 //End khai tử
 
@@ -111,7 +102,7 @@ Route::resource('dangkyconnuoi','ConNuoiController');
 Route::get('dangkyconnuoi/{id}/show','ConNuoiController@show');
 Route::post('dangkyconnuoi/duyet','ConNuoiController@duyet');
 Route::post('dangkyconnuoi/delete','ConNuoiController@destroy');
-Route::post('dangkyconnuoi/prints','ConNuoiController@prints');
+Route::get('dangkyconnuoi/{id}/prints','ConNuoiController@prints');
 
 //End con nuôi
 

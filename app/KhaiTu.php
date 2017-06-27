@@ -12,8 +12,8 @@ class KhaiTu extends Model
         'matinh',
         'mahuyen',
         'maxa',
-        'sosokt',
-        'quyenso',
+        'so',
+        'quyen',
 
         'hoten',
         'gioitinh',

@@ -89,7 +89,7 @@
                         <div class="col-lg-12">
                             <ol>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai sinh</a></li>
-                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
+                                <li><a data-target="#SoKt-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
                                 <li><a data-target="#SoXdTtHn-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
                                 <li><a data-target="#SoKh-thoai-confirm" data-toggle="modal">Sổ đăng ký kết hôn</a></li>
                                 <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>

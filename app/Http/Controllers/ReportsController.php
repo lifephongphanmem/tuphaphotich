@@ -7,6 +7,7 @@ use App\Districts;
 use App\GeneralConfigs;
 use App\KetHon;
 use App\KhaiSinh;
+use App\KhaiTu;
 use App\Towns;
 use App\TTHonNhan;
 use Illuminate\Http\Request;
@@ -96,6 +97,39 @@ class ReportsController extends Controller
             return view('errors.notlogin');
         }
     }
+
+    public function sokhaitu(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $khaitu = KhaiTu::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydangkykt', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sokhaitu')
+                ->with('inputs',$inputs)
+                ->with('khaitu',$khaitu)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ khai tử');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
     public function sotthonnhan(Request $request){
         if (Session::has('admin')) {
 

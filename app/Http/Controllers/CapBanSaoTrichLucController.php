@@ -6,6 +6,7 @@ use App\CapBanSaoTrichLuc;
 use App\Districts;
 use App\GeneralConfigs;
 use App\KhaiSinh;
+use App\KhaiTu;
 use App\SoHoTich;
 use App\Towns;
 use Illuminate\Http\Request;
@@ -117,6 +118,16 @@ class CapBanSaoTrichLucController extends Controller
                     ->with('modeltt',$modeltt)
                     ->with('pageTitle', 'Thông tin cấp trích lục bản sao');
             }
+            if($model->plbstrichluc == 'Khai tử') {
+                $modeltt = KhaiTu::where('quyen',$model->quyenhotich)
+                    ->where('so',$model->sohotich)
+                    ->first();
+
+                return view('manage.capbansaotrichluc.show')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('pageTitle', 'Thông tin cấp trích lục bản sao');
+            }
 
         }else
             return view('errors.notlogin');
@@ -203,6 +214,22 @@ class CapBanSaoTrichLucController extends Controller
                     ->with('xa', $xa)
                     ->with('noidkks',$noidkks)
                     ->with('pageTitle', 'In giấy khai sinh bản sao');
+            }
+
+            if($model->plbstrichluc == 'Khai tử') {
+                $modeltt = KhaiTu::where('quyen',$model->quyenhotich)
+                    ->where('so',$model->sohotich)
+                    ->first();
+
+                $noidkkt = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
+                return view('reports.khaitu.printtrichluc')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('tinh', $tinh)
+                    ->with('huyen', $huyen)
+                    ->with('xa', $xa)
+                    ->with('noidkkt',$noidkkt)
+                    ->with('pageTitle', 'In giấy khai tử bản sao');
             }
 
         }else

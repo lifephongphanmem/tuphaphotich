@@ -58,22 +58,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Số<span class="require">*</span></label>
-                                    {!!Form::text('sosokt', null, array('id' => 'sosokt','class' => 'form-control required'))!!}
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label class="control-label">Quyển số<span class="require">*</span></label>
-                                    {!!Form::text('quyenso', null, array('id' => 'quyenso','class' => 'form-control required'))!!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Họ tên<span class="require">*</span></label>
                                     {!!Form::text('hoten', null, array('id' => 'hoten','class' => 'form-control required'))!!}
@@ -95,27 +80,33 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Ngày sinh<span class="require">*</span></label>
-                                    {!!Form::text('ngaysinh',null, array('id' => 'ngaysinh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!!Form::text('ngaysinh',date('d/m/Y',  strtotime($khaitu->ngaysinh)), array('id' => 'ngaysinh','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Dân tộc<span class="require">*</span></label>
-                                    <select name="dantoc" id="dantoc" class="form-control required">
-                                        @foreach($dantocs as $dantoc)
-                                            <option value="{{$dantoc->dantoc}}">{{$dantoc->dantoc}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        {!! Form::select(
+                                        'dantocks',
+                                        $dantocs,null,
+                                        array('id' => 'dantocks', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Quốc tịch<span class="require">*</span></label>
-                                    <select name="quoctich" id="quoctich" class="form-control required">
-                                        @foreach($quoctichs as $quoctich)
-                                            <option value="{{$quoctich->quoctich}}">{{$quoctich->quoctich}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        {!! Form::select(
+                                        'quoctichks',
+                                        $quoctichs,null,
+                                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -124,14 +115,13 @@
                                     {!!Form::text('cmnd', null, array('id' => 'cmnd','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nơi sinh<span class="require">*</span></label>
                                     {!!Form::text('noisinh', null, array('id' => 'noisinh','class' => 'form-control required'))!!}
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -153,7 +143,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Ngày<span class="require">*</span></label>
-                                    {!!Form::text('ngaychet',null, array('id' => 'ngaychet','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!!Form::text('ngaychet',date('d/m/Y',  strtotime($khaitu->ngaychet)), array('id' => 'ngaychet','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -162,7 +152,6 @@
                                     {!!Form::text('noichet', null, array('id' => 'noichet','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -179,7 +168,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Do<span class="require">*</span></label>
                                     {!!Form::text('donvicapgbt', null, array('id' => 'donvicapgbt','class' => 'form-control required'))!!}
@@ -188,11 +177,9 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Cấp ngày<span class="require">*</span></label>
-                                    {!!Form::text('ngaycapgbt',null, array('id' => 'ngaycapgbt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!!Form::text('ngaycapgbt',date('d/m/Y',  strtotime($khaitu->ngaycapgbt)), array('id' => 'ngaycapgbt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Phân loại khai tử<span class="require">*</span></label>
@@ -212,10 +199,12 @@
                                     {!!Form::text('noidangkykt', null, array('id' => 'noidangkykt','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Ngày đăng ký<span class="require">*</span></label>
-                                    {!!Form::text('ngaydangkykt',isset($khaitu->ngaydangkykt) ? date('d/m/Y',strtotime($khaitu->ngaydangkykt)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaydangkykt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                                    {!!Form::text('ngaydangkykt',date('d/m/Y',  strtotime($khaitu->ngaydangkykt)), array('id' => 'ngaydangkykt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -224,8 +213,6 @@
                                     {!!Form::text('ghichukt', null, array('id' => 'ghichukt','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Họ tên người khai<span class="require">*</span></label>
@@ -238,6 +225,8 @@
                                     {!!Form::text('quanhe', null, array('id' => 'quanhe','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Người thực hiện<span class="require">*</span></label>

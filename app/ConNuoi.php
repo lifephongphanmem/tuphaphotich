@@ -15,7 +15,7 @@ class ConNuoi extends Model
         'masohoso',
         'masoconnuoi',
         'macdconnuoi',
-        'soso',
+        'so',
         'quyen',
 
         'hotenchanuoi',

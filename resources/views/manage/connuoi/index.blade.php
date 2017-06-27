@@ -61,6 +61,35 @@
 
                 <div class="portlet-body">
                     <div class="row mbm">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select name="select_thang" id="select_thang" class="form-control">
+                                    <option value="01" {{$thang == '01' ? 'selected' : ''}}>Tháng 01</option>
+                                    <option value="02" {{$thang == '02' ? 'selected' : ''}}>Tháng 02</option>
+                                    <option value="03" {{$thang == '03' ? 'selected' : ''}}>Tháng 03</option>
+                                    <option value="04" {{$thang == '04' ? 'selected' : ''}}>Tháng 04</option>
+                                    <option value="05" {{$thang == '05' ? 'selected' : ''}}>Tháng 05</option>
+                                    <option value="06" {{$thang == '06' ? 'selected' : ''}}>Tháng 06</option>
+                                    <option value="07" {{$thang == '07' ? 'selected' : ''}}>Tháng 07</option>
+                                    <option value="08" {{$thang == '08' ? 'selected' : ''}}>Tháng 08</option>
+                                    <option value="09" {{$thang == '09' ? 'selected' : ''}}>Tháng 09</option>
+                                    <option value="10" {{$thang == '10' ? 'selected' : ''}}>Tháng 10</option>
+                                    <option value="11" {{$thang == '11' ? 'selected' : ''}}>Tháng 11</option>
+                                    <option value="12" {{$thang == '12' ? 'selected' : ''}}>Tháng 12</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select name="select_nam" id="select_nam" class="form-control">
+                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_stop = intval(date('Y')) + 5 ) @endif
+                                    @for($i = $nam_start; $i <= $nam_stop; $i++)
+                                        <option value="{{$i}}" {{$i == $nam ? 'selected' : ''}}>Năm {{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
                         @if(session('admin')->level == 'T')
                             <div class="col-md-1">
                                 <div class="form-control-static" style="white-space: nowrap;">Quận/Huyện</div>
@@ -136,8 +165,7 @@
                                                 <button type="button" onclick="getIdDuyet('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                             @endif
                                         @else
-                                            <button type="button" onclick="getIdPrints('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                                In</button>
+                                            <a href="{{url('dangkyconnuoi/'.$cn->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -234,9 +262,10 @@
 
     <script>
         $(function(){
-
-            $('#select_huyen, #select_xa').change(function() {
+            $('#select_thang,#select_nam,#select_huyen, #select_xa').change(function() {
                 var current_path_url = '/dangkyconnuoi?';
+                var thang = '&thang=' + $('#select_thang').val();
+                var nam = '&nam=' + $('#select_nam').val();
                 if($(this).attr('id') == 'select_huyen'){
                     $('#select_xa').val('all');
                 }
@@ -248,12 +277,10 @@
                 if($('#select_huyen').length > 0 ){
                     var mahuyen = '&mahuyen='+$('#select_huyen').val();
                 }
-                var url = current_path_url+mahuyen+maxa;
+                var url = current_path_url+thang+nam+mahuyen+maxa;
                 window.location.href = url;
             });
         })
-
-
     </script>
 
 

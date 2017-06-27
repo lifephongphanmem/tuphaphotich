@@ -56,4 +56,161 @@
             </div>
         </div>
     </div>
+    <div style="text-align: center">
+        <a href="{{url('khaisinh')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+        @if(can('capbansao','create'))
+            @if($khaitu->trangthai == 'Duyệt')
+                <button type="button" class="btn green" data-target="#trichluc-modal" data-toggle="modal"><i class="fa fa-copy"></i>&nbsp;
+                    Trích lục</button>
+            @endif
+        @endif
+    </div>
+    <div class="modal fade bs-modal-lg" id="trichluc-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            {!! Form::open(['url'=>'capbansaotrichluc','id' => 'frm_trichluc'])!!}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Cấp bản sao trích lục</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Ngày cấp</b><span class="require">*</span></label>
+                                {!!Form::text('ngaycap', date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaycap','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Ghi chú</b><span class="require">*</span></label>
+                                {!! Form::select(
+                                'ghichu',
+                                array(
+                                'Từ Sổ đăng ký hộ tịch ' => 'Từ Sổ đăng ký hộ tịch ',
+                                'Cơ sở dữ liệu hộ tịch điện tử theo quy trình tin học' => 'Cơ sở dữ liệu hộ tịch điện tử theo quy trình tin học',
+                                ),null,
+                                array('id' => 'ghichu', 'class' => 'form-control'))
+                                !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Người ký</b><span class="require">*</span></label>
+                                {!!Form::text('nguoiky', null, array('id' => 'nguoiky','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Chức vụ</b><span class="require">*</span></label>
+                                {!!Form::text('chucvu', null, array('id' => 'chucvu','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Người thực hiện</b><span class="require">*</span></label>
+                                {!!Form::text('nguoithuchien', null, array('id' => 'nguoithuchien','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Số lượng bản sao</b><span class="require">*</span></label>
+                                {!!Form::number('soluongbs', null, array('id' => 'soluongbs','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Họ, tên người yêu cầu</b><span class="require">*</span></label>
+                                {!!Form::text('hotennyc', null, array('id' => 'hotennyc','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Giấy tờ</b><span class="require">*</span></label>
+                                {!! Form::select(
+                                'plgiaytonyc',
+                                array(
+                                'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                                'Hộ chiếu' => 'Hộ chiếu',
+                                'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                                ),null,
+                                array('id' => 'plgiaytonyc', 'class' => 'form-control'))
+                                !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-control-label"><b>Thông tin giấy tờ</b><span class="require">*</span></label>
+                                {!!Form::text('sogiaytonyc',null, array('id' => 'sogiaytonyc','class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="quyenhotich" id="quyenhotich" value="{{$khaitu->quyen}}">
+                    <input type="hidden" name="sohotich" id="sohotich" value="{{$khaitu->so}}">
+                    <input type="hidden" name="plbstrichluc" id="plbstrichluc" value="Khai tử">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                    <button type="submit"  class="btn btn-primary" onclick="confirmTrichLuc()">Đồng ý</button>
+                </div>
+            </div>
+        {!! Form::close() !!}
+        <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <script>
+        function confirmTrichLuc(){
+            var ok=true;
+            var message='';
+            if($('#ngaycap').val()==''){
+                message += ' - Ngày cấp\n';
+                ok = false;
+            }
+            if($('#nguoiky').val()==''){
+                message += ' - Người ký\n';
+                ok = false;
+            }
+            if($('#chucvu').val()==''){
+                message += ' - Chức vụ\n';
+                ok = false;
+            }
+            if($('#nguoithuchien').val()==''){
+                message += ' - Người thực hiện\n';
+                ok = false;
+            }
+            if($('#soluongbs').val()==''){
+                message += ' - Số lượng bản sao\n';
+                ok = false;
+            }
+            if($('#hotennyc').val()==''){
+                message += ' - Họ tên người yêu cầu\n';
+                ok = false;
+            }
+            if($('#sogiaytonyc').val()==''){
+                message += ' - Thông tin giấy tờ người yêu cầu\n';
+                ok = false;
+            }
+            if ( ok == false){
+
+                alert('Thông tin không được để trống \n' + message );
+                $("form").submit(function (e) {
+                    e.preventDefault();
+                });
+            }
+            else{
+                $("form").unbind('submit').submit();
+                $('#frm_trichluc').submit();
+            }
+        }
+    </script>
 @stop

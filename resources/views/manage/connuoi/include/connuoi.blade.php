@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày sinh <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <input type="date" name="ngaysinhconnuoi" id="ngaysinhconnuoi" class="form-control" required="required" value="{{!isset($connuoi)?'':$connuoi->ngaysinhconnuoi}}"/>
+                        {!!Form::text('ngaysinhconnuoi',isset($connuoi->ngaysinhconnuoi) ? date('d/m/Y',strtotime($connuoi->ngaysinhconnuoi)) : null, array('id' => 'ngaysinhconnuoi','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -64,11 +64,11 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Dân tộc <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="dantocconnuoi" id="dantocconnuoi" class="form-control required">
-                            @foreach($dantocs as $dantoc)
-                                <option value="{{$dantoc->dantoc}}">{{$dantoc->dantoc}}</option>
-                            @endforeach
-                        </select>
+                        {!! Form::select(
+                        'dantocks',
+                        $dantocs,null,
+                        array('id' => 'dantocks', 'class' => 'form-control'))
+                        !!}
                     </div>
                 </div>
             </div>
@@ -78,11 +78,11 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Quốc tịch <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="quoctichconnuoi" id="quoctichconnuoi" class="form-control required">
-                            @foreach($quoctichs as $quoctich)
-                                <option value="{{$quoctich->quoctich}}">{{$quoctich->quoctich}}</option>
-                            @endforeach
-                        </select>
+                        {!! Form::select(
+                        'quoctichks',
+                        $quoctichs,null,
+                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                        !!}
                     </div>
                 </div>
             </div>

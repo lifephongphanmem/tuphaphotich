@@ -32,7 +32,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::open(['url'=>'khaitu', 'class'=>'horizontal-form']) !!}
+                    {!! Form::open(['url'=>'khaitu','id' => 'create_khaitu', 'class'=>'horizontal-form']) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
                     <div class="form-body">
                         <div class="row">
@@ -59,26 +59,12 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Số<span class="require">*</span></label>
-                                    {!!Form::text('sosokt', null, array('id' => 'sosokt','class' => 'form-control required'))!!}
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Quyển số<span class="require">*</span></label>
-                                    {!!Form::text('quyenso', null, array('id' => 'quyenso','class' => 'form-control required'))!!}
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Họ tên<span class="require">*</span></label>
                                     {!!Form::text('hoten', null, array('id' => 'hoten','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Giới tính<span class="require">*</span></label>
@@ -101,21 +87,27 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Dân tộc<span class="require">*</span></label>
-                                    <select name="dantoc" id="dantoc" class="form-control required">
-                                        @foreach($dantocs as $dantoc)
-                                            <option value="{{$dantoc->dantoc}}">{{$dantoc->dantoc}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        {!! Form::select(
+                                        'dantocks',
+                                        $dantocs,null,
+                                        array('id' => 'dantocks', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Quốc tịch<span class="require">*</span></label>
-                                    <select name="quoctich" id="quoctich" class="form-control required">
-                                        @foreach($quoctichs as $quoctich)
-                                            <option value="{{$quoctich->quoctich}}">{{$quoctich->quoctich}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        {!! Form::select(
+                                        'quoctichks',
+                                        $quoctichs,null,
+                                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -124,14 +116,14 @@
                                     {!!Form::text('cmnd', null, array('id' => 'cmnd','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nơi sinh<span class="require">*</span></label>
                                     {!!Form::text('noisinh', null, array('id' => 'noisinh','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Đã chết vào lúc</label>
@@ -149,8 +141,6 @@
                                     {!!Form::text('phuttu', null, array('id' => 'phuttu','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="control-label">Ngày<span class="require">*</span></label>
@@ -163,20 +153,22 @@
                                     {!!Form::text('noichet', null, array('id' => 'noichet','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nguyên nhân chết<span class="require">*</span></label>
                                     {!!Form::text('nguyennhan', null, array('id' => 'nguyennhan','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Giấy báo tử/Giấy tờ thay thế giấy báo tử<span class="require">*</span></label>
                                     {!!Form::text('giaybaotu', null, array('id' => 'giaybaotu','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Do<span class="require">*</span></label>
@@ -189,8 +181,6 @@
                                     {!!Form::text('ngaycapgbt',null, array('id' => 'ngaycapgbt','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Phân loại khai tử<span class="require">*</span></label>
@@ -210,6 +200,8 @@
                                     {!!Form::text('noidangkykt', null, array('id' => 'noidangkykt','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Ngày đăng ký<span class="require">*</span></label>
@@ -222,8 +214,6 @@
                                     {!!Form::text('ghichukt', null, array('id' => 'ghichukt','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Họ tên người khai<span class="require">*</span></label>
@@ -236,6 +226,8 @@
                                     {!!Form::text('quanhe', null, array('id' => 'quanhe','class' => 'form-control required'))!!}
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Người thực hiện<span class="require">*</span></label>
@@ -258,7 +250,7 @@
         <div style="text-align: center">
             <a href="{{url('khaitu/danhsach')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
             <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-            <button type="submit" class="btn green" ><i class="fa fa-check"></i> Hoàn thành</button>
+            <button type="submit" onclick="validateForm()" class="btn green" ><i class="fa fa-check"></i> Hoàn thành</button>
         </div>
     {!! Form::close() !!}
     <!-- END VALIDATION STATES-->
@@ -267,7 +259,7 @@
     <script type="text/javascript">
         function validateForm(){
 
-            var validator = $("#create_congdan").validate({
+            var validator = $("#create_khaitu").validate({
                 rules: {
                     ten :"required"
                 },

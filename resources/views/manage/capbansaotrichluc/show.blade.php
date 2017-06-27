@@ -37,6 +37,9 @@
                 <div class="portlet-body">
                     @if($model->plbstrichluc == 'Khai sinh')
                         @include('manage.capbansaotrichluc.include.khaisinhprofile')
+
+                    @elseif($model->plbstrichluc == 'Khai tử')
+                        @include('manage.capbansaotrichluc.include.khaituprofile')
                     @endif
                 </div>
             </div>

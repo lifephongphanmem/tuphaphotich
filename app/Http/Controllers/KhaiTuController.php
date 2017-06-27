@@ -6,6 +6,7 @@ use App\DanToc;
 use App\Districts;
 use App\KhaiTu;
 use App\QuocTich;
+use App\SoHoTich;
 use App\Towns;
 use App\GeneralConfigs;
 use Illuminate\Http\Request;
@@ -27,6 +28,8 @@ class KhaiTuController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $thang = isset($inputs['thang']) ? $inputs['thang'] : date('m');
+            $nam = isset($inputs['nam']) ? $inputs['nam'] : date('Y');
             if(session('admin')->level == 'T') {
                 $huyendf = Districts::first()->mahuyen;
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : $huyendf;
@@ -55,7 +58,8 @@ class KhaiTuController extends Controller
                 $xas = $this->listXa($huyen);
             }
 
-            $model = new KhaiTu();
+            $model = KhaiTu::whereMonth('ngaydangkykt', $thang)
+                ->whereYear('ngaydangkykt', $nam);
             if($huyen != 'all' && $huyen != ''){
                 $model = $model->where('mahuyen', $huyen);
             }
@@ -74,6 +78,8 @@ class KhaiTuController extends Controller
                 -> with('mahuyen', $huyen)
                 -> with('maxa', $xa)
                 -> with('model', $model)
+                -> with('thang', $thang)
+                -> with('nam', $nam)
                 -> with('pageTitle','Thông tin khai tử ('.$count.' hồ sơ)');
         }else
             return view('errors.notlogin');
@@ -101,8 +107,8 @@ class KhaiTuController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
 
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.khaitu.create')
                 ->with('huyens', $huyens)
@@ -121,13 +127,34 @@ class KhaiTuController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $khaitu = new KhaiTu();
+            $modelsohotich =  SoHoTich::where('plhotich','Khai tử')
+                ->where('namso',date('Y'))->first()->quyenhotich;
+            $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
+            $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
             $inputs['trangthai'] = 'Chờ duyệt';
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
+            $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
+            $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
+            $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
             $khaitu->create($inputs);
             return redirect('khaitu');
         }
         else
             return view('errors.notlogin');
+    }
+
+    public function getSoHoTich($maxa,$mahuyen,$quyen){
+        $idmax = KhaiTu::where('maxa',$maxa)
+            ->where('mahuyen',$mahuyen)
+            ->where('quyen',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =KhaiTu::where('id', $idmax)->first();
+            $stt = $model->so + 1;
+        }
+        return $stt;
     }
 
     public function show($id){
@@ -168,8 +195,8 @@ class KhaiTuController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
             $khaitu = KhaiTu::find($id);
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.khaitu.edit')
                 ->with('huyens', $huyens)
@@ -221,22 +248,15 @@ class KhaiTuController extends Controller
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
-            $khaitu = KhaiTu::find($id);
-            $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
-            if($inputs['plgiayks']== 'Bản chính'){
-                return view('reports.khaitu.print')
-                    ->with('plgiayks',$inputs['plgiayks'])
-                    ->with('khaitu',$khaitu)
-                    ->with('xa',$xa)
-                    ->with('pageTitle','In giấy khai tử bản chính');
-            }else{
-
-            }
-
+            $model = KhaiTu::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $xa = $modelxa->tenxa;
+            return view('reports.khaitu.print')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('pageTitle','In giấy khai tử bản chính');
         }else
             return view('errors.notlogin');
     }

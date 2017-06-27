@@ -3,12 +3,19 @@
 @section('custom-style')
     <link href="{{url('assets/global/css/plugins.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="{{url('assets/global/plugins/select2/select2.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url('vendors/bootstrap-datepicker/css/datepicker.css') }}">
 @stop
 
 @section('custom-script')
     <script type="text/javascript" src="{{url('assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>
     <script type="text/javascript" src="{{url('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{url('assets/admin/pages/scripts/form-wizard.js')}}"></script>
+    <script src="{{url('js/jquery.inputmask.bundle.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $(":input").inputmask();
+        });
+    </script>
     <script>
         jQuery(document).ready(function() {
             FormWizard.init();
