@@ -229,5 +229,5 @@
             });
         });
     </script>
-    @include('includes.script.create-header-scripts')
+    @include('includes.script.create-header-scripts')x
 @stop
