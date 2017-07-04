@@ -8,6 +8,7 @@ use App\KhaiTu;
 use App\QuocTich;
 use App\SoHoTich;
 use App\Towns;
+use App\ThongTinThayDoi;
 use App\GeneralConfigs;
 use Illuminate\Http\Request;
 
@@ -162,11 +163,12 @@ class KhaiTuController extends Controller
             $khaitu = KhaiTu::find($id);
             $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$khaitu->mahuyen)->first()->tenhuyen;
-
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$khaitu->masohoso)->get();
             return view('manage.khaitu.show')
                 ->with('khaitu',$khaitu)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin khai tử');
         }else
             return view('errors.notlogin');

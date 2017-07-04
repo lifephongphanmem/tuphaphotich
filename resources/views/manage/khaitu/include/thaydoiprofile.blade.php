@@ -7,7 +7,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url('thaydoibosung/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        <a href="{{url('thaydoibosung/ktcreate/'.$khaitu->masohoso)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -22,8 +22,14 @@
                             </tr>
                             </thead>
                             <tbody>
-
-
+                            @foreach($thongtinthaydoi as $key=>$tttd)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$tttd->ngaydk}}</td>
+                                    <td>{{$tttd->hotenntd}}</td>
+                                    <td>{{$tttd->noidungtd}}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
