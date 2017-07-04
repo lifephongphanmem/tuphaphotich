@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                        {!!Form::hidden('mahs',$mahs, array('id' => 'mahs','class' => 'form-control'))!!}
+                        {!!Form::hidden('m',$mahs, array('id' => 'mahoso','class' => 'form-control'))!!}
                     </div>
                     <!-- END FORM-->
                 </div>
@@ -229,5 +229,5 @@
             });
         });
     </script>
-    @include('includes.script.create-header-scripts')x
+    @include('includes.script.create-header-scripts')
 @stop
