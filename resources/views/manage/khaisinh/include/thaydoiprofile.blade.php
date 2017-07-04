@@ -7,7 +7,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                            <a href="{{url('thaydoibosung/create/'.$model->mahs)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        <a href="{{url('thaydoibosung/kscreate/'.$model->mahs)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -23,12 +23,12 @@
                             </thead>
                             <tbody>
                             @foreach($thongtinthaydoi as $key=>$tttd)
-                                    <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$tttd->ngaydk}}</td>
-                                        <td>{{$tttd->hotenntd}}</td>
-                                        <td>{{$tttd->noidungtd}}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$tttd->ngaydk}}</td>
+                                    <td>{{$tttd->hotenntd}}</td>
+                                    <td>{{$tttd->noidungtd}}</td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -37,4 +37,5 @@
                 <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
+    </div>
 </div>
