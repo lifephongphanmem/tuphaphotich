@@ -136,7 +136,19 @@ Route::resource('sohotich','SoHoTichController');
 Route::post('sohotich/delete','SoHoTichController@destroy');
 //End Trích lục
 
+//Thay đổi bổ sung
+Route::group(['prefix'=>'thaydoibosung'],function (){
+
+    Route::get('kscreate/{id}','ThayDoiBoSungController@kscreate');
+    Route::post('khaisinhbs/{id}','ThayDoiBoSungController@khaisinhbs');
+
+    Route::get('ktcreate/{id}','ThayDoiBoSungController@ktcreate');
+    Route::post('khaitubs/{id}','ThayDoiBoSungController@khaitubs');
+});
+//End Thay đổi bổ sung
+
 Route::get('test',function(){
     dd(getDateText('2017-05-05'));
 });
+
 
