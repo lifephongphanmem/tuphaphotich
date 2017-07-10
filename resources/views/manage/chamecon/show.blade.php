@@ -31,7 +31,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <h3 class="page-title">
-                        Thông tin<small>&nbsp;khai sinh</small>
+                        Thông tin<small>&nbsp;Đăng ký nhận cha mẹ con</small>
                     </h3>
                 </div>
                 <div class="portlet-body">
@@ -39,7 +39,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#tab_1" data-toggle="tab">
-                            Thông tin khai sinh </a>
+                            Thông tin đăng ký nhận cha mẹ con </a>
                     </li>
                     <li>
                         <a href="#tab_2" data-toggle="tab">
@@ -48,8 +48,8 @@
 
                 </ul>
                 <div class="tab-content">
-                    @include('manage.khaisinh.include.cmcprofile')
-                    @include('manage.khaisinh.include.thaydoiprofile')
+                    @include('manage.chamecon.include.cmcprofile')
+                    @include('manage.chamecon.include.thaydoiprofile')
                 </div>
             </div>
                 </div>

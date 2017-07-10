@@ -145,6 +145,7 @@ Route::group(['prefix'=>'thaydoibosung'],function (){
     Route::post('khaisinhbs/duyet','ThayDoiBoSungController@duyetks');
     Route::get('showkhaisinhbs/{id}','ThayDoiBoSungController@showks');
     Route::post('updateksbs/{id}','ThayDoiBoSungController@updateksbs');
+    Route::post('ksbs/delete','ThayDoiBoSungController@destroyksbs');
     //Khai tử
     Route::get('ktcreate/{id}','ThayDoiBoSungController@ktcreate');
     Route::post('luukhaitubs/{id}','ThayDoiBoSungController@luukhaitubs');

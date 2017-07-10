@@ -140,6 +140,18 @@ class ThayDoiBoSungController extends Controller
             return view('errors.notlogin');
     }
 
+    public function destroyksbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('khaisinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
    //Khai tử
 
     public function ktcreate($id)

@@ -7,7 +7,7 @@
                     <div class="caption">
                     </div>
                     <div class="actions">
-                        <a href="{{url('thaydoibosung/kscreate/'.$model->mahs)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                        <a href="{{url('thaydoibosung/cmccreate/'.$model->mahs)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -78,22 +78,3 @@
     <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            {!! Form::open(['url'=>'thaydoibosung/ksbs/delete','id' => 'frm_delete'])!!}
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Đồng ý xóa?</h4>
-            </div>
-            <input type="hidden" name="iddelete" id="iddelete">
-            <div class="modal-footer">
-                <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
-                <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
-            </div>
-            {!! Form::close() !!}
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>

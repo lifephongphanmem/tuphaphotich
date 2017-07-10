@@ -3,7 +3,13 @@
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
-
+                <div class="portlet-title">
+                    <div class="caption">
+                    </div>
+                    <div class="actions">
+                        <a href="{{url('thaydoibosung/cncreate/'.$model->mahs)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
+                    </div>
+                </div>
                 <div class="portlet-body">
                     <div class="portlet-body">
                         <table class="table table-striped table-bordered table-hover" id="sample_3">
