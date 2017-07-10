@@ -22,6 +22,15 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
+        function getIdDuyet(id){
+            document.getElementById("idduyet").value=id;
+        }
+        function ClickDelete(){
+            $('#frm_delete').submit();
+        }
+        function ClickDuyet(){
+            $('#frm_duyet').submit();
+        }
     </script>
 @stop
 

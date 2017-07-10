@@ -22,6 +22,15 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
+        function getIdDuyet(id){
+            document.getElementById("idduyet").value=id;
+        }
+        function ClickDelete(){
+            $('#frm_delete').submit();
+        }
+        function ClickDuyet(){
+            $('#frm_duyet').submit();
+        }
     </script>
 @stop
 
@@ -31,7 +40,7 @@
             <div class="portlet box">
                 <div class="portlet-title">
                     <h3 class="page-title">
-                        Thông tin<small>&nbsp;khai sinh</small>
+                        Thông tin<small>&nbsp;khai tử</small>
                     </h3>
                 </div>
                 <div class="portlet-body">

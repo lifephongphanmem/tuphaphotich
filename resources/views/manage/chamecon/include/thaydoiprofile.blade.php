@@ -40,10 +40,10 @@
                                     <td>
                                         <a>&nbsp;</a>
                                         @if($tttd->trangthai == 'Chờ duyệt')
-                                                <a href="{{url('thaydoibosung/showkhaisinhbs/'.$tttd->id)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                                <button type="button" onclick="getId('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                                    Xóa</button>
-                                                <button type="button" onclick="getIdDuyet('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
+                                            <a href="{{url('thaydoibosung/showcmcbs/'.$tttd->id)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                            <button type="button" onclick="getId('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                                Xóa</button>
+                                            <button type="button" onclick="getIdDuyet('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -61,7 +61,7 @@
 <div class="modal fade" id="duyet-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            {!! Form::open(['url'=>'thaydoibosung/khaisinhbs/duyet','id' => 'frm_duyet'])!!}
+            {!! Form::open(['url'=>'thaydoibosung/cmcbs/duyet','id' => 'frm_duyet'])!!}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Đồng ý duyệt?</h4>
@@ -78,3 +78,22 @@
     <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {!! Form::open(['url'=>'thaydoibosung/cmcbs/delete','id' => 'frm_delete'])!!}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Đồng ý xóa?</h4>
+            </div>
+            <input type="hidden" name="iddelete" id="iddelete">
+            <div class="modal-footer">
+                <button type="submit" class="btn blue" onclick="ClickDelete()">Đồng ý</button>
+                <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

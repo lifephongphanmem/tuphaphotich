@@ -8,6 +8,7 @@ use App\ConNuoi;
 use App\QuocTich;
 use App\SoHoTich;
 use App\Towns;
+use App\ThongTinThayDoi;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -168,7 +169,7 @@ class ConNuoiController extends Controller
             $connuoi = ConNuoi::find($id);
             $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$connuoi->mahuyen)->first()->tenhuyen;
-            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$connuoi->mahs)->get();
             return view('manage.connuoi.show')
                 ->with('connuoi',$connuoi)
                 ->with('xa',$xa)

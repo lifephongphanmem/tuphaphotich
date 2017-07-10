@@ -6,7 +6,7 @@ use App\DanToc;
 use App\QuocTich;
 use App\TTHonNhan;
 use Illuminate\Http\Request;
-
+use App\ThongTinThayDoi;
 use App\Districts;
 use App\Towns;
 

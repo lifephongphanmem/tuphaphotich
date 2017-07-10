@@ -6,6 +6,7 @@ use App\Districts;
 use App\giamho;
 use App\SoHoTich;
 use App\Towns;
+use App\ThongTinThayDoi;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

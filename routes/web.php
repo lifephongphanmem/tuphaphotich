@@ -152,36 +152,42 @@ Route::group(['prefix'=>'thaydoibosung'],function (){
     Route::post('khaitubs/duyet','ThayDoiBoSungController@duyetkt');
     Route::get('showkhaitubs/{id}','ThayDoiBoSungController@showkt');
     Route::post('updatektbs/{id}','ThayDoiBoSungController@updatektbs');
+    Route::post('ktbs/delete','ThayDoiBoSungController@destroyktbs');
     //Xác nhận tình trạng hôn nhân
     Route::get('tthncreate/{id}','ThayDoiBoSungController@tthncreate');
     Route::post('luutthnbs/{id}','ThayDoiBoSungController@luutthnbs');
     Route::post('tthnbs/duyet','ThayDoiBoSungController@duyettthn');
     Route::get('showtthnbs/{id}','ThayDoiBoSungController@showtthn');
     Route::post('updatetthnbs/{id}','ThayDoiBoSungController@updatetthnbs');
+    Route::post('tthnbs/delete','ThayDoiBoSungController@destroytthnbs');
     //Thông tin kết hôn
     Route::get('khcreate/{id}','ThayDoiBoSungController@khcreate');
     Route::post('luukethonbs/{id}','ThayDoiBoSungController@luukethonbs');
     Route::post('kethonbs/duyet','ThayDoiBoSungController@duyetkh');
     Route::get('showkethonbs/{id}','ThayDoiBoSungController@showkh');
     Route::post('updatekhbs/{id}','ThayDoiBoSungController@updatekhbs');
+    Route::post('khbs/delete','ThayDoiBoSungController@destroykhbs');
     //Đăng ký con nuôi
     Route::get('cncreate/{id}','ThayDoiBoSungController@cncreate');
     Route::post('luuconnuoibs/{id}','ThayDoiBoSungController@luuconnuoibs');
     Route::post('connuoibs/duyet','ThayDoiBoSungController@duyetcn');
     Route::get('showconnuoibs/{id}','ThayDoiBoSungController@showcn');
     Route::post('updatecnbs/{id}','ThayDoiBoSungController@updatecnbs');
+    Route::post('cnbs/delete','ThayDoiBoSungController@destroycnbs');
     //Đăng ký giám hộ
     Route::get('ghcreate/{id}','ThayDoiBoSungController@ghcreate');
     Route::post('luugiamhobs/{id}','ThayDoiBoSungController@luugiamhobs');
     Route::post('giamhobs/duyet','ThayDoiBoSungController@duyetgh');
     Route::get('showgiamhobs/{id}','ThayDoiBoSungController@showgh');
     Route::post('updateghbs/{id}','ThayDoiBoSungController@updateghbs');
+    Route::post('ghbs/delete','ThayDoiBoSungController@destroyghbs');
     //Đăng ký nhận cha mẹ con
     Route::get('cmccreate/{id}','ThayDoiBoSungController@cmccreate');
     Route::post('luucmcbs/{id}','ThayDoiBoSungController@luucmcbs');
     Route::post('cmcbs/duyet','ThayDoiBoSungController@duyetcmc');
     Route::get('showcmcbs/{id}','ThayDoiBoSungController@showcmc');
     Route::post('updatecmcbs/{id}','ThayDoiBoSungController@updatecmcbs');
+    Route::post('cmcbs/delete','ThayDoiBoSungController@destroycmcbs');
 
 });
 //End Thay đổi bổ sung

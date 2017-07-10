@@ -10,8 +10,8 @@
                         <td width="50%"><b>Xã/phường:</b>&nbsp;{{$xa}}</td>
                     </tr>
                     <tr>
-                        <td><b>Vào sổ khai sinh:</b>&nbsp;{{$khaitu->sosokt}}</td>
-                        <td><b>Vào quyển khai sinh:</b>&nbsp;{{$khaitu->quyenso}}</td>
+                        <td><b>Vào sổ khai tử:</b>&nbsp;{{$khaitu->sosokt}}</td>
+                        <td><b>Vào quyển khai tử:</b>&nbsp;{{$khaitu->quyenso}}</td>
                     </tr>
                     <tr>
                         <td><b>Họ tên người tử:</b>&nbsp;{{$khaitu->hoten}}</td>

@@ -22,6 +22,15 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
+        function getIdDuyet(id){
+            document.getElementById("idduyet").value=id;
+        }
+        function ClickDelete(){
+            $('#frm_delete').submit();
+        }
+        function ClickDuyet(){
+            $('#frm_duyet').submit();
+        }
     </script>
 @stop
 
@@ -48,8 +57,8 @@
 
                 </ul>
                 <div class="tab-content">
-                    @include('manage.khaisinh.include.khaisinhprofile')
-                    @include('manage.khaisinh.include.thaydoiprofile')
+                    @include('manage.giamho.include.giamhoprofile')
+                    @include('manage.giamho.include.thaydoiprofile')
                 </div>
             </div>
                 </div>

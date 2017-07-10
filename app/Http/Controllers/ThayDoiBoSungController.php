@@ -274,6 +274,18 @@ class ThayDoiBoSungController extends Controller
             return view('errors.notlogin');
     }
 
+    public function destroyktbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('khaitu');
+
+        }else
+            return view('errors.notlogin');
+    }
+
     //Xác nhận tình trạng hôn nhân
 
     public function tthncreate($id)
@@ -390,6 +402,18 @@ class ThayDoiBoSungController extends Controller
             $inputs['ngaydk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydk'])));
             $inputs['ngaysinhntd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhntd'])));
             $model->update($inputs);
+            return redirect('tthonnhan');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroytthnbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
             return redirect('tthonnhan');
 
         }else
@@ -518,6 +542,18 @@ class ThayDoiBoSungController extends Controller
             return view('errors.notlogin');
     }
 
+    public function destroykhbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('kethon');
+
+        }else
+            return view('errors.notlogin');
+    }
+
     //Đăng ký con nuôi
 
     public function cncreate($id)
@@ -572,7 +608,7 @@ class ThayDoiBoSungController extends Controller
             $inputs['trangthai'] = "Chờ duyệt";
             $model = new ThongTinThayDoi();
             $model->create($inputs);
-            return redirect('connuoi');
+            return redirect('dangkyconnuoi');
         }else
             return view('errors.notlogin');
     }
@@ -598,7 +634,7 @@ class ThayDoiBoSungController extends Controller
             $model = ThongTinThayDoi::find($id);
             $model->trangthai = 'Duyệt';
             $model->save();
-            return redirect('connuoi');
+            return redirect('dangkyconnuoi');
 
         }else
             return view('errors.notlogin');
@@ -634,7 +670,19 @@ class ThayDoiBoSungController extends Controller
             $inputs['ngaydk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydk'])));
             $inputs['ngaysinhntd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhntd'])));
             $model->update($inputs);
-            return redirect('connuoi');
+            return redirect('dangkyconnuoi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroycnbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('dangkyconnuoi');
 
         }else
             return view('errors.notlogin');
@@ -694,7 +742,7 @@ class ThayDoiBoSungController extends Controller
             $inputs['trangthai'] = "Chờ duyệt";
             $model = new ThongTinThayDoi();
             $model->create($inputs);
-            return redirect('giamho');
+            return redirect('dangkygiamho');
         }else
             return view('errors.notlogin');
     }
@@ -720,7 +768,7 @@ class ThayDoiBoSungController extends Controller
             $model = ThongTinThayDoi::find($id);
             $model->trangthai = 'Duyệt';
             $model->save();
-            return redirect('giamho');
+            return redirect('dangkygiamho');
 
         }else
             return view('errors.notlogin');
@@ -756,7 +804,19 @@ class ThayDoiBoSungController extends Controller
             $inputs['ngaydk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydk'])));
             $inputs['ngaysinhntd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhntd'])));
             $model->update($inputs);
-            return redirect('giamho');
+            return redirect('dangkygiamho');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroyghbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('dangkygiamho');
 
         }else
             return view('errors.notlogin');
@@ -816,7 +876,7 @@ class ThayDoiBoSungController extends Controller
             $inputs['trangthai'] = "Chờ duyệt";
             $model = new ThongTinThayDoi();
             $model->create($inputs);
-            return redirect('chamecon');
+            return redirect('dangkynhanchamecon');
         }else
             return view('errors.notlogin');
     }
@@ -842,7 +902,7 @@ class ThayDoiBoSungController extends Controller
             $model = ThongTinThayDoi::find($id);
             $model->trangthai = 'Duyệt';
             $model->save();
-            return redirect('chamecon');
+            return redirect('dangkynhanchamecon');
 
         }else
             return view('errors.notlogin');
@@ -878,7 +938,19 @@ class ThayDoiBoSungController extends Controller
             $inputs['ngaydk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydk'])));
             $inputs['ngaysinhntd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhntd'])));
             $model->update($inputs);
-            return redirect('chamecon');
+            return redirect('dangkynhanchamecon');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function destroycmcbs(Request $request){
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['iddelete'];
+            $model = ThongTinThayDoi::find($id);
+            $model->delete();
+            return redirect('dangkynhanchamecon');
 
         }else
             return view('errors.notlogin');
