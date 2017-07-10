@@ -166,11 +166,12 @@ class TTHonNhanController extends Controller
             $model = TTHonNhan::find($id);
             $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
-
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
             return view('manage.tthonnhan.show')
                 ->with('model',$model)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin tình trạng hôn nhân');
         }else
             return view('errors.notlogin');

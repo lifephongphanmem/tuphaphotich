@@ -184,7 +184,42 @@
     </div>
 </div>
 
-
+<!--Modal Thoại Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch  Rp9-->
+<div id="SoThayDoi-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/sothaydoi','target'=>'_blank' , 'id' => 'frm_SoThayDoi', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                    <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport9()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
 
 <script>
     function ClickReport1(){
@@ -201,6 +236,9 @@
     }
     function ClickReport8(){
         $('#frm_SoTrichLuc').submit();
+    }
+    function ClickReport9(){
+        $('#frm_SoThayDoi').submit();
     }
 
 </script>

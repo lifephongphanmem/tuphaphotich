@@ -84,6 +84,7 @@
                                         'Con nuôi'=>'Con nuôi',
                                         'Giám hộ'=>'Giám hộ',
                                         'Nhận cha mẹ con'=>'Nhận cha mẹ con',
+                                        'Thay đổi bổ xung'=>'Thay đổi bổ xung',
                                         ),null,
                                         array('id' => 'plhotich', 'class' => 'form-control'))
                                         !!}

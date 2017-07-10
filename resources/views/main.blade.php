@@ -288,16 +288,14 @@ License: You must have a valid license purchased only from themeforest(the above
                             <span class="title">Danh mục sổ hộ tịch</span>
                         </a>
                     </li-->
-                    @if(canGeneral('congdan','index'))
-                        @if(can('congdan','index'))
+
                             <li>
-                                <a href="{{url('congdan')}}">
+                                <a href="{{url('sohotich')}}">
                                     <i class="icon-users"></i>
-                                    <span class="title">Thông tin công dân</span>
+                                    <span class="title">sổ hộ tịch</span>
                                 </a>
                             </li>
-                        @endif
-                    @endif
+
                     @if(canGeneral('khaisinh','index'))
                         @if(can('khaisinh','index'))
                             <li>

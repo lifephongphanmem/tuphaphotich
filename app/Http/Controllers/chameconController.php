@@ -6,6 +6,7 @@ use App\chamecon;
 use App\Districts;
 use App\SoHoTich;
 use App\Towns;
+use App\ThongTinThayDoi;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -158,11 +159,13 @@ class chameconController extends Controller
             $model = chamecon::find($id);
             $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
 
             return view('manage.chamecon.show')
                 ->with('model',$model)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin khai sinh');
         }else
             return view('errors.notlogin');

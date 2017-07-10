@@ -20,6 +20,7 @@ class ThongTinThayDoi extends Model
             'cmndnk',
             'quanhengntd',
             'hotenntd',
+            'ngaysinhntd',
             'gioitinhntd',
             'dantocntd',
             'quoctichntd',
@@ -34,8 +35,11 @@ class ThongTinThayDoi extends Model
             'cancu',
             'ngaydk',
             'nguoikygiay',
+            'chucvunguoikygiay',
+            'nguoithuchien',
             'noithaydoi',
             'quyentd',
             'sotd',
+            'trangthai',
     ];
 }

@@ -100,7 +100,7 @@
     <table width="96%" border="0" cellspacing="0" cellpadding="8">
         <tr>
             <td style="text-align: left;">
-                Số:..{{$kt->sosokt}}.. Quyển..{{$kt->quyenso}}..
+                Số:..{{$kt->so}}.. Quyển..{{$kt->quyen}}..
             </td>
 
             <td style="text-align: right;">

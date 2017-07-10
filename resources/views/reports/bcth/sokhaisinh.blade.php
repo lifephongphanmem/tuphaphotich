@@ -79,8 +79,9 @@
 </table>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:50px auto auto; text-align: center;">
     <tr>
+        @foreach($model as $key=>$tt)
         <td>
-            Quyển số: ....
+            Quyển số: {{$tt->quyen}}
         </td>
     </tr>
     <tr>
@@ -96,7 +97,7 @@
 </table>
 
 <p style="page-break-before: always">
-@foreach($model as $key=>$tt)
+
 <table width="96%" border="0" cellspacing="0" cellpadding="8">
     <tr>
         <td style="text-align: left;">

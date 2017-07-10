@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Districts;
 use App\GeneralConfigs;
+use App\ThongTinThayDoi;
 use App\KetHon;
 use App\Towns;
 use Illuminate\Http\Request;
@@ -135,11 +136,12 @@ class KetHonController extends Controller
             $model = KetHon::find($id);
             $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
-
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
             return view('manage.kethon.show')
                 ->with('model',$model)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin kết hôn');
         }else
             return view('errors.notlogin');

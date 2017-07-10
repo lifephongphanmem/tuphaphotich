@@ -8,6 +8,7 @@ use App\GeneralConfigs;
 use App\KetHon;
 use App\KhaiSinh;
 use App\KhaiTu;
+use App\ThongTinThayDoi;
 use App\Towns;
 use App\TTHonNhan;
 use Illuminate\Http\Request;
@@ -234,6 +235,38 @@ class ReportsController extends Controller
                 ->with('model',$model)
                 ->with('tendv',$tendv)
                 ->with('pageTitle','Sổ cấp bản sao trích lục');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sothaydoi(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = ThongTinThayDoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sothaydoi')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch');
 
         } else {
             return view('errors.notlogin');

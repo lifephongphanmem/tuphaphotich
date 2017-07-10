@@ -176,12 +176,12 @@
                                             <a href="{{url('dangkynhanchamecon/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
 
-                                        @if(can('dangkynhanchamecon','delete'))
+                                        @if(can('dknhanchamecon','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
                                         @endif
 
-                                        @if(can('dangkynhanchamecon','approve'))
+                                        @if(can('dknhanchamecon','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else

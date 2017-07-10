@@ -26,6 +26,7 @@ class CreateThongtinthaydoiTable extends Migration
             $table->string('cmndnk')->nullable();
             $table->string('quanhengntd')->nullable();
             $table->string('hotenntd')->nullable();
+            $table->string('ngaysinhntd')->nullable();
             $table->string('gioitinhntd')->nullable();
             $table->string('dantocntd')->nullable();
             $table->string('quoctichntd')->nullable();
@@ -40,9 +41,12 @@ class CreateThongtinthaydoiTable extends Migration
             $table->string('cancu')->nullable();
             $table->date('ngaydk')->nullable();
             $table->string('nguoikygiay')->nullable();
+            $table->string('chucvunguoikygiay')->nullable();
+            $table->string('nguoithuchien')->nullable();
             $table->string('noithaydoi')->nullable();
             $table->string('quyentd')->nullable();
             $table->string('sotd')->nullable();
+            $table->string('trangthai')->nullable();
             $table->timestamps();
         });
     }

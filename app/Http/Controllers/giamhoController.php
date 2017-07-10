@@ -159,11 +159,13 @@ class giamhoController extends Controller
             $model = giamho::find($id);
             $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
 
             return view('manage.giamho.show')
                 ->with('model',$model)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin khai sinh');
         }else
             return view('errors.notlogin');

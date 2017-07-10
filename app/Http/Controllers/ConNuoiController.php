@@ -168,11 +168,12 @@ class ConNuoiController extends Controller
             $connuoi = ConNuoi::find($id);
             $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$connuoi->mahuyen)->first()->tenhuyen;
-
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
             return view('manage.connuoi.show')
                 ->with('connuoi',$connuoi)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
+                ->with('thongtinthaydoi',$thongtinthaydoi)
                 ->with('pageTitle', 'Thông tin đăng ký con nuôi');
         }else
             return view('errors.notlogin');

@@ -32,32 +32,10 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::open(['url'=>'thaydoibosung/luukhaisinhbs/'.$mahs, 'id' => 'create_thaydoibosung', 'class'=>'horizontal-form']) !!}
+                    {!! Form::model($model,['method' => 'post', 'url'=>'thaydoibosung/updateksbs/'.$model->id, 'id' => 'update_thaydoibosung', 'class'=>'horizontal-form']) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
                     <div class="form-body">
-                        <div style="display: none" class="row">
-                            <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
-                                <div class="form-group">
-                                    <label class="control-label">Quận huyện<span class="require">*</span></label>
-                                    <select name="mahuyen" class="form-control required" autofocus>
-                                        @foreach($huyens as $huyen)
-                                            <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                                <div class="form-group">
-                                    <label class="control-label">Xã phường<span class="require">*</span></label>
-                                    <select name="maxa" class="form-control required">
-                                        @foreach($xas as $xa)
-                                            <option value="{{$xa->maxa}}" {{$huyen->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -248,7 +226,6 @@
                                 </div>
                             </div>
                         </div>
-                        {!!Form::hidden('mahs',$mahs, array('id' => 'mahs','class' => 'form-control'))!!}
                     </div>
                     <!-- END FORM-->
                 </div>
@@ -266,7 +243,7 @@
     <script type="text/javascript">
         function validateForm(){
 
-            var validator = $("#create_thaydoibosung").validate({
+            var validator = $("#update_thaydoibosung").validate({
                 rules: {
                     ten :"required"
                 },

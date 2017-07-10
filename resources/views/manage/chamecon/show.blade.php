@@ -48,7 +48,7 @@
 
                 </ul>
                 <div class="tab-content">
-                    @include('manage.khaisinh.include.khaisinhprofile')
+                    @include('manage.khaisinh.include.cmcprofile')
                     @include('manage.khaisinh.include.thaydoiprofile')
                 </div>
             </div>
