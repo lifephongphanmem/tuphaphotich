@@ -32,7 +32,7 @@
                 </div-->
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    {!! Form::open(['url'=>'thaydoibosung/luukhaisinhbs/'.$mahs, 'id' => 'create_thaydoibosung', 'class'=>'horizontal-form']) !!}
+                    {!! Form::open(['url'=>'thaydoibosung/luutthnbs/'.$mahs, 'id' => 'create_thaydoibosung', 'class'=>'horizontal-form']) !!}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
                     <div class="form-body">
