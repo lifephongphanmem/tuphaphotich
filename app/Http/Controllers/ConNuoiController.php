@@ -169,7 +169,7 @@ class ConNuoiController extends Controller
             $connuoi = ConNuoi::find($id);
             $xa = Towns::where('maxa',$connuoi->maxa)->first()->tenxa;
             $huyen = Districts::where('mahuyen',$connuoi->mahuyen)->first()->tenhuyen;
-            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$connuoi->mahs)->get();
+            $thongtinthaydoi = ThongTinThayDoi::where('mahs',$connuoi->masohoso)->get();
             return view('manage.connuoi.show')
                 ->with('connuoi',$connuoi)
                 ->with('xa',$xa)
