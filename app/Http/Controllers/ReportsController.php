@@ -22,6 +22,7 @@ class ReportsController extends Controller
     public function index(Request $request){
         if (Session::has('admin')) {
             $day = date('Y-m-d');
+            $nam = date('Y');
             $som = date("Y-m-01", strtotime($day));
             $eom = date("Y-m-t", strtotime($day));
             $inputs = $request->all();
@@ -60,6 +61,7 @@ class ReportsController extends Controller
                 -> with('xas', $xas)
                 -> with('mahuyen', $huyen)
                 -> with('maxa', $xa)
+                -> with('nam', $nam)
                 ->with('pageTitle', 'Báo cáo sổ sách tổng hợp');
 
         } else {
@@ -275,11 +277,17 @@ class ReportsController extends Controller
 
     public function bcksktkh(Request $request){
         if (Session::has('admin')) {
-
             $inputs = $request->all();
-            //dd($inputs);
-            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
-            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+            $nam = $inputs['nam'];
+            $namhientai = date('Y');// Lấy ra năm hiện tại
+            $kybaocao = $inputs['kybaocao'];
+            $Count1=0;$Count2=0;$Count3=0;$Count4=0;$Count5=0;$Count6=0;$Count7=0;
+            $Count8=0;$Count9=0;$Count10=0;$Count11=0;$Count12=0;
+            $Count13=0;$Count14=0;$Count15=0;$Count16=0;$Count17=0;
+            $Count18=0;$Count19=0;$Count20=0;$Count21=0;$Count22=0;
+            if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
+            elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
+            elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
 
             $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
             $huyen = Districts::where('mahuyen',$inputs['huyen'])
@@ -287,17 +295,55 @@ class ReportsController extends Controller
             $tinh = GeneralConfigs::first()->tendv;
             $tencq = $xa.' - '.$huyen .' - '.$tinh;
 
+            $khaisinh = KhaiSinh::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])->where('mahuyen',$inputs['huyen'])->whereBetween('ngaydangky', [$ngaytu, $ngayden])->get();
 
-            $model = ThongTinThayDoi::where('trangthai','Duyệt')
-                ->where('maxa',$inputs['xa'])
-                ->where('mahuyen',$inputs['huyen'])
-                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
-                ->get();
+            $khaitu = KhaiTu::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])->where('mahuyen',$inputs['huyen'])->whereBetween('ngaydangkykt', [$ngaytu, $ngayden])->get();
+
+            $kethon = KetHon::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])->where('mahuyen',$inputs['huyen'])->whereBetween('ngaydangky', [$ngaytu, $ngayden])->get();
+            //Khai sinh
+            foreach($khaisinh as $ks){if(isset($ks->id) && $ks->pldangky=="Đăng ký mới"){$Count1++;}}
+            foreach($khaisinh as $ks){if($ks->dantocks=="Kinh" && $ks->pldangky=="Đăng ký mới"){$Count2++;}}
+            foreach($khaisinh as $ks){if($ks->dantocks!="Kinh" && $ks->pldangky=="Đăng ký mới"){$Count3++;}}
+            foreach($khaisinh as $ks){if($ks->gioitinhks=="Nam" && $ks->pldangky=="Đăng ký mới"){$Count4++;}}
+            foreach($khaisinh as $ks){if($ks->gioitinhks=="Nữ" && $ks->pldangky=="Đăng ký mới"){$Count5++;}}
+            foreach($khaisinh as $ks){if($ks->dunghanquahan=="Đúng hạn" && $ks->pldangky=="Đăng ký mới"){$Count6++;}}
+            foreach($khaisinh as $ks){if($ks->dunghanquahan=="Quá hạn" || $ks->dunghanquahan=="Quá hạn dưới 5 tuổi" && $ks->pldangky=="Đăng ký mới"){$Count7++;}}
+            foreach($khaisinh as $ks){if($ks->pldangky=="Đăng ký mới" && $ks->dunghanquahan=="Quá hạn" ){$Count8++;}}
+            foreach($khaisinh as $ks){if($ks->dunghanquahan=="Quá hạn dưới 5 tuổi" && $ks->pldangky=="Đăng ký mới"){$Count9++;}}
+            foreach($khaisinh as $ks){if($ks->pldangky=="Đăng ký lại"){$Count10++;}}
+            //Khai tử
+            foreach($khaitu as $kt){if(isset($kt->id) && $kt->phanloaidk=="Đăng ký mới"){$Count11++;}}
+            foreach($khaitu as $kt){if($kt->phanloaituoi=="Dưới 1 tuổi" && $kt->phanloaidk=="Đăng ký mới"){$Count12++;}}
+            foreach($khaitu as $kt){if($kt->phanloaituoi=="Từ 1 tuổi đến dưới 5 tuổi" && $kt->phanloaidk=="Đăng ký mới"){$Count13++;}}
+            foreach($khaitu as $kt){if($kt->phanloaituoi=="Từ 5 tuổi trở lên" && $kt->phanloaidk=="Đăng ký mới"){$Count14++;}}
+            foreach($khaitu as $kt){if($kt->phanloaikt=="Đúng hạn" && $kt->phanloaidk=="Đăng ký mới"){$Count15++;}}
+            foreach($khaitu as $kt){if($kt->phanloaikt=="Quá hạn" && $kt->phanloaidk=="Đăng ký mới"){$Count16++;}}
+            foreach($khaitu as $kt){if($kt->phanloaidk=="Đăng ký lại"){$Count17++;}}
+            //Kết hôn
+            foreach($kethon as $kh){if(isset($kh->id) && ($kh->pldangky=="Đăng ký mới" || $kh->pldangky=="Đăng ký mới(lần đầu)")){$Count18++;}}
+            foreach($kethon as $kh){if($kh->pldangky=="Đăng ký mới(lần đầu)"){$Count19++;}}
+            foreach($kethon as $kh)
+            {
+                if($kh->pldangky=="Đăng ký mới(lần đầu)"){$Count20++;}
+            }
 
             return view('reports.bcth.bcksktkh')
-                ->with('inputs',$inputs)
-                ->with('model',$model)
+                ->with('inputs',$inputs)->with('Count1',$Count1)->with('Count2',$Count2)->with('Count3',$Count3)->with('Count4',$Count4)
+                ->with('Count5',$Count5)->with('Count6',$Count6)->with('Count7',$Count7)->with('Count8',$Count8)
+                ->with('Count9',$Count9)->with('Count10',$Count10)->with('Count11',$Count11)->with('Count12',$Count12)
+                ->with('Count13',$Count13)->with('Count14',$Count14)->with('Count15',$Count15)->with('Count16',$Count16)
+                ->with('Count17',$Count17)->with('Count18',$Count18)->with('Count19',$Count19)->with('Count20',$Count20)
+                ->with('Count21',$Count21)->with('Count22',$Count22)
+                ->with('ngaytu',$ngaytu)
+                ->with('ngayden',$ngayden)
+                ->with('khaisinh',$khaisinh)
+                ->with('khaitu',$khaitu)
+                ->with('kethon',$kethon)
                 ->with('tencq',$tencq)
+                ->with('kybaocao',$kybaocao)
                 ->with('pageTitle','Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)');
 
         } else {

@@ -49,6 +49,7 @@ class CreateKhaiTuTable extends Migration
             $table->string('quanhe')->nullable();
             $table->string('phanloaikt')->nullable();
             $table->string('phanloaidk')->nullable();
+            $table->string('phanloaituoi')->nullable();
             $table->string('tuoinguoitu')->nullable();
             $table->string('dunghanquahan')->nullable();
             $table->string('trangthai')->nullable();

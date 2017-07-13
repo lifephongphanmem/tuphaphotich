@@ -161,10 +161,23 @@
                                     {!!Form::text('nguyennhan', null, array('id' => 'nguyennhan','class' => 'form-control required'))!!}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Giấy báo tử/Giấy tờ thay thế giấy báo tử<span class="require">*</span></label>
+                                    <label class="control-label">Giấy báo tử/Giấy tờ thay thế<span class="require">*</span></label>
                                     {!!Form::text('giaybaotu', null, array('id' => 'giaybaotu','class' => 'form-control required'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Phân loại đăng ký<span class="require">*</span></label>
+                                    {!! Form::select(
+                                    'phanloaidk',
+                                    array(
+                                    'Đăng ký mới' => 'Đăng ký mới',
+                                    'Đăng ký lại' => 'Đăng ký lại',
+                                    ),null,
+                                    array('id' => 'phanloaidk', 'class' => 'form-control'))
+                                    !!}
                                 </div>
                             </div>
                         </div>
@@ -196,8 +209,16 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Nơi đăng ký<span class="require">*</span></label>
-                                    {!!Form::text('noidangkykt', null, array('id' => 'noidangkykt','class' => 'form-control required'))!!}
+                                    <label class="control-label">Phân loại tuổi<span class="require">*</span></label>
+                                    {!! Form::select(
+                                    'phanloaituoi',
+                                    array(
+                                    'Dưới 1 tuổi' => 'Dưới 1 tuổi',
+                                    'Từ 1 tuổi đến dưới 5 tuổi' => 'Từ 1 tuổi đến dưới 5 tuổi',
+                                    'Từ 5 tuổi trở lên' => 'Từ 5 tuổi trở lên',
+                                    ),null,
+                                    array('id' => 'phanloaituoi', 'class' => 'form-control'))
+                                    !!}
                                 </div>
                             </div>
                         </div>
@@ -238,6 +259,12 @@
                                 <div class="form-group">
                                     <label class="control-label">Người ký giấy<span class="require">*</span></label>
                                     {!!Form::text('nguoikygct', null, array('id' => 'nguoikygct','class' => 'form-control required'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nơi đăng ký<span class="require">*</span></label>
+                                    {!!Form::text('noidangkykt', null, array('id' => 'noidangkykt','class' => 'form-control required'))!!}
                                 </div>
                             </div>
                         </div>

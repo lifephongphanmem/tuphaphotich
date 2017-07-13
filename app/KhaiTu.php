@@ -42,6 +42,7 @@ class KhaiTu extends Model
         'quanhe',
         'phanloaikt',
         'phanloaidk',
+        'phanloaituoi',
         'tuoinguoitu',
         'dunghanquahan',
         'trangthai',

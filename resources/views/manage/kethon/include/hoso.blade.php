@@ -43,7 +43,8 @@
                         {!! Form::select(
                         'pldangky',
                         array(
-                        'Đăng ký lần đầu' => 'Đăng ký lần đầu',
+                        'Đăng ký mới' => 'Đăng ký mới',
+                        'Đăng ký mới(lần đầu)' => 'Đăng ký mới(lần đầu)',
                         'Đăng ký lại' => 'Đăng ký lại',
                         ),null,
                         array('id' => 'pldangky', 'class' => 'form-control'))

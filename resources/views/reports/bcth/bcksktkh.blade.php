@@ -49,22 +49,22 @@
         <td style="text-align: center;">
             <p><b>KẾT QUẢ ĐĂNG KÝ KHAI SINH, KHAI TỬ, KẾT HÔN TẠI ỦY BAN NHÂN DÂN (UBND) CẤP XÃ </b></p>
             <p><b>(6 tháng/năm)</b></p>
-            <p><b>Kỳ báo cáo…</b></p>
-            <p>(Từ ngày…...tháng…...năm…...</p>
-            <p>Đến ngày..…tháng….…năm...…)</p>
+            <p><b>Kỳ báo cáo: {{$kybaocao}}</b></p>
+            <p>(Từ ngày {{$ngaytu}} Đến ngày {{$ngayden}})</p>
         </td>
         <td style="text-align: right;width: 30%">
             <p><b>Đơn vị báo cáo:</b></p>
-            <p></p>
+            <p>{{$tencq}}</p>
             <p><b>Đơn vị nhận báo cáo:</b></p>
-            <p></p>
+            <p>{{$tencq}}</p>
         </td>
     </tr>
     </tbody>
 </table>
 
 <table id="table2" cellspacing="0" cellpadding="0" border="1" style="margin: 20px auto; border-collapse: collapse;">
-    <tbody><tr>
+    <tbody>
+    <tr>
         <th colspan="10">ĐĂNG KÝ KHAI SINH(Trường hợp)</th>
         <th colspan="7">ĐĂNG KÝ KHAI TỬ(Trường hợp)</th>
         <th colspan="5">ĐĂNG KÝ KẾT HÔN</th>
@@ -136,7 +136,33 @@
         <td>(21)</td>
         <td>(22)</td>
     </tr>
-    </tbody></table>
+    <tr>
+            <td>{{$Count1}}</td>
+            <td>{{$Count2}}</td>
+            <td>{{$Count3}}</td>
+            <td>{{$Count4}}</td>
+            <td>{{$Count5}}</td>
+            <td>{{$Count6}}</td>
+            <td>{{$Count7}}</td>
+            <td>{{$Count8}}</td>
+            <td>{{$Count9}}</td>
+            <td>{{$Count10}}</td>
+            <td>{{$Count11}}</td>
+            <td>{{$Count12}}</td>
+            <td>{{$Count13}}</td>
+            <td>{{$Count14}}</td>
+            <td>{{$Count15}}</td>
+            <td>{{$Count16}}</td>
+            <td>{{$Count17}}</td>
+            <td>{{$Count18}}</td>
+            <td>{{$Count19}}</td>
+            <td>{{$Count20}}</td>
+            <td>{{$Count21}}</td>
+            <td>{{$Count22}}</td>
+
+    </tr>
+    </tbody>
+</table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">
     <tbody><tr style="font-weight: bold">
         <td style="text-align: center;" width="50%">Người lập biểu</td>

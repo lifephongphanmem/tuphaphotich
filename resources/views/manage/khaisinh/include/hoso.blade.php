@@ -45,7 +45,8 @@
                         'dunghanquahan',
                         array(
                         'Đúng hạn' => 'Đăng ký đúng hạn',
-                        'Quá hạn' => 'Đăng ký quá hạn'
+                        'Quá hạn' => 'Đăng ký quá hạn',
+                        'Quá hạn dưới 5 tuổi' => 'Đăng ký quá hạn trẻ dưới 5 tuổi'
                         ),null,
                         array('id' => 'dunghanquahan', 'class' => 'form-control'))
                         !!}
