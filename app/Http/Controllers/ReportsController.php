@@ -272,4 +272,100 @@ class ReportsController extends Controller
             return view('errors.notlogin');
         }
     }
+
+    public function bcksktkh(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = ThongTinThayDoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.bcksktkh')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function bchotichkhac(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = ThongTinThayDoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.bchotichkhac')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Kết quả đăng ký các việc Hộ tịch khác (Cấp Xã)');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function bcconnuoi(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = ThongTinThayDoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.bcconnuoi')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
 }

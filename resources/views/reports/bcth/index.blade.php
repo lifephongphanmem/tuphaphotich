@@ -86,8 +86,9 @@
                         @endif
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <ol>
+                                <h4>SỔ SÁCH</h4>
                                 <li><a data-target="#SoKs-thoai-confirm" data-toggle="modal">Sổ khai sinh</a></li>
                                 <li><a data-target="#SoKt-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
                                 <li><a data-target="#SoXdTtHn-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
@@ -98,6 +99,14 @@
                                 <li><a data-target="#SoTrichLuc-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
                                 <li><a data-target="#SoThayDoi-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
                                 <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-lg-6">
+                            <ol>
+                                <h4>BÁO CÁO TỔNG HỢP</h4>
+                                <li><a data-target="#BCkhkskt-thoai-confirm" data-toggle="modal">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</a></li>
+                                <li><a data-target="#BChotichkhac-thoai-confirm" data-toggle="modal">Kết quả đăng ký các việc Hộ tịch khác (Cấp Xã)</a></li>
+                                <li><a data-target="#BCconnuoi-thoai-confirm" data-toggle="modal">Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)</a></li>
                             </ol>
                         </div>
                     </div>

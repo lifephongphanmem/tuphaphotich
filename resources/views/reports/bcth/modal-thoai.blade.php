@@ -221,6 +221,117 @@
     </div>
 </div>
 
+<!--Modal Thoại Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)  Rp10-->
+<div id="BCkhkskt-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/bcksktkh','target'=>'_blank' , 'id' => 'frm_BCksktkh', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                    <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport10()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<!--Modal Thoại Kết quả đăng ký các việc Hộ tịch khác (Cấp Xã)  Rp11-->
+<div id="BChotichkhac-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/bchotichkhac','target'=>'_blank' , 'id' => 'frm_BChotichkhac', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                    <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport11()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<!--Modal Thoại Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)  Rp12-->
+<div id="BCconnuoi-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/bcconnuoi','target'=>'_blank' , 'id' => 'frm_BCconnuoi', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                    <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport12()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 <script>
     function ClickReport1(){
         $('#frm_SoKs').submit();
@@ -240,5 +351,15 @@
     function ClickReport9(){
         $('#frm_SoThayDoi').submit();
     }
+    function ClickReport10(){
+        $('#frm_BCksktkh').submit();
+    }
+    function ClickReport11(){
+        $('#frm_BChotichkhac').submit();
+    }
+    function ClickReport12(){
+        $('#frm_BCconnuoi').submit();
+    }
+
 
 </script>

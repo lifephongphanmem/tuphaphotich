@@ -59,6 +59,9 @@ Route::post('reports/sokhaitu','ReportsController@sokhaitu');
 Route::post('reports/sokethon','ReportsController@sokethon');
 Route::post('reports/sotrichluc','ReportsController@sotrichluc');
 Route::post('reports/sothaydoi','ReportsController@sothaydoi');
+Route::post('reports/bcksktkh','ReportsController@bcksktkh');
+Route::post('reports/bchotichkhac','ReportsController@bchotichkhac');
+Route::post('reports/bcconnuoi','ReportsController@bcconnuoi');
 // </editor-fold>//End Reports
 
 // <editor-fold defaultstate="collapsed" desc="--Manage--">
