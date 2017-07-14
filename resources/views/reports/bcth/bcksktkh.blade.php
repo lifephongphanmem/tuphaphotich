@@ -50,7 +50,7 @@
             <p><b>KẾT QUẢ ĐĂNG KÝ KHAI SINH, KHAI TỬ, KẾT HÔN TẠI ỦY BAN NHÂN DÂN (UBND) CẤP XÃ </b></p>
             <p><b>(6 tháng/năm)</b></p>
             <p><b>Kỳ báo cáo: {{$kybaocao}}</b></p>
-            <p>(Từ ngày {{$ngaytu}} Đến ngày {{$ngayden}})</p>
+            <p>(Từ ngày {{getDayVn($ngaytu)}} Đến ngày {{getDayVn($ngayden)}})</p>
         </td>
         <td style="text-align: right;width: 30%">
             <p><b>Đơn vị báo cáo:</b></p>
@@ -156,29 +156,31 @@
             <td>{{$Count17}}</td>
             <td>{{$Count18}}</td>
             <td>{{$Count19}}</td>
-            <td>{{$Count20}}</td>
-            <td>{{$Count21}}</td>
+            <td>{{$tuoichong}}</td>
+            <td>{{$tuoivo}}</td>
             <td>{{$Count22}}</td>
 
     </tr>
     </tbody>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">
-    <tbody><tr style="font-weight: bold">
-        <td style="text-align: center;" width="50%">Người lập biểu</td>
-        <td style="text-align: center;" width="50%">
-            <p><i>…, ngày     tháng      năm</i></p>
-            <p><b>TM. ỦY BAN NHÂN DÂN CHỦ TỊCH</b></p>
-        </td>
-    </tr>
-    <tr style="font-style: italic">
-        <td style="text-align: center;" width="50%">(Ký, ghi rõ, họ tên)</td>
-        <td style="text-align: center;" width="50%">(Ký, đóng dấu, ghi rõ họ, tên)</td>
-    </tr>
-    <tr>
-        <td><br><br><br></td>
-    </tr>
-    </tbody></table>
+    <tbody>
+        <tr>
+            <td style="text-align: center;" width="50%">Người lập biểu</td>
+            <td style="text-align: center;" width="50%">
+                <p><i>{{$xa}}, {{getDayVn($ngaythangnam)}}</i></p>
+                <p><b>TM. ỦY BAN NHÂN DÂN CHỦ TỊCH</b></p>
+            </td>
+        </tr>
+        <tr style="font-style: italic">
+            <td style="text-align: center;" width="50%">(Ký, ghi rõ, họ tên)</td>
+            <td style="text-align: center;" width="50%">(Ký, đóng dấu, ghi rõ họ, tên)</td>
+        </tr>
+        <tr>
+            <td><br><br><br></td>
+        </tr>
+    </tbody>
+</table>
 
 
 </body></html>

@@ -279,12 +279,13 @@ class ReportsController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $nam = $inputs['nam'];
-            $namhientai = date('Y');// Lấy ra năm hiện tại
+            $ngaythangnam = date('Y-m-d');
+            $tuoichong=0;$tuoivo=0;
             $kybaocao = $inputs['kybaocao'];
             $Count1=0;$Count2=0;$Count3=0;$Count4=0;$Count5=0;$Count6=0;$Count7=0;
             $Count8=0;$Count9=0;$Count10=0;$Count11=0;$Count12=0;
             $Count13=0;$Count14=0;$Count15=0;$Count16=0;$Count17=0;
-            $Count18=0;$Count19=0;$Count20=0;$Count21=0;$Count22=0;
+            $Count18=0;$Count19=0;$Count22=0;
             if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
             elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
             elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
@@ -327,16 +328,21 @@ class ReportsController extends Controller
             foreach($kethon as $kh){if($kh->pldangky=="Đăng ký mới(lần đầu)"){$Count19++;}}
             foreach($kethon as $kh)
             {
-                if($kh->pldangky=="Đăng ký mới(lần đầu)"){$Count20++;}
+                if($kh->pldangky=="Đăng ký mới(lần đầu)")
+                {
+                    $tuoichong = $tuoichong + $this->getAge($kh->ngaysinhchong)/$Count19;
+                    $tuoivo = $tuoivo + $this->getAge($kh->ngaysinhvo)/$Count19;
+                }
             }
+            foreach($kethon as $kh){if($kh->pldangky=="Đăng ký lại"){$Count22++;}}
 
             return view('reports.bcth.bcksktkh')
                 ->with('inputs',$inputs)->with('Count1',$Count1)->with('Count2',$Count2)->with('Count3',$Count3)->with('Count4',$Count4)
                 ->with('Count5',$Count5)->with('Count6',$Count6)->with('Count7',$Count7)->with('Count8',$Count8)
                 ->with('Count9',$Count9)->with('Count10',$Count10)->with('Count11',$Count11)->with('Count12',$Count12)
                 ->with('Count13',$Count13)->with('Count14',$Count14)->with('Count15',$Count15)->with('Count16',$Count16)
-                ->with('Count17',$Count17)->with('Count18',$Count18)->with('Count19',$Count19)->with('Count20',$Count20)
-                ->with('Count21',$Count21)->with('Count22',$Count22)
+                ->with('Count17',$Count17)->with('Count18',$Count18)->with('Count19',$Count19)->with('Count22',$Count22)
+                ->with('tuoichong',$tuoichong)->with('tuoivo',$tuoivo)
                 ->with('ngaytu',$ngaytu)
                 ->with('ngayden',$ngayden)
                 ->with('khaisinh',$khaisinh)
@@ -344,11 +350,33 @@ class ReportsController extends Controller
                 ->with('kethon',$kethon)
                 ->with('tencq',$tencq)
                 ->with('kybaocao',$kybaocao)
+                ->with('xa',$xa)->with('ngaythangnam',$ngaythangnam)
                 ->with('pageTitle','Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)');
 
         } else {
             return view('errors.notlogin');
         }
+    }
+
+    public function getAge($birthdate = '0000-00-00') {
+        if ($birthdate == '0000-00-00') return 'Unknown';
+
+        $bits = explode('-', $birthdate);
+        $age = date('Y') - $bits[0] - 1;
+
+        $arr[1] = 'm';
+        $arr[2] = 'd';
+
+        for ($i = 1; $arr[$i]; $i++) {
+            $n = date($arr[$i]);
+            if ($n < $bits[$i])
+                break;
+            if ($n > $bits[$i]) {
+                ++$age;
+                break;
+            }
+        }
+        return $age;
     }
 
     public function bchotichkhac(Request $request){
