@@ -105,8 +105,8 @@
                             <ol>
                                 <h4>BÁO CÁO TỔNG HỢP</h4>
                                 <li><a data-target="#BCkhkskt-thoai-confirm" data-toggle="modal">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</a></li>
-                                <li><a data-target="#BChotichkhac-thoai-confirm" data-toggle="modal">Kết quả đăng ký các việc Hộ tịch khác (Cấp Xã)</a></li>
                                 <li><a data-target="#BCconnuoi-thoai-confirm" data-toggle="modal">Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)</a></li>
+                                <li><a data-target="#BChotichkhac-thoai-confirm" data-toggle="modal">Kết quả đăng ký các việc Hộ tịch khác (Cấp Xã)</a></li>
                             </ol>
                         </div>
                     </div>

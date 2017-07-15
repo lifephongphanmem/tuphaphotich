@@ -49,15 +49,14 @@
         <td style="text-align: center;">
             <p><b>KẾT QUẢ ĐĂNG KÝ NUÔI CON NUÔI TRONG NƯỚC TẠI ỦY BAN NHÂN DÂN (UBND) CẤP XÃ</b></p>
             <p><b>(6 tháng/năm)</b></p>
-            <p><b>Kỳ báo cáo…</b></p>
-            <p>(Từ ngày…...tháng…...năm…...</p>
-            <p>Đến ngày..…tháng….…năm...…)</p>
+            <p><b>Kỳ báo cáo: {{$kybaocao}}</b></p>
+            <p>(Từ ngày {{getDayVn($ngaytu)}} Đến ngày {{getDayVn($ngayden)}})</p>
         </td>
         <td style="text-align: right;width: 30%">
             <p><b>Đơn vị báo cáo:</b></p>
-            <p></p>
+            <p>{{$tencq}}</p>
             <p><b>Đơn vị nhận báo cáo:</b></p>
-            <p></p>
+            <p>{{$tencq}}</p>
         </td>
     </tr>
     </tbody>
@@ -102,12 +101,26 @@
         <td>(11)</td>
         <td>(12)</td>
     </tr>
+    <tr>
+        <td>{{$Count1}}</td>
+        <td>{{$Count2}}</td>
+        <td>{{$Count3}}</td>
+        <td>{{$Count4}}</td>
+        <td>{{$Count5}}</td>
+        <td>{{$Count6}}</td>
+        <td>{{$Count7}}</td>
+        <td>{{$Count8}}</td>
+        <td>{{$Count9}}</td>
+        <td>{{$Count10}}</td>
+        <td>{{$Count11}}</td>
+        <td>{{$Count12}}</td>
+    </tr>
 </table>
 <table class="header" width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:20px auto; text-align: center;">
-    <tbody><tr style="font-weight: bold">
+    <tbody><tr>
         <td style="text-align: center;" width="50%">Người lập biểu</td>
         <td style="text-align: center;" width="50%">
-            <p><i>…, ngày     tháng      năm</i></p>
+            <p><i>{{$xa}}, {{getDayVn($ngaythangnam)}}</i></p>
             <p><b>TM. ỦY BAN NHÂN DÂN CHỦ TỊCH</b></p>
         </td>
     </tr>

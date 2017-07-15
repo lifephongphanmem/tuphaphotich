@@ -88,9 +88,17 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Nơi sinh <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Độ tuổi <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('noisinhconnuoi', null, array('id' => 'noisinhconnuoi','class' => 'form-control', 'required'=>'required'))!!}
+                            {!! Form::select(
+                            'tuoiconnuoi',
+                            array(
+                            'Dưới 01 tuổi' => 'Dưới 01 tuổi',
+                            'Từ 01 đến dưới 5 tuổi' => 'Từ 01 đến dưới 5 tuổi',
+                            'Từ 5 tuổi trở lên' => 'Từ 5 tuổi trở lên'
+                            ),null,
+                            array('id' => 'tuoiconnuoi', 'class' => 'form-control'))
+                            !!}
                     </div>
                 </div>
             </div>
@@ -98,18 +106,42 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">Nơi sinh <span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!!Form::text('noisinhconnuoi', null, array('id' => 'noisinhconnuoi','class' => 'form-control', 'required'=>'required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label class="col-sm-4 control-label">Nơi thường trú </label>
                     <div class="col-sm-8">
-                        {!!Form::text('thuongtruconnuoi', null, array('id' => 'thuongtruconnuoi','class' => 'form-control'))!!}
+                        <div>
+                            {!! Form::select(
+                            'thuongtruconnuoi',
+                            array(
+                            'Cơ sở nuôi dưỡng' => 'Cơ sở nuôi dưỡng',
+                            'Gia đình' => 'Gia đình',
+                            'Nơi khác' => 'Nơi khác'
+                            ),null,
+                            array('id' => 'thuongtruconnuoi', 'class' => 'form-control'))
+                            !!}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Tình trạng sức khỏe </label>
-
-                    <div class="col-sm-8">
-                        {!!Form::text('tinhtrangsk', null, array('id' => 'tinhtrangsk','class' => 'form-control'))!!}
+                    <div class="col-sm-8 controls">
+                        {!! Form::select(
+                        'tinhtrangsk',
+                        array(
+                        'Bình thường' => 'Bình thường',
+                        'Trẻ em có nhu cầu đặc biệt' => 'Trẻ em có nhu cầu đặc biệt'
+                        ),null,
+                        array('id' => 'tinhtrangsk', 'class' => 'form-control'))
+                        !!}
                     </div>
                 </div>
             </div>

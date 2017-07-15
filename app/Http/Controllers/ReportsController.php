@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CapBanSaoTrichLuc;
+use App\ConNuoi;
 use App\Districts;
 use App\GeneralConfigs;
 use App\KetHon;
@@ -413,29 +414,47 @@ class ReportsController extends Controller
 
     public function bcconnuoi(Request $request){
         if (Session::has('admin')) {
-
             $inputs = $request->all();
-            //dd($inputs);
-            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
-            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
-
+            $nam = $inputs['nam'];
+            $ngaythangnam = date('Y-m-d');
+            $kybaocao = $inputs['kybaocao'];
+            $Count1=0;$Count2=0;$Count3=0;$Count4=0;$Count5=0;$Count6=0;$Count7=0;
+            $Count8=0;$Count9=0;$Count10=0;$Count11=0;$Count12=0;
+            if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
+            elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
+            elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
             $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
             $huyen = Districts::where('mahuyen',$inputs['huyen'])
                 ->first()->tenhuyen;
             $tinh = GeneralConfigs::first()->tendv;
             $tencq = $xa.' - '.$huyen .' - '.$tinh;
+            $connuoi = ConNuoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])->where('mahuyen',$inputs['huyen'])->whereBetween('ngaythangdk', [$ngaytu, $ngayden])->get();
 
-
-            $model = ThongTinThayDoi::where('trangthai','Duyệt')
-                ->where('maxa',$inputs['xa'])
-                ->where('mahuyen',$inputs['huyen'])
-                ->whereBetween('ngaydk', [$ngaytu, $ngayden])
-                ->get();
+            foreach($connuoi as $cn){if(isset($cn->id)){$Count1++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nam" && $cn->tuoiconnuoi=="Dưới 01 tuổi"){$Count2++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nữ" && $cn->tuoiconnuoi=="Dưới 01 tuổi"){$Count3++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nam" && $cn->tuoiconnuoi=="Từ 01 đến dưới 5 tuổi"){$Count4++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nữ" && $cn->tuoiconnuoi=="Từ 01 đến dưới 5 tuổi"){$Count5++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nam" && $cn->tuoiconnuoi=="Từ 5 tuổi trở lên"){$Count6++;}}
+            foreach($connuoi as $cn){if($cn->gioitinhconnuoi="Nữ" && $cn->tuoiconnuoi=="Từ 5 tuổi trở lên"){$Count7++;}}
+            foreach($connuoi as $cn){if($cn->tinhtrangsk=="Bình thường"){$Count8++;}}
+            foreach($connuoi as $cn){if($cn->tinhtrangsk=="Trẻ em có nhu cầu đặc biệt"){$Count9++;}}
+            foreach($connuoi as $cn){if($cn->thuongtrucn=="Cơ sở nuôi dưỡng"){$Count10++;}}
+            foreach($connuoi as $cn){if($cn->thuongtrucn=="Gia đình"){$Count11++;}}
+            foreach($connuoi as $cn){if($cn->thuongtrucn=="Nơi khác"){$Count12++;}}
 
             return view('reports.bcth.bcconnuoi')
-                ->with('inputs',$inputs)
-                ->with('model',$model)
+                ->with('inputs',$inputs)->with('Count1',$Count1)->with('Count2',$Count2)->with('Count3',$Count3)->with('Count4',$Count4)
+                ->with('Count5',$Count5)->with('Count6',$Count6)->with('Count7',$Count7)->with('Count8',$Count8)
+                ->with('Count9',$Count9)->with('Count10',$Count10)->with('Count11',$Count11)->with('Count12',$Count12)
                 ->with('tencq',$tencq)
+                ->with('xa',$xa)
+                ->with('connuoi',$connuoi)
+                ->with('ngaytu',$ngaytu)
+                ->with('ngayden',$ngayden)
+                ->with('kybaocao',$kybaocao)
+                ->with('ngaythangnam',$ngaythangnam)
                 ->with('pageTitle','Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)');
 
         } else {
