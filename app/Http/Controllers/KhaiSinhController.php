@@ -124,12 +124,11 @@ class KhaiSinhController extends Controller
             $modelsohotich =  SoHoTich::where('plhotich','Khai sinh')
                 ->where('namso',date('Y'))->first()->quyenhotich;
             $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
-
             $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
-
             $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
             $inputs['ngaysinhks'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhks'])));
             $inputs['matinh'] = getmatinh();
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'KS'.getdate()[0];
             $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
             $inputs['ngaysinhme'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhme'])));
             $inputs['ngaysinhcha'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhcha'])));

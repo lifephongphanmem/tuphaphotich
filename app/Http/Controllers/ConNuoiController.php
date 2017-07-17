@@ -141,6 +141,8 @@ class ConNuoiController extends Controller
             $inputs['ngaycapgtmg'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtmg'])));
             $inputs['ngaythangdk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangdk'])));
             $inputs['ngaythangqd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaythangqd'])));
+            $inputs['matinh'] = getmatinh();
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'CN'.getdate()[0];
             $inputs['trangthai']= "Chờ duyệt";
             $connuoi->create($inputs);
             return redirect('dangkyconnuoi');

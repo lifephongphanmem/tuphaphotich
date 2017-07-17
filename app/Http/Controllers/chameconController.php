@@ -124,7 +124,7 @@ class chameconController extends Controller
 
             $inputs['soso'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['soquyen'] );
             $inputs['matinh'] = getmatinh();
-
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'CMC'.getdate()[0];
             $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
             $inputs['ngaysinhndn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhndn'])));
             $inputs['ngaysinhnn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhnn'])));

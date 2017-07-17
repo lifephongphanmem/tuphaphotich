@@ -130,6 +130,8 @@ class giamhoController extends Controller
             $inputs['ngaysinhngh2'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
             $inputs['ngaysinhndgh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhndgh'])));
             $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
+            $inputs['matinh'] = getmatinh();
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'GH'.getdate()[0];
             $inputs['trangthai'] = 'Chờ duyệt';
             $model = new giamho();
             $model->create($inputs);

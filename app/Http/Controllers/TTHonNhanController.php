@@ -138,7 +138,7 @@ class TTHonNhanController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['matinh'] = getmatinh();
-            $inputs['mahs'] = $inputs['mahuyen'].$inputs['maxa'].getdate()[0];
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'TTHN'.getdate()[0];
             $inputs['ngayxn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngayxn'])));
             $inputs['tungay'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['tungay'])));
             $inputs['denngay'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['denngay'])));

@@ -133,6 +133,8 @@ class KhaiTuController extends Controller
             $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
             $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
             $inputs['trangthai'] = 'Chờ duyệt';
+            $inputs['matinh'] = getmatinh();
+            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'KT'.getdate()[0];
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
             $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
             $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
