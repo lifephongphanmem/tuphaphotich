@@ -81,7 +81,7 @@
     <tr>
         @foreach($model as $key=>$tt)
             <td>
-                Quyển số: {{$tt->quyen}}
+                Quyển số: {{$tt->soquyen}}
             </td>
     </tr>
     <tr>
@@ -101,7 +101,7 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8">
     <tr>
         <td style="text-align: left;">
-            Số:..{{$tt->so}}.. Quyển..{{$tt->quyen}}..
+            Số:..{{$tt->soso}}.. Quyển..{{$tt->soquyen}}..
         </td>
 
         <td style="text-align: right;">
@@ -114,32 +114,29 @@
         <td style="text-align: left; width: 70%">
             <table>
                 <tr><td colspan="6"><b>Phần ghi về Người giám hộ:</b>  </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenks}}</span></td></tr>
-                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} </td></tr>
+                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenngh1}}</span></td></tr>
+                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhngh1)}} </td></tr>
                 <tr>
-                    <td colspan="2">Giới tính: ..{{$tt->gioitinhkks}}..</td>
-                    <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>
-                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichks}}..</td>
+                    <td colspan="2">Giới tính: ..{{$tt->gioitinhngh1}}..</td>
+                    <td colspan="2">Dân tộc: ..{{$tt->dantocngh1}}..</td>
+                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichngh1}}..</td>
                 </tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Nơi cư trú: ..{{$tt->quequanks}}..</td></tr>
+                <tr><td colspan="6">Giấy tờ tùy thân: {{$tt->loaigiaytongh1}} số: {{$tt->sogiaytongh1}}</td></tr>
+                <tr><td colspan="6">Nơi cư trú: ..{{$tt->tamtrutamvangngh1}}..</td></tr>
                 <tr><td colspan="6"><b>Phần ghi về Người được giám hộ::</b>  </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenks}}</span></td></tr>
-                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} </td></tr>
+                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenndgh}}</span></td></tr>
+                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhndgh)}} </td></tr>
                 <tr>
-                    <td colspan="2">Giới tính: ..{{$tt->gioitinhkks}}..</td>
-                    <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>
-                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichks}}..</td>
+                    <td colspan="2">Giới tính: ..{{$tt->gioitinhndgh}}..</td>
+                    <td colspan="2">Dân tộc: ..{{$tt->dantocndgh}}..</td>
+                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichndgh}}..</td>
                 </tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Nơi cư trú: ..{{$tt->quequanks}}..</td></tr>
+                <tr><td colspan="6">Giấy tờ tùy thân: {{$tt->loaigiaytondgh}} số: {{$tt->sogiaytondgh}}</td></tr>
+                <tr><td colspan="6">Nơi cư trú: ..{{$tt->tamtrutamvangndgh}}..</td></tr>
                 <tr><td colspan="6"><b>Phần ghi về người đi đăng ký giám hộ:</b> </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->quequanks}}..</td></tr>
-                <tr><td colspan="6"><b>Phần ghi về người đi đăng ký giám hộ:</b> </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->quequanks}}..</td></tr>
-                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ của người ký Trích lục giám hộ:</b> </td></tr>
+                <tr><td colspan="6">Họ, chữ đệm, tên: ..{{$tt->hotennk}}..</td></tr>
+                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->loaigiaytonk}} số: {{$tt->sogiaytonk}}</td></tr>
+                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ của người ký Trích lục giám hộ: {{$tt->nguoiky}}</b> </td></tr>
                 <tr style="text-align: center">
                     <td colspan="3" style="width: 50%"><b>Người đi đăng ký</b></td>
                     <td colspan="3" style="width: 50%"><b>Người thực hiện</b></td>

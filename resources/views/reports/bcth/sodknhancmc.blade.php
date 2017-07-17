@@ -81,7 +81,7 @@
     <tr>
         @foreach($model as $key=>$tt)
             <td>
-                Quyển số: {{$tt->quyen}}
+                Quyển số: {{$tt->soquyen}}
             </td>
     </tr>
     <tr>
@@ -101,7 +101,7 @@
 <table width="96%" border="0" cellspacing="0" cellpadding="8">
     <tr>
         <td style="text-align: left;">
-            Số:..{{$tt->so}}.. Quyển..{{$tt->quyen}}..
+            Số:..{{$tt->soso}}.. Quyển..{{$tt->soquyen}}..
         </td>
 
         <td style="text-align: right;">

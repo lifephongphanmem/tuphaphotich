@@ -93,9 +93,9 @@
                                 <li><a data-target="#SoKt-thoai-confirm" data-toggle="modal">Sổ khai tử</a></li>
                                 <li><a data-target="#SoXdTtHn-thoai-confirm" data-toggle="modal">Sổ cấp giấy xác định tình trạng hôn nhân</a></li>
                                 <li><a data-target="#SoKh-thoai-confirm" data-toggle="modal">Sổ đăng ký kết hôn</a></li>
-                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
-                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
-                                <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ nhận cha mẹ con</a></li>
+                                <li><a data-target="#SoGh-thoai-confirm" data-toggle="modal">Sổ đăng ký giám hộ</a></li>
+                                <li><a data-target="#SoChamdutgh-thoai-confirm" data-toggle="modal">Sổ đăng ký chấm dứt giám hộ</a></li>
+                                <li><a data-target="#SoNhancmc-thoai-confirm" data-toggle="modal">Sổ nhận cha mẹ con</a></li>
                                 <li><a data-target="#SoTrichLuc-thoai-confirm" data-toggle="modal">Sổ cấp bản sao trích lục</a></li>
                                 <li><a data-target="#SoThayDoi-thoai-confirm" data-toggle="modal">Sổ đăng ký thay đổi, cải chính, xác định lại dân tộc, bổ xung hộ tịch</a></li>
                                 <li><a data-target="#-thoai-confirm" data-toggle="modal">Sổ ghi chú ly hôn</a></li>

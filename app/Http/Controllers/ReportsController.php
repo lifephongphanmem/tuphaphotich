@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\CapBanSaoTrichLuc;
+use App\chamecon;
 use App\ConNuoi;
 use App\Districts;
 use App\GeneralConfigs;
+use App\giamho;
 use App\KetHon;
 use App\KhaiSinh;
 use App\KhaiTu;
@@ -197,6 +199,102 @@ class ReportsController extends Controller
                 ->with('model',$model)
                 ->with('tencq',$tencq)
                 ->with('pageTitle','Sổ đăng ký kết hôn');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sogiamho(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = giamho::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sogiamho')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ đăng ký giám hộ');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sochamdutgh(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = giamho::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sochamdutgh')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ chấm dứt giám hộ');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function sodknhancmc(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = chamecon::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
+                ->get();
+
+            return view('reports.bcth.sodknhancmc')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','Sổ đăng ký nhận cha mẹ con');
 
         } else {
             return view('errors.notlogin');
