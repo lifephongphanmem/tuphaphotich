@@ -22,7 +22,8 @@ class KhaiTu extends Model
         'dantoc',
         'quoctich',
         'thuongtru',
-        'cmnd',
+        'loaigiayto',
+        'sogiayto',
         'giotu',
         'phuttu',
         'ngaychet',
@@ -45,6 +46,8 @@ class KhaiTu extends Model
         'phanloaituoi',
         'tuoinguoitu',
         'dunghanquahan',
+        'dunghanquahan',
+        'masohoso',
         'trangthai',
     ];
 }

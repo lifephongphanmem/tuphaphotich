@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Ngày sinh</label>
+                    <label class="col-sm-4 control-label">Ngày sinh bằng chữ</label>
                     <div class="col-sm-8">
                         {!!Form::text('ngaysinhksbangchu',null, array('id' => 'ngaysinhksbangchu','class' => 'form-control required'))!!}
                     </div>

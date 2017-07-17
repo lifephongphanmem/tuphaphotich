@@ -134,7 +134,7 @@ class KhaiTuController extends Controller
             $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
             $inputs['trangthai'] = 'Chờ duyệt';
             $inputs['matinh'] = getmatinh();
-            $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'KT'.getdate()[0];
+            $inputs['masohoso'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'KT'.getdate()[0];
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
             $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
             $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
@@ -220,6 +220,9 @@ class KhaiTuController extends Controller
         if (Session::has('admin')) {
             $inputs = $request->all();
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
+            $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
+            $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
+            $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
             $khaitu = KhaiTu::find($id);
             $khaitu->update($inputs);
             return redirect('khaitu');

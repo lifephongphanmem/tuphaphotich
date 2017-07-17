@@ -29,7 +29,8 @@ class CreateKhaiTuTable extends Migration
             $table->string('dantoc')->nullable();
             $table->string('quoctich')->nullable();
             $table->string('thuongtru')->nullable();
-            $table->string('cmnd')->nullable();
+            $table->string('loaigiayto')->nullable();
+            $table->string('sogiayto')->nullable();
             $table->string('giotu')->nullable();
             $table->string('phuttu')->nullable();
             $table->date('ngaychet')->nullable();

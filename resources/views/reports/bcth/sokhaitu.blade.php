@@ -78,9 +78,10 @@
     </tr>
 </table>
 <table width="96%" border="0" cellspacing="0" cellpadding="8" style="margin:50px auto auto; text-align: center;">
+    @foreach($khaitu as $key=>$kt)
     <tr>
         <td>
-            Quyển số: ....
+            Quyển số: {{$kt->quyen}}
         </td>
     </tr>
     <tr>
@@ -96,7 +97,7 @@
 </table>
 
 <p style="page-break-before: always">
-@foreach($khaitu as $key=>$kt)
+
     <table width="96%" border="0" cellspacing="0" cellpadding="8">
         <tr>
             <td style="text-align: left;">
@@ -114,7 +115,7 @@
                 <table>
                     <tr><td colspan="6"><b>Phần ghi về người được khai tử</b></td></tr>
                     <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$kt->hoten}}</span></td></tr>
-                    <tr><td colspan="6">Ngày, tháng, năm sinh:  ..</td>{{$kt->ngaysinh}}</tr>
+                    <tr><td colspan="6">Ngày, tháng, năm sinh:  {{getDayVn($kt->ngaysinh)}}</td></tr>
                     <tr>
                         <td colspan="2">Giới tính: ..{{$kt->gioitinh}}..</td>
                         <td colspan="2">Dân tộc: ..{{$kt->dantoc}}..</td>
@@ -152,11 +153,11 @@
                 <table style="padding-top: 2px; text-align: left;" cellpadding="4">
                     <tr>
                         <td>Đúng hạn</td>
-                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->dunghanquahan == 'Đúng hạn' ? 'X' : ''}}</span></td>
+                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaikt == 'Đúng hạn' ? 'X' : ''}}</span></td>
                     </tr>
                     <tr>
                         <td>Quá hạn</td>
-                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->dunghanquahan == 'Quá hạn' ? 'X' : ''}}</span></td>
+                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaikt == 'Quá hạn' ? 'X' : ''}}</span></td>
                     </tr>
                     <tr>
                         <td>Đăng ký lại</td>
@@ -164,11 +165,11 @@
                     </tr>
                     <tr>
                         <td>Trẻ dưới 01 tuổi</td>
-                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaikt == 'Trẻ dưới 01 tuổi' ? 'X' : ''}}</span></td>
+                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaituoi == 'Dưới 1 tuổi' ? 'X' : ''}}</span></td>
                     </tr>
                     <tr>
                         <td>Trẻ từ 01 tuổi đến dưới 5 tuổi</td>
-                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaikt == 'Trẻ từ 01 tuổi đến dưới 5 tuổi' ? 'X' : ''}}</span></td>
+                        <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$kt->phanloaituoi == 'Từ 1 tuổi đến dưới 5 tuổi' ? 'X' : ''}}</span></td>
                     </tr>
                     <tr>
                         <td>Ghi vào sổ hộ tịch việc khai tử</td>

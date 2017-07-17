@@ -13,7 +13,6 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Giấy tờ<span class="require">*</span></label>
-
                     <div class="col-sm-8 controls">
                         {!! Form::select(
                         'loaigiaytonk',
@@ -69,7 +68,8 @@
                         'Mẹ' => 'Mẹ',
                         'Cô' => 'Cô',
                         'Chú' => 'Chú',
-                        'Bác' => 'Bác'
+                        'Bác' => 'Bác',
+                        'Khác' => 'Khác'
                         ),null,
                         array('id' => 'quanhenk', 'class' => 'form-control'))
                         !!}

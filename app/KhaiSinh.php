@@ -12,6 +12,7 @@ class KhaiSinh extends Model
         'matinh',
         'mahuyen',
         'maxa',
+        'mahs',
         'plkhaisinh',
         'pldangky',
         'dunghanquahan',

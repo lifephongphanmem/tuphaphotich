@@ -110,10 +110,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label class="control-label">CMND/Hộ chiếu/Giấy tờ hợp lệ thay thế<span class="require">*</span></label>
-                                    {!!Form::text('cmnd', null, array('id' => 'cmnd','class' => 'form-control required'))!!}
+                                    <label>Số giấy tờ<span class="require">*</span></label>
+                                    <div>
+                                        {!! Form::select(
+                                        'loaigiayto',
+                                        array(
+                                        'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                                        'Hộ chiếu' => 'Hộ chiếu',
+                                        'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                                        ),null,
+                                        array('id' => 'loaigiayto', 'class' => 'form-control'))
+                                        !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Số giấy tờ<span class="require">*</span></label>
+                                    {!!Form::text('sogiayto', null, array('id' => 'sogiayto','class' => 'form-control required'))!!}
                                 </div>
                             </div>
                             <div class="col-md-6">
