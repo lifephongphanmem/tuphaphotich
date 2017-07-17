@@ -114,12 +114,12 @@
         <td style="text-align: left; width: 70%">
             <table>
                 <tr><td colspan="6"><b>Phần ghi về người nhận/được nhận là cha / mẹ:</b>  </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenks}}</span></td></tr>
-                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} </td></tr>
+                <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotennn}}</span></td></tr>
+                <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhnn)}} </td></tr>
                 <tr>
-                    <td colspan="2">Giới tính: ..{{$tt->gioitinhkks}}..</td>
-                    <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>
-                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichks}}..</td>
+                    <td colspan="2">Giới tính: ..{{$tt->gioitinhnn}}..</td>
+                    <td colspan="2">Dân tộc: ..{{$tt->dantocnn}}..</td>
+                    <td colspan="2">Quốc tịch: ..{{$tt->quoctichnn}}..</td>
                 </tr>
                 <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->noisinhks}}..</td></tr>
                 <tr><td colspan="6">Nơi cư trú: ..{{$tt->quequanks}}..</td></tr>
@@ -131,13 +131,13 @@
                     <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>
                     <td colspan="2">Quốc tịch: ..{{$tt->quoctichks}}..</td>
                 </tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Nơi cư trú: ..{{$tt->quequanks}}..</td></tr>
+                <tr><td colspan="6">Giấy tờ tùy thân: {{$tt->loaigiaytonn}} số: {{$tt->sogiaytonn}}</td></tr>
+                <tr><td colspan="6">Nơi cư trú: ..{{$tt->tamtrutamvangnn}}..</td></tr>
                 <tr><td colspan="6"><b>Phần ghi về người đi đăng ký nhận cha, mẹ, con:</b> </td></tr>
-                <tr><td colspan="6">Họ, chữ đệm, tên: ..{{$tt->noisinhks}}..</td></tr>
-                <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->quequanks}}..</td></tr>
-                <tr><td colspan="6">Quan hệ với người được nhận là cha, mẹ, con: ..{{$tt->quequanks}}..</td></tr>
-                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ của người ký Trích lục:</b> </td></tr>
+                <tr><td colspan="6">Họ, chữ đệm, tên: {{$tt->hotennk}}</td></tr>
+                <tr><td colspan="6">Giấy tờ tùy thân: {{$tt->loaigiaytonk}} số:{{$tt->sogiaytonk}}</td></tr>
+                <tr><td colspan="6">Quan hệ với người được nhận là cha, mẹ, con: ..{{$tt->quanhenk}}..</td></tr>
+                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ của người ký Trích lục: {{$tt->nguoiky}}</b> </td></tr>
                 <tr style="text-align: center">
                     <td colspan="3" style="width: 50%"><b>Người đi đăng ký</b></td>
                     <td colspan="3" style="width: 50%"><b>Người thực hiện</b></td>
@@ -157,11 +157,11 @@
             <table style="padding-top: 2px; text-align: left;" cellpadding="4">
                 <tr>
                     <td>Con nhận cha, mẹ</td>
-                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->dunghanquahan == 'Đúng hạn' ? 'X' : ''}}</span></td>
+                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->phanloai == 'Con nhận cha, mẹ' ? 'X' : ''}}</span></td>
                 </tr>
                 <tr>
                     <td>Cha, mẹ nhận con</td>
-                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->dunghanquahan == 'Quá hạn' ? 'X' : ''}}</span></td>
+                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->phanloai == 'Cha, mẹ nhận con' ? 'X' : ''}}</span></td>
                 </tr>
                 <tr>
                     <td>Ghi vào sổ hộ tịch việc nhận/xác định cha, mẹ, con:</td>
