@@ -197,7 +197,7 @@ class CapBanSaoTrichLucController extends Controller
                 $tinh = GeneralConfigs::first()->tendv;
                 $modelxa = Towns::where('maxa',$model->madv)->first();
                 $xa = $modelxa->tenxa;
-                $modelhuyen = Districts::where('mahuyen',$modelxa->maxa)->first();
+                $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
                 $huyen = $modelhuyen->tenhuyen;
             }
             if($model->plbstrichluc == 'Khai sinh') {
