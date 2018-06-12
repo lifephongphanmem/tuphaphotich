@@ -10,61 +10,55 @@
                         <td width="50%"><b>Xã/phường:</b>&nbsp;{{$xa}}</td>
                     </tr>
                     <tr>
-                        <td><b>Ngày đăng ký:</b>&nbsp;{{getDayVn($model->ngaydangky)}}</td>
-                        <td><b>Đăng ký khai sinh:</b>&nbsp;{{$model->dunghanquahan}}</td>
+                        <td><b>Vào sổ giám hộ:</b> {{$model->soso}}</td>
+                        <td><b>Vào quyển giám hộ:</b> {{$model->soquyen}}</td>
                     </tr>
                     <tr>
-                        <td><b>Vào quyển khai sinh:</b>&nbsp;{{$model->quyen}}</td>
-                        <td><b>Số khai sinh:</b>&nbsp;{{$model->so}}</td>
+                        <td><b>Họ tên người khai:</b> {{$model->hotennk}}</td>
+                        <td><b>Giới tính người khai:</b> {{$model->gioitinhnk}}</td>
                     </tr>
                     <tr>
-                        <td><b>Người ký:</b>&nbsp;{{$model->nguoiky}}</td>
-                        <td><b>Chức vụ người ký:</b>&nbsp;{{$model->chucvunguoiky}}</td>
+                        <td><b>Quan hệ người khai:</b> {{$model->quanhenk}}</td>
+                        <td><b>Địa chỉ người khai:</b> {{$model->diachink}}</td>
                     </tr>
                     <tr>
-                        <td><b>Người thực hiện:</b>&nbsp;{{$model->nguoithuchien}}</td>
-                        <td><b>Nơi đăng ký khám chữa bệnh:&nbsp;{{$model->noikcbbd}}</b></td>
+                        <td><b>Họ tên người gh thứ nhất:</b> {{$model->hotenngh1}}</td>
+                        <td><b>Giới tính người gh thứ nhất:</b> {{$model->gioitinhngh1}}</td>
                     </tr>
                     <tr>
-                        <td><b>Số giấy chứng sinh:</b>&nbsp;{{$model->sochungsinh}}</td>
-                        <td><b>Họ và tên:</b>&nbsp;<span style="color: blue;text-transform: uppercase">{{$model->hotenks}}</span></td>
-                    </tr>
-                    <tr>
-                        <td><b>Giới tính:</b>&nbsp;{{$model->gioitinhks}}</td>
-                        <td><b>Ngày sinh:</b>&nbsp;{{getDayVn($model->ngaysinhks)}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Dân tộc:</b>&nbsp;{{$model->dantocks}}</td>
-                        <td><b>Quốc tịch:</b>&nbsp;{{$model->quoctichks}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Nơi sinh:</b>&nbsp;{{$model->noisinh}}</td>
-                        <td><b>Quê quán:</b>&nbsp;{{$model->quequanks}}</td>
-                    </tr>
-                    <tr>
-                        <td><b>Họ tên mẹ:</b>&nbsp;{{$model->hotenme}}</td>
-                        <td><b>Năm sinh:</b>&nbsp;{{date('Y',strtotime($model->ngaysinhme))}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachime}}</td>
+                        <td><b>Ngày sinh người gh thứ nhất:</b> {{getDayVn($model->ngaysinhngh1)}}</td>
+                        <td><b>Dân tộc ngời gh thứ nhất:</b> {{$model->dantocngh1}}</td>
                     </tr>
 
                     <tr>
-                        <td><b>Họ tên cha:</b>&nbsp;{{$model->hotencha}}</td>
-                        <td><b>Năm sinh:</b>&nbsp;{{date('Y',strtotime($model->ngaysinhcha))}}</td>
+                        <td><b>Quốc tịch người gh thứ nhất:</b> {{$model->quoctichngh1}}</td>
+                        <td><b>Địa chỉ người gh thứ nhất:</b> {{$model->tamtrutamvangngh1}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachicha}}</td>
+                        <td><b>Họ tên người gh thứ hai:</b> {{$model->hotenngh2}}</td>
+                        <td><b>Giới tính người gh thứ hai:</b> {{$model->gioitinhngh2}}</td>
                     </tr>
                     <tr>
-                        <td><b>Họ tên người khai:</b>&nbsp;{{$model->hotennk}}</td>
-                        <td><b>Quan hệ với người khai sinh</b>&nbsp;{{$model->quanhenk}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachink}}</td>
+                        <td><b>Ngày sinh người gh thứ hai:</b> {{getDayVn($model->ngaysinhngh2)}}</td>
+                        <td><b>Dân tộc ngời gh thứ hai:</b> {{$model->dantocngh2}}</td>
                     </tr>
 
-
+                    <tr>
+                        <td><b>Quốc tịch người gh thứ hai:</b> {{$model->quoctichngh2}}</td>
+                        <td><b>Địa chỉ người gh thứ hai:</b> {{$model->tamtrutamvangngh2}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Họ tên người được gh:</b> {{$model->hotenndgh}}</td>
+                        <td><b>Giới tính người được gh:</b> {{$model->gioitinhndgh}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày sinh người được gh:</b> {{getDayVn($model->ngaysinhndgh)}}</td>
+                        <td><b>Dân tộc người được gh:</b> {{$model->dantocndgh}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Quốc tịch người được gh:</b> {{$model->quoctichndgh}}</td>
+                        <td><b>Địa chỉ người được gh:</b> {{$model->tamtrutamvangndgh}}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <!-- end of table profile -->

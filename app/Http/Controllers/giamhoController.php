@@ -8,7 +8,7 @@ use App\SoHoTich;
 use App\Towns;
 use App\ThongTinThayDoi;
 use Illuminate\Http\Request;
-
+use App\GeneralConfigs;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -33,10 +33,12 @@ class giamhoController extends Controller
                     $xa = $xadf;
                 }
 
-            }elseif(session('admin')->level == 'H'){
+            }elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh'){
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
-                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
-                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+                $xa = 'tpym';}
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = 'tpdv';
             }else{
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
@@ -119,7 +121,7 @@ class giamhoController extends Controller
             $inputs = $request->all();
 
             $modelsohotich =  SoHoTich::where('plhotich','Giám hộ')
-                ->where('namso',date('Y'))->first()->quyenhotich;
+                ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
             $inputs['soquyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'GH'.date('Y');
 
             $inputs['soso'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['soquyen'] );
@@ -151,7 +153,7 @@ class giamhoController extends Controller
             $stt = 1;
         else{
             $model =giamho::where('id', $idmax)->first();
-            $stt = $model->so + 1;
+            $stt = $model->soso + 1;
         }
         return $stt;
     }
@@ -160,7 +162,18 @@ class giamhoController extends Controller
         if (Session::has('admin')) {
 
             $model = giamho::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            }
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
             $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
 
@@ -242,32 +255,174 @@ class giamhoController extends Controller
             return view('errors.notlogin');
     }
 
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
             $model = giamho::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $xa = $modelxa->tenxa;
-            $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
-            $huyen = $modelhuyen->tenhuyen;
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
             $tinh = GeneralConfigs::first()->tendv;
-
-            if($inputs['plgiayks']== 'Bản chính'){
-                return view('reports.khaisinh.print')
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $huyen = $modelhuyen->tenhuyen;
+            $tenxa = substr("$xa",8);
+            if($model->phanloainhap == "Giám hộ")
+            {
+                return view('reports.giamho.print')
                     ->with('model',$model)
                     ->with('xa',$xa)
-                    ->with('pageTitle','In giấy khai sinh bản chính');
-            }else{
-                return view('reports.khaisinh.printtrichluc')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
+                    ->with('tenxa',$tenxa)
                     ->with('huyen',$huyen)
                     ->with('tinh',$tinh)
-                    ->with('pageTitle','In giấy khai sinh bản sao');
+                    ->with('pageTitle','In giấy trích lục đăng ký giám hộ (Bản chính)');
+            }
+            elseif($model->phanloainhap == "Chấm dứt giám hộ")
+            {
+                return view('reports.cdgiamho.print')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tenxa',$tenxa)
+                    ->with('huyen',$huyen)
+                    ->with('tinh',$tinh)
+                    ->with('pageTitle','In giấy trích lục đăng ký giám hộ (Bản chính)');
             }
 
         }else
             return view('errors.notlogin');
+    }
+
+    public function printsbansao($id){
+        if (Session::has('admin')) {
+            $model = giamho::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $tenxa = substr("$xa",8);
+            $modelhuyen = Districts::where('mahuyen',$model->mahuyen)->first();
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($model->phanloainhap == "Giám hộ")
+            {
+                return view('reports.giamho.printbansao')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tenxa',$tenxa)
+                    ->with('huyen',$huyen)
+                    ->with('tinh',$tinh)
+                    ->with('pageTitle','In trích lục giám hộ(Bản sao)');
+            }
+            elseif($model->phanloainhap == "Chấm dứt giám hộ")
+            {
+                return view('reports.cdgiamho.printbansao')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tenxa',$tenxa)
+                    ->with('huyen',$huyen)
+                    ->with('tinh',$tinh)
+                    ->with('pageTitle','In trích lục chấm dứt giám hộ(Bản sao)');
+            }
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhai($id){
+        if (Session::has('admin')) {
+            $model = giamho::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            if($model->phanloainhap == "Giám hộ")
+            {
+                return view('reports.giamho.printtokhai')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tencq',$tencq)
+                    ->with('pageTitle','In tờ khai đăng ký giám hộ');
+            }
+            elseif($model->phanloainhap == "Chấm dứt giám hộ")
+            {
+                return view('reports.cdgiamho.printtokhai')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tencq',$tencq)
+                    ->with('pageTitle','In tờ khai đăng ký giám hộ');
+            }
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function chamdut (Request $request)
+    {
+        if (Session::has('admin')) {
+            $inputs = $request->all();
+            $id = $inputs['idchamdut'];
+            $model = giamho::find($id);
+            $modelsohotich =  SoHoTich::where('plhotich','Chấm dứt giám hộ')
+                ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
+            $inputs['quyencd'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'CDGH'.date('Y');
+            $inputs['socd'] = $this->getSoHoTichCD($inputs['maxa'],$inputs['mahuyen'],$inputs['quyencd'] );
+            $inputs['ngaychamdut'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychamdut'])));
+            $inputs['phanloainhap'] = 'Chấm dứt giám hộ';
+            $model->update($inputs);
+            return redirect('dangkygiamho');
+        }
+        else
+            return view('errors.notlogin');
+    }
+
+    public function getSoHoTichCD($maxa,$mahuyen,$quyen){
+        $idmax = giamho::where('maxa',$maxa)
+            ->where('mahuyen',$mahuyen)
+            ->where('quyencd',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =giamho::where('id', $idmax)->first();
+            $stt = $model->socd + 1;
+        }
+        return $stt;
     }
 }

@@ -314,6 +314,7 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
         'CreateQuoctichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_07_095652_create_quoctich_table.php',
         'CreateSohotichTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_21_085715_create_sohotich_table.php',
         'CreateThongtinthaydoiTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_01_082809_create_thongtinthaydoi_table.php',
+        'CreateToadoTable' => __DIR__ . '/../..' . '/database/migrations/2017_11_30_092519_create_toado_table.php',
         'CreateTownsTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_06_090904_create_towns_table.php',
         'CreateTthonnhanTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_17_105145_create_tthonnhan_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',

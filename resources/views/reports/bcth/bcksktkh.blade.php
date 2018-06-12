@@ -169,7 +169,7 @@
             <td style="text-align: center;" width="50%">Người lập biểu</td>
             <td style="text-align: center;" width="50%">
                 <p><i>{{$xa}}, {{getDayVn($ngaythangnam)}}</i></p>
-                <p><b>TM. ỦY BAN NHÂN DÂN CHỦ TỊCH</b></p>
+                <p><b>TM. ỦY BAN NHÂN DÂN</b></p>
             </td>
         </tr>
         <tr style="font-style: italic">

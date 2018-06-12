@@ -36,28 +36,33 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
                     <div class="form-body">
-                        <div style="display: none" class="row">
-                            <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
-                                <div class="form-group">
-                                    <label class="control-label">Quận huyện<span class="require">*</span></label>
-                                    <select name="mahuyen" class="form-control required" autofocus>
-                                        @foreach($huyens as $huyen)
-                                            <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                                <div class="form-group">
-                                    <label class="control-label">Xã phường<span class="require">*</span></label>
-                                    <select name="maxa" class="form-control required">
-                                        @foreach($xas as $xa)
-                                            <option value="{{$xa->maxa}}" {{$huyen->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                         <div class="row">
+            <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Quận huyện<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        <select name="mahuyen" class="form-control required" autofocus>
+                            @foreach($huyens as $huyen)
+                                <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        <select name="maxa" class="form-control required">
+                            @foreach($xas as $xa)
+                                <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -165,7 +170,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Nơi cư trú</label>
-                                    {!!Form::text('quoctichntd', null, array('id' => 'quoctichntd','class' => 'form-control'))!!}
+                                    {!!Form::text('thuongtruntd', null, array('id' => 'thuongtruntd','class' => 'form-control'))!!}
                                 </div>
                             </div>
                         </div>

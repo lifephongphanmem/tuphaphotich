@@ -26,6 +26,10 @@ class chamecon extends Model
 
         'ngaydangky',
         'hotennk',
+        'ngaysinhnk',
+        'dantocnk',
+        'quoctichnk',
+        'noicutrunk',
         'loaigiaytonk',
         'sogiaytonk',
         'noicapgtnk',

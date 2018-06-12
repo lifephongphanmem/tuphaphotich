@@ -39,11 +39,15 @@
                                     @endif
                                     <td>
                                         <a>&nbsp;</a>
+                                        <a href="{{url('thaydoibosung/printstokhaitdcn/'.$tttd->id)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Tờ khai</a>
                                         @if($tttd->trangthai == 'Chờ duyệt')
                                             <a href="{{url('thaydoibosung/showconnuoibs/'.$tttd->id)}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                             <button type="button" onclick="getId('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
                                             <button type="button" onclick="getIdDuyet('{{$tttd->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
+                                        @else
+                                            <a href="{{url('thaydoibosung/printstrichluccnbs/'.$tttd->id)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>Bản sao</a>
+                                            <a href="{{url('thaydoibosung/printstrichluccnbc/'.$tttd->id)}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>Bản chính</a>
                                         @endif
                                     </td>
                                 </tr>

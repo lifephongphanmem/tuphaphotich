@@ -24,9 +24,9 @@
                     <label class="col-sm-4 control-label">Dân tộc <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!! Form::select(
-                        'dantocks',
+                        'dantocchagiao',
                         $dantocs,null,
-                        array('id' => 'dantocks', 'class' => 'form-control'))
+                        array('id' => 'dantocchagiao', 'class' => 'form-control'))
                         !!}
                     </div>
                 </div>
@@ -36,9 +36,9 @@
                     <label class="col-sm-4 control-label">Quốc tịch <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!! Form::select(
-                        'quoctichks',
+                        'quoctichchagiao',
                         $quoctichs,null,
-                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                        array('id' => 'quoctichchagiao', 'class' => 'form-control'))
                         !!}
                     </div>
                 </div>
@@ -47,17 +47,17 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Số CMND <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Số CMND</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('cmndchagiao', null, array('id' => 'cmndchagiao','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('cmndchagiao', null, array('id' => 'cmndchagiao','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Nơi cấp <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Nơi cấp</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('noicapgtcg', null, array('id' => 'noicapgtcg','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('noicapgtcg', null, array('id' => 'noicapgtcg','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
@@ -82,4 +82,3 @@
         </div>
     </div>
 </div>
-

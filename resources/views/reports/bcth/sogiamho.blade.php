@@ -156,18 +156,25 @@
             <table style="padding-top: 2px; text-align: left;" cellpadding="4">
                 <tr>
                     <td>Giám hộ cử</td>
-                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->dunghanquahan == 'Đúng hạn' ? 'X' : ''}}</span></td>
+                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->phanloai == 'Giám hộ cử' ? 'X' : ''}}</span></td>
                 </tr>
                 <tr>
                     <td>Giám hộ đương nhiên</td>
-                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->dunghanquahan == 'Quá hạn' ? 'X' : ''}}</span></td>
+                    <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center">{{$tt->phanloai == 'Giám hộ đương nhiên' ? 'X' : ''}}</span></td>
                 </tr>
                 <tr>
-                    <td>Ghi vào sổ hộ tịch việc khai sinh</td>
+                    <td>Ghi vào sổ hộ tịch việc giám hộ</td>
                     <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center"></span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center"><b>Ghi chú</b></td>
+                    <td colspan="2">
+                        <p  style="text-align: center"><b>Ghi chú</b></p>
+                        @foreach($thaydoi as $td)
+                            @if($tt->mahs == $td->mahs)
+                                <p>- Thay đổi từ {{$td->thaydoitu}} thành {{$td->thaydoithanh}}</p>
+                            @endif
+                        @endforeach
+                    </td>
                 </tr>
             </table>
         </td>

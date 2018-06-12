@@ -298,72 +298,177 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     @if(canGeneral('khaisinh','index'))
                         @if(can('khaisinh','index'))
-                            <li>
-                                <a href="{{url('khaisinh')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Thông tin khai sinh</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a>
+                                            <i class="icon-users"></i>
+                                            <span class="title">Khai sinh(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('khaisinh')}}">Đăng ký khai sinh</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/khaisinh')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('khaisinh')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Thông tin khai sinh</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('khaitu','index'))
                         @if(can('khaitu','index'))
-                            <li>
-                                <a href="{{url('khaitu')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Thông tin khai tử</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a>
+                                            <i class="icon-users"></i>
+                                            <span class="title">Khai tử(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('khaitu')}}">Đăng ký khai tử</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/khaitu')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('khaitu')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Thông tin khai tử</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('tthonnhan','index'))
                         @if(can('tthonnhan','index'))
-                            <li>
-                                <a href="{{url('tthonnhan')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Tình trạng hôn nhân</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a >
+                                            <i class="icon-users"></i>
+                                            <span class="title">Tình trạng hôn nhân(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('tthonnhan')}}">Xác nhận tình trạng hôn nhân</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/tthn')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('tthonnhan')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Tình trạng hôn nhân</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('kethon','index'))
                         @if(can('kethon','index'))
-                            <li>
-                                <a href="{{url('kethon')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Thông tin kết hôn</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a >
+                                            <i class="icon-users"></i>
+                                            <span class="title">Thông tin kết hôn(Yếu tố ngước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('kethon')}}">Đăng ký kết hôn</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/kethon')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('kethon')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Thông tin kết hôn</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('dkconnuoi','index'))
                         @if(can('dkconnuoi','index'))
-                            <li>
-                                <a href="{{url('dangkyconnuoi')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Đăng ký con nuôi</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a >
+                                            <i class="icon-users"></i>
+                                            <span class="title">Con nuôi(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('dangkyconnuoi')}}">Đăng ký con nuôi</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/connuoi')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('dangkyconnuoi')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Đăng ký con nuôi</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('dkgiamho','index'))
                         @if(can('dkgiamho','index'))
-                            <li>
-                                <a href="{{url('dangkygiamho')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Đăng ký giám hộ</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a >
+                                            <i class="icon-users"></i>
+                                            <span class="title">Giám hộ(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('dangkygiamho')}}">Đăng ký giám hộ</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/giamho')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('dangkygiamho')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Đăng ký giám hộ</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('dknhanchamecon','index'))
                         @if(can('dknhanchamecon','index'))
-                            <li>
-                                <a href="{{url('dangkynhanchamecon')}}">
-                                    <i class="icon-users"></i>
-                                    <span class="title">Đăng ký nhận cha mẹ con</span>
-                                </a>
-                            </li>
+                                @if(session('admin')->level == 'H')
+                                    <li>
+                                        <a >
+                                            <i class="icon-users"></i>
+                                            <span class="title">Nhận cha mẹ con(Yếu tố nước ngoài)</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="{{url('dangkynhanchamecon')}}">Đăng ký nhận cha mẹ con</a>
+                                            </li>
+                                            <li><a href="{{url('xemdanhsachxa/cmc')}}">Danh sách các Xã</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{url('dangkynhanchamecon')}}">
+                                            <i class="icon-users"></i>
+                                            <span class="title">Đăng ký nhận cha mẹ con</span>
+                                        </a>
+                                    </li>
+                                @endif
                         @endif
                     @endif
                     @if(canGeneral('capbansao','index'))

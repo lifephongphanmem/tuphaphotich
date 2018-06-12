@@ -148,7 +148,8 @@
                                 array(
                                 'Chứng minh nhân dân' => 'Chứng minh nhân dân',
                                 'Hộ chiếu' => 'Hộ chiếu',
-                                'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                                'Thẻ căn cước công dân'=>'Thẻ căn cước công dân',
+                                'Sổ hộ khẩu'=>'Sổ hộ khẩu'
                                 ),null,
                                 array('id' => 'plgiaytonyc', 'class' => 'form-control'))
                                 !!}

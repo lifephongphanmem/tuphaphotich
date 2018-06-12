@@ -249,6 +249,7 @@
                             </div>
                         </div>
                         {!!Form::hidden('mahs',$mahs, array('id' => 'mahs','class' => 'form-control'))!!}
+                        {!!Form::hidden('plgh',$gh->phanloainhap, array('id' => 'plgh','class' => 'form-control'))!!}
                     </div>
                     <!-- END FORM-->
                 </div>

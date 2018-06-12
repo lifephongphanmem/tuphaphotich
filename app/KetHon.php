@@ -25,18 +25,24 @@ class KetHon extends Model
         'hotenvo',
         'loaigiaytovo',
         'sogiaytovo',
+        'ngaycapvo',
+        'noicapvo',
         'ngaysinhvo',
         'dantocvo',
         'quoctichvo',
         'diachivo',
+        'lankhvo',
 
         'hotenchong',
         'loaigiaytochong',
         'sogiaytochong',
+        'ngaycapchong',
+        'noicapchong',
         'ngaysinhchong',
         'dantocchong',
         'quoctichchong',
         'diachichong',
+        'lankhchong',
         'trangthai'
     ];
 }

@@ -25,7 +25,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin khai sinh<small> chỉnh sửa</small>
+        Thông tin kết hôn<small> chỉnh sửa</small>
     </h3>
     <div class="row">
         {!! Form::model($model, ['method' => 'PATCH', 'url'=>'kethon/'. $model->id, 'class'=>'horizontal-form']) !!}
@@ -79,7 +79,7 @@
             <div style="text-align: center">
                 <a href="{{url('kethon')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i> Cập nhật</button>
+                <button type="submit" class="btn green" onclick="validateForm1()"><i class="fa fa-check"></i> Cập nhật</button>
             </div>
         </div>
         {!! Form::close() !!}

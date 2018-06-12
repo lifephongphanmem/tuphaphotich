@@ -168,7 +168,14 @@
                     <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center"></span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center"><b>Ghi chú</b></td>
+                    <td colspan="2">
+                        <p  style="text-align: center"><b>Ghi chú</b></p>
+                        @foreach($thaydoi as $td)
+                            @if($tt->mahs == $td->mahs)
+                                <p>- Thay đổi từ {{$td->thaydoitu}} thành {{$td->thaydoithanh}}</p>
+                            @endif
+                        @endforeach
+                    </td>
                 </tr>
             </table>
         </td>

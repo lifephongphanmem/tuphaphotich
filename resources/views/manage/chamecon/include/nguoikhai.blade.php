@@ -12,6 +12,42 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">Ngày sinh</label>
+                    <div class="col-sm-8">
+                        {!!Form::text('ngaysinhnk',null, array('id' => 'ngaysinhnk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Dân tộc</label>
+                    <div class="col-sm-8">
+                        {!! Form::select(
+                        'dantocnk',
+                        $dantocs,null,
+                        array('id' => 'dantocnk', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Quốc tịch<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!! Form::select(
+                        'quoctichnk',
+                        $quoctichs,null,
+                        array('id' => 'quoctichnk', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
                     <label class="col-sm-4 control-label">Giấy tờ<span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">
@@ -24,6 +60,14 @@
                         ),null,
                         array('id' => 'loaigiaytonk', 'class' => 'form-control'))
                         !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Nơi cư trú</label>
+                    <div class="col-sm-8">
+                        {!!Form::text('noicutrunk',null, array('id' => 'noicutrunk','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

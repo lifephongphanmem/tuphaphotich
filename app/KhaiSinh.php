@@ -72,5 +72,6 @@ class KhaiSinh extends Model
         'tongiaoks',
         'diachiht',
         'thuongtru',
+        'ghichu',
     ];
 }

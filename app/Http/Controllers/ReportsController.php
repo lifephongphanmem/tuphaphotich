@@ -93,10 +93,13 @@ class ReportsController extends Controller
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
 
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
+
             return view('reports.bcth.sokhaisinh')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ khai sinh');
 
         } else {
@@ -125,10 +128,13 @@ class ReportsController extends Controller
                 ->whereBetween('ngaydangkykt', [$ngaytu, $ngayden])
                 ->get();
 
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
+
             return view('reports.bcth.sokhaitu')
                 ->with('inputs',$inputs)
                 ->with('khaitu',$khaitu)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ khai tử');
 
         } else {
@@ -162,10 +168,12 @@ class ReportsController extends Controller
                 ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngayxn', [$ngaytu, $ngayden])
                 ->get();
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
             return view('reports.bcth.sotthonnhan')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ cấp giấy xác nhận tình trạng hôn nhân');
 
         } else {
@@ -193,11 +201,12 @@ class ReportsController extends Controller
                 ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
-
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
             return view('reports.bcth.sokethon')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ đăng ký kết hôn');
 
         } else {
@@ -223,13 +232,15 @@ class ReportsController extends Controller
             $model = giamho::where('trangthai','Duyệt')
                 ->where('maxa',$inputs['xa'])
                 ->where('mahuyen',$inputs['huyen'])
+                ->where('phanloainhap','Giám hộ')
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
-
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
             return view('reports.bcth.sogiamho')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ đăng ký giám hộ');
 
         } else {
@@ -255,13 +266,15 @@ class ReportsController extends Controller
             $model = giamho::where('trangthai','Duyệt')
                 ->where('maxa',$inputs['xa'])
                 ->where('mahuyen',$inputs['huyen'])
+                ->where('phanloainhap','Chấm dứt giám hộ')
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
-
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
             return view('reports.bcth.sochamdutgh')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ chấm dứt giám hộ');
 
         } else {
@@ -289,12 +302,46 @@ class ReportsController extends Controller
                 ->where('mahuyen',$inputs['huyen'])
                 ->whereBetween('ngaydangky', [$ngaytu, $ngayden])
                 ->get();
-
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
             return view('reports.bcth.sodknhancmc')
                 ->with('inputs',$inputs)
                 ->with('model',$model)
                 ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
                 ->with('pageTitle','Sổ đăng ký nhận cha mẹ con');
+
+        } else {
+            return view('errors.notlogin');
+        }
+    }
+
+    public function soconnuoi(Request $request){
+        if (Session::has('admin')) {
+
+            $inputs = $request->all();
+            //dd($inputs);
+            $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+            $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+
+            $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
+            $huyen = Districts::where('mahuyen',$inputs['huyen'])
+                ->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            $tencq = $xa.' - '.$huyen .' - '.$tinh;
+
+
+            $model = ConNuoi::where('trangthai','Duyệt')
+                ->where('maxa',$inputs['xa'])
+                ->where('mahuyen',$inputs['huyen'])
+                ->whereBetween('ngaythangdk', [$ngaytu, $ngayden])
+                ->get();
+            $thaydoi = ThongTinThayDoi::where('trangthai','Duyệt')->get();
+            return view('reports.bcth.soconnuoi')
+                ->with('inputs',$inputs)
+                ->with('model',$model)
+                ->with('tencq',$tencq)
+                ->with('thaydoi',$thaydoi)
+                ->with('pageTitle','Sổ đăng ký nuôi con nuôi');
 
         } else {
             return view('errors.notlogin');
@@ -385,9 +432,19 @@ class ReportsController extends Controller
             $Count8=0;$Count9=0;$Count10=0;$Count11=0;$Count12=0;
             $Count13=0;$Count14=0;$Count15=0;$Count16=0;$Count17=0;
             $Count18=0;$Count19=0;$Count22=0;
-            if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
-            elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
-            elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
+            if(isset($inputs['ngaytu']) || isset($inputs['ngayden']))
+            {
+                $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+                $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+            }
+            else
+            {
+
+                if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
+                elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
+                elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
+
+            }
 
             $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
             $huyen = Districts::where('mahuyen',$inputs['huyen'])
@@ -518,9 +575,18 @@ class ReportsController extends Controller
             $kybaocao = $inputs['kybaocao'];
             $Count1=0;$Count2=0;$Count3=0;$Count4=0;$Count5=0;$Count6=0;$Count7=0;
             $Count8=0;$Count9=0;$Count10=0;$Count11=0;$Count12=0;
-            if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
-            elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
-            elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
+            if(isset($inputs['ngaytu']) || isset($inputs['ngayden']))
+            {
+                $ngaytu = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngaytu'])));
+                $ngayden = date('Y-m-d',strtotime(str_replace('/', '-', $inputs['ngayden'])));
+            }
+            else
+            {
+                if($inputs['kybaocao']=="Báo cáo 6 tháng đầu năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-06-06';}
+                elseif ($inputs['kybaocao']=="Báo cáo năm") {$ngaytu=$nam.'-01-01';$ngayden=$nam.'-11-07';}
+                elseif ($inputs['kybaocao']=="Báo cáo năm chính thức") {$nam2 = $nam + 1;$ngaytu=$nam.'-01-20';$ngayden=$nam2.'-01-20';}
+            }
+
             $xa = Towns::where('maxa',$inputs['xa'])->first()->tenxa;
             $huyen = Districts::where('mahuyen',$inputs['huyen'])
                 ->first()->tenhuyen;

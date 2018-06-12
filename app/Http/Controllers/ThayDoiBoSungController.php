@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ConNuoi;
 use App\DanToc;
 use App\Districts;
 use App\GeneralConfigs;
@@ -9,6 +10,9 @@ use App\KetHon;
 use App\KhaiSinh;
 use App\KhaiTu;
 use App\SoHoTich;
+use App\giamho;
+use App\chamecon;
+use App\TTHonNhan;
 use App\ThongTinThayDoi;
 use App\Towns;
 use Illuminate\Http\Request;
@@ -692,6 +696,7 @@ class ThayDoiBoSungController extends Controller
 
     public function ghcreate($id)
     {
+        $gh = giamho::where('mahs',$id)->first();
         if (Session::has('admin')) {
             if(session('admin')->level == 'T'){
                 $huyens = Districts::all();
@@ -721,6 +726,7 @@ class ThayDoiBoSungController extends Controller
                 ->with('xas',$xas)
                 ->with('maxa',$xadf)
                 ->with('mahs',$id)
+                ->with('gh',$gh)
                 ->with('dantocs', $dantocs)
                 ->with('quoctichs', $quoctichs)
                 ->with('pageTitle','Thêm mới thông tin thay đổi');
@@ -738,7 +744,7 @@ class ThayDoiBoSungController extends Controller
             $inputs['sotd'] = $this->getSothaydoiGH($inputs['maxa'],$inputs['mahuyen'],$inputs['quyentd'] );
             $inputs['ngaydk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydk'])));
             $inputs['ngaysinhntd'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhntd'])));
-            $inputs['plgiayto'] = "Giám hộ";
+            $inputs['plgiayto'] = $inputs['plgh'];
             $inputs['trangthai'] = "Chờ duyệt";
             $model = new ThongTinThayDoi();
             $model->create($inputs);
@@ -951,6 +957,650 @@ class ThayDoiBoSungController extends Controller
             $model = ThongTinThayDoi::find($id);
             $model->delete();
             return redirect('dangkynhanchamecon');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdks($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $khaisinh = KhaiSinh::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaisinh.printtokhaitdks')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('khaisinh',$khaisinh)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In giấy đăng ký khai sinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucksbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $khaisinh = KhaiSinh::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaisinh.printstrichlucksbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('khaisinh',$khaisinh)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucksbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $khaisinh = KhaiSinh::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaisinh.printstrichlucksbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('khaisinh',$khaisinh)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdkt($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $khaitu = KhaiTu::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaitu.printtokhaitdkt')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('khaitu',$khaitu)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In giấy đăng ký khai sinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucktbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = KhaiTu::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaitu.printstrichlucktbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucktbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = KhaiTu::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.khaitu.printstrichlucktbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdtthn($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $tthn = TTHonNhan::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.tthonnhan.printtokhaitdtthn')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tthn',$tthn)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In giấy đăng ký khai sinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluctthnbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = TTHonNhan::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.tthonnhan.printstrichluctthnbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluctthnbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = TTHonNhan::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.tthonnhan.printstrichluctthnbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdkh($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $kethon = KetHon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.kethon.printtokhaitdkh')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('kethon',$kethon)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In giấy đăng ký khai sinh');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluckhbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = KetHon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.kethon.printstrichluckhbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluckhbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = KetHon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.kethon.printstrichluckhbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdcn($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $connuoi = ConNuoi::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.connuoi.printtokhaitdcn')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('connuoi',$connuoi)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In tờ khai');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluccnbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = ConNuoi::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.connuoi.printstrichluccnbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluccnbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = ConNuoi::Where('masohoso',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.connuoi.printstrichluccnbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdgh($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $giamho = giamho::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.giamho.printtokhaitdgh')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('giamho',$giamho)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In tờ khai');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucghbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = giamho::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.giamho.printstrichlucghbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichlucghbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = giamho::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.giamho.printstrichlucghbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhaitdcmc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $cmc = chamecon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.cmc.printtokhaitdcmc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('cmc',$cmc)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In tờ khai');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluccmcbs($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = chamecon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.cmc.printstrichluccmcbs')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstrichluccmcbc($id){
+        if (Session::has('admin')) {
+            $model = thongtinthaydoi::find($id);
+            $modeltt = chamecon::Where('mahs',$model->mahs)->first();
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $xa = $modelxa->tenxa;
+            $tenxa = substr("$xa",8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.cmc.printstrichluccmcbc')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('modeltt',$modeltt)
+                ->with('tencq',$tencq)
+                ->with('tinh',$tinh)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('pageTitle','In trích lục thay đổi');
 
         }else
             return view('errors.notlogin');

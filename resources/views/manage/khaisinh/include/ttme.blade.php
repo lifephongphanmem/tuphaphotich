@@ -18,9 +18,10 @@
                         {!! Form::select(
                         'loaigiaytome',
                         array(
-                        'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                        'CMND' => 'CMND',
                         'Hộ chiếu' => 'Hộ chiếu',
-                        'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                        'Thẻ CCCD'=>'Thẻ căn cước công dân',
+                        'Sổ hộ khẩu' => 'Sổ hộ khẩu'
                         ),null,
                         array('id' => 'loaigiaytome', 'class' => 'form-control'))
                         !!}
@@ -42,7 +43,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày sinh</label>
                     <div class="col-sm-8">
-                        {!!Form::text('ngaysinhme',isset($model->ngaysinhme) ? date('d/m/Y',strtotime($model->ngaysinhme)) : null, array('id' => 'ngaysinhme','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaysinhme',null, array('id' => 'ngaysinhme','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

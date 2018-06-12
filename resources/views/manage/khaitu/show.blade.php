@@ -66,7 +66,7 @@
         </div>
     </div>
     <div style="text-align: center">
-        <a href="{{url('khaisinh')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+        <a href="{{url('khaitu')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
         @if(can('capbansao','create'))
             @if($khaitu->trangthai == 'Duyệt')
                 <button type="button" class="btn green" data-target="#trichluc-modal" data-toggle="modal"><i class="fa fa-copy"></i>&nbsp;
@@ -147,7 +147,8 @@
                                 array(
                                 'Chứng minh nhân dân' => 'Chứng minh nhân dân',
                                 'Hộ chiếu' => 'Hộ chiếu',
-                                'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                                'Thẻ căn cước công dân'=>'Thẻ căn cước công dân',
+                                'Sổ hộ khẩu'=>'Sổ hộ khẩu'
                                 ),null,
                                 array('id' => 'plgiaytonyc', 'class' => 'form-control'))
                                 !!}

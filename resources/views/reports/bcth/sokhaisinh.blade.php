@@ -117,30 +117,30 @@
                 <tr><td colspan="6">Họ, chữ đệm, tên: <span style="text-transform: uppercase">{{$tt->hotenks}}</span></td></tr>
                 <tr><td colspan="6">Ngày, tháng, năm sinh:  ..{{getDayVn($tt->ngaysinhks)}} ghi bằng chữ: ..{{getDateText($tt->ngaysinhks)}}..</td></tr>
                 <tr>
-                    <td colspan="2">Giới tính: ..{{$tt->gioitinhkks}}..</td>
+                    <td colspan="2">Giới tính: ..{{$tt->gioitinhks}}..</td>
                     <td colspan="2">Dân tộc: ..{{$tt->dantocks}}..</td>
                     <td colspan="2">Quốc tịch: ..{{$tt->quoctichks}}..</td>
                 </tr>
-                <tr><td colspan="6">Nơi sinh: ..{{$tt->noisinhks}}..</td></tr>
+                <tr><td colspan="6">Nơi sinh: ..{{$tt->noisinh}}..</td></tr>
                 <tr><td colspan="6">Quê quán: ..{{$tt->quequanks}}..</td></tr>
                 <tr><td colspan="6">Số định danh cá nhân: ..{{$tt->sodinhdanhcanhan}}</td></tr>
                 <tr><td colspan="6"><b>Họ, chữ đệm, tên mẹ: </b><span style="text-transform: uppercase">{{$tt->hotenme}}</span></td></tr>
                 <tr>
-                    <td colspan="2">Năm sinh: ..{{date('Y',strtotime($tt->ngaysinhme))}}..</td>
+                    <td colspan="2">Năm sinh: ..{{$tt->ngaysinhme}}..</td>
                     <td colspan="2">Dân tộc: ..{{$tt->dantocme}}..</td>
                     <td colspan="2">Quốc tịch: ..{{$tt->quoctichme}}..</td>
                 </tr>
                 <tr><td colspan="3">Nơi cư trú: ..{{$tt->diachime}}..</td></tr>
                 <tr><td colspan="6"><b>Họ, chữ đệm, tên cha: </b><span style="text-transform: uppercase">{{$tt->hotencha}}</span></td></tr>
                 <tr>
-                    <td colspan="2">Năm sinh: ..{{date('Y',strtotime($tt->ngaysinhcha))}}..</td>
+                    <td colspan="2">Năm sinh: ..{{$tt->ngaysinhcha}}..</td>
                     <td colspan="2">Dân tộc: ..{{$tt->dantoccha}}..</td>
                     <td colspan="2">Quốc tịch: ..{{$tt->quoctichcha}}..</td>
                 </tr>
                 <tr><td colspan="6">Nơi cư trú:..{{$tt->diachicha}}..</td> </tr>
                 <tr><td colspan="6"><b>Họ, chữ đệm, tên người đi khai sinh:</b> <span style="text-transform: uppercase">{{$tt->hotennk}}</span></td></tr>
                 <tr><td colspan="6">Giấy tờ tùy thân: ..{{$tt->loaigiaytonk}}- {{$tt->sogiaytonk}}- ngày cấp {{getDayVn($tt->ngaycapgtnk)}}- nơi cấp {{$tt->noicapgtnk}}..</td></tr>
-                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ người ký Giấy khai sinh/Trích lục ghi vào sổ hộ tịch việc khai sinh: {{$tt->nguoiky}} - {{$tt->chucvunguoiky}}</b></td></tr>
+                <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ người ký Giấy khai sinh/Trích lục ghi vào sổ hộ tịch việc khai sinh: {{$tt->nguoiky}} - {{$tt->chucvu}}</b></td></tr>
                 <tr style="text-align: center">
                     <td colspan="3" style="width: 50%"><b>Người đi khai sinh</b></td>
                     <td colspan="3" style="width: 50%"><b>Người thực hiện</b></td>
@@ -179,7 +179,14 @@
                     <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center"></span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center"><b>Ghi chú</b></td>
+                    <td colspan="2">
+                        <p  style="text-align: center"><b>Ghi chú</b></p>
+                        @foreach($thaydoi as $td)
+                            @if($tt->mahs == $td->mahs)
+                                <p>- Thay đổi từ {{$td->thaydoitu}} thành {{$td->thaydoithanh}}</p>
+                            @endif
+                        @endforeach
+                    </td>
                 </tr>
             </table>
         </td>

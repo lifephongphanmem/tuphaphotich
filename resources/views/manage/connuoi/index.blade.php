@@ -82,7 +82,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <select name="select_nam" id="select_nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_start = intval(date('Y')) - 20 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 5 ) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $nam ? 'selected' : ''}}>Năm {{$i}}</option>
@@ -90,33 +90,6 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T')
-                            <div class="col-md-1">
-                                <div class="form-control-static" style="white-space: nowrap;">Quận/Huyện</div>
-                            </div>
-                            <div class="col-md-3">
-                                <select id="select_huyen" class="form-control">
-                                    @foreach ($huyens as $huyen)
-                                        <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endif
-                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-1">
-                                <div class="form-control-static" style="white-space: nowrap;">Xã/Phường</div>
-                            </div>
-                            <div class="col-md-3">
-                                @if(count($xas) > 0)
-                                    <select id="select_xa" class="form-control">
-                                        <option value="all">--Chọn xã phường--</option>
-                                        @foreach ($xas as $xa)
-                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </div>
-                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -153,10 +126,11 @@
                                     @endif
                                     <td>
                                         <a href="{{url('dangkyconnuoi/'.$cn->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                        @if($cn->trangthai == 'Chờ duyệt')
+                                        <a href="{{url('dangkyconnuoi/'.$cn->id.'/printstokhai')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Tờ khai</a>
                                             @if(can('dkconnuoi','edit'))
                                                 <a href="{{url('dangkyconnuoi/'.$cn->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                             @endif
+                                        @if($cn->trangthai == 'Chờ duyệt')
                                             @if(can('dkconnuoi','delete'))
                                                 <button type="button" onclick="getId('{{$cn->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                     Xóa</button>
@@ -166,6 +140,7 @@
                                             @endif
                                         @else
                                             <a href="{{url('dangkyconnuoi/'.$cn->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
+                                            <a href="{{url('dangkyconnuoi/'.$cn->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
                                         @endif
                                     </td>
                                 </tr>

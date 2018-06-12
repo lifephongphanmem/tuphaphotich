@@ -11,24 +11,29 @@
             <table style="text-align: center;width: 100%">
                 @if($model->level == 'T')
                 <tr>
-                    <td colspan="3"><span style="text-transform: uppercase">{{$tinh}}</span></td>
+                    <td colspan="3"><span style="text-transform: uppercase">TỈNH {{$tinh}}</span></td>
                 </tr>
                 @elseif($model->level == 'H')
                     <tr>
-                        <td colspan="3"><span style="text-transform: uppercase">{{$tinh}}</span></td>
+                        <td colspan="3"><span style="text-transform: uppercase">TỈNH {{$tinh}}</span></td>
                     </tr>
                     <tr>
                         <td colspan="3"><span style="text-transform: uppercase">{{$huyen}}</span></td>
                     </tr>
                 @else
                     <tr>
-                        <td colspan="3"><span style="text-transform: uppercase">{{$tinh}}</span></td>
+                        <td colspan="3"><span style="text-transform: uppercase">TỈNH {{$tinh}}</span></td>
                     </tr>
                     <tr>
                         <td colspan="3"><span style="text-transform: uppercase">{{$huyen}}</span></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><span style="text-transform: uppercase">{{$xa}}</span></td>
+                        @if($xa=="Thị Trấn Yên Minh")
+                            <td colspan="3"><span style="text-transform: uppercase"><u>{{$xa}}</u></span></td>
+                        @else
+                            <td colspan="3"><span style="text-transform: uppercase">UBND XÃ {{$tenxa}}</span></td>
+                            <a style="position : relative; top:48px;">_________________</a>
+                        @endif
                     </tr>
                 @endif
 
@@ -48,8 +53,8 @@
 </table>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin: auto;text-align: center">
     <tr>
-        <td>Số ..{{$model->sohotich}}../TLKS-BS</td>
-        <td>………, ngày..{{date('d',strtotime($model->ngaynhap))}}..tháng..{{date('m',strtotime($model->ngaynhap))}}..năm ..{{date('Y',strtotime($model->ngaynhap))}}..</td>
+        <td>Số: {{$model->sohotich}}/TLKS-BS</td>
+        <td>@if($xa=="Thị Trấn Yên Minh"){{$xa}}@else{{$tenxa}}@endif, ngày {{date('d',strtotime($model->ngaycap))}} tháng {{date('m',strtotime($model->ngaycap))}} năm  {{date('Y',strtotime($model->ngaycap))}}</td>
     </tr>
 </table>
 <table width="95%" border="0" cellspacing="0" cellpadding="4" style="border-collapse: collapse; margin: auto;text-align: center">
@@ -62,7 +67,7 @@
 </table>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin:20px auto">
     <tr>
-        <td colspan="3"><b>Họ, chữ đệm, tên: </b> <span style="text-transform: uppercase">{{$modeltt->hotenks}}</span></td>
+        <td colspan="3"><b>Họ, chữ đệm, tên: </b> <span style="text-transform: uppercase"><b>{{$modeltt->hotenks}}</b></span></td>
     </tr>
     <tr>
         <td colspan="3">Ngày, tháng, năm sinh: ..{{getDayVn($modeltt->ngaysinhks)}}..ghi bằng chữ: ..{{$modeltt->ngaysinhksbangchu}}..</td>
@@ -83,7 +88,7 @@
     </tr>
     <!--Thông tin mẹ-->
     <tr>
-        <td colspan="3"><b>Họ, chữ đệm, tên người mẹ: </b> <span style="text-transform: uppercase">{{$modeltt->hotenme}}</span></td>
+        <td colspan="3"><b>Họ, chữ đệm, tên người mẹ: </b> <span style="text-transform: uppercase"><b>{{$modeltt->hotenme}}</b></span></td>
     </tr>
     <tr>
         <td>Năm sinh: ..{{date('Y',strtotime($modeltt->ngaysinhme))}}..</td>
@@ -91,11 +96,11 @@
         <td>Quốc tịch: ..{{$modeltt->quoctichme}}..</td>
     </tr>
     <tr>
-        <td colspan="3">Nơi cư chú: ..{{$modeltt->diachime}}..</td>
+        <td colspan="3">Nơi cư trú: ..{{$modeltt->diachime}}..</td>
     </tr>
     <!--Thông tin cha-->
     <tr>
-        <td colspan="3"><b>Họ, chữ đệm, tên người cha: </b> <span style="text-transform: uppercase">{{$modeltt->hotencha}}</span></td>
+        <td colspan="3"><b>Họ, chữ đệm, tên người cha: </b> <span style="text-transform: uppercase"><b>{{$modeltt->hotencha}}</b></span></td>
     </tr>
     <tr>
         <td>Năm sinh: ..{{date('Y',strtotime($modeltt->ngaysinhcha))}}..</td>
@@ -103,7 +108,7 @@
         <td>Quốc tịch: ..{{$modeltt->quoctichme}}..</td>
     </tr>
     <tr>
-        <td colspan="3">Nơi cư chú: ..{{$modeltt->diachicha}}..</td>
+        <td colspan="3">Nơi cư trú: ..{{$modeltt->diachicha}}..</td>
     </tr>
     <!--Thông tin cha-->
     <tr>
@@ -124,7 +129,7 @@
                 <tr><td><b>NGƯỜI KÝ TRÍCH LỤC</b></td></tr>
                 <tr><td><i>(Ký, ghi rõ họ, chữ đệm, tên, chức vụ và đóng dấu)</i></td></tr>
                 <tr style="height: 100px">
-                    <td style="vertical-align: bottom"><b>{{$model->nguoiky}}</b></td>
+                    <td style="vertical-align: bottom"><b>{{$model->nguoikygt}}</b></td>
                 </tr>
             </table>
         </td>

@@ -25,7 +25,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin khai sinh<small> thêm mới</small>
+        Tình trạng hôn nhân<small> chỉnh sửa</small>
     </h3>
     <div class="row">
         {!! Form::model($model, ['method' => 'PATCH', 'url'=>'tthonnhan/'. $model->id, 'class'=>'horizontal-form']) !!}
@@ -80,7 +80,7 @@
             <div style="text-align: center">
                 <a href="{{url('tthonnhan')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Hoàn thành</button>
+                <button type="submit" class="btn green" onclick="validateForm1()"><i class="fa fa-check"></i>Hoàn thành</button>
             </div>
             <div id="chameshow"></div>
         </div>

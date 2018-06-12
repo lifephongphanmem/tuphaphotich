@@ -24,8 +24,8 @@
         function getIdDuyet(id){
             document.getElementById("idduyet").value=id;
         }
-        function getIdPrints(id){
-            document.getElementById("idprints").value=id;
+        function getIdchamdut(id){
+            document.getElementById("idchamdut").value=id;
         }
         function ClickDelete(){
             $('#frm_delete').submit();
@@ -105,7 +105,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <select name="select_nam" id="select_nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_start = intval(date('Y')) - 20 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 5 ) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $nam ? 'selected' : ''}}>Năm {{$i}}</option>
@@ -113,31 +113,7 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T')
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <select id="select_huyen" class="form-control">
-                                        @foreach ($huyens as $huyen)
-                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
-                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                @if(count($xas) > 0)
-                                    <select id="select_xa" class="form-control">
-                                        <option value="all">--Chọn xã phường--</option>
-                                        @foreach ($xas as $xa)
-                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                                </div>
-                            </div>
-                        @endif
+
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -147,9 +123,10 @@
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
                             <th style="text-align: center">Ngày đăng ký</th>
-                            <th style="text-align: center" width="15%">Người giám được</br>giám hộ</th>
-                            <th style="text-align: center" width="15%">Người giám giám</br>hộ thứ nhất</th>
-                            <th style="text-align: center" width="15%">Người giám giám</br>hộ thứ hai</th>
+                            <th style="text-align: center">Phân loại đăng ký</th>
+                            <th style="text-align: center" width="15%">Người được giám hộ</th>
+                            <th style="text-align: center" width="15%">Người giám hộ thứ nhất</th>
+                            <th style="text-align: center" width="15%">Người giám hộ thứ hai</th>
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center" width="20%">Thao tác</th>
                         </tr>
@@ -159,6 +136,7 @@
                             <tr>
                                 <td style="text-align: center">{{$key+1}}</td>
                                 <td style="text-align: center">{{getDayVn($tt->ngaydangky)}}</td>
+                                <td style="text-align: center">{{$tt->phanloainhap}}</td>
                                 <td class="active">{{$tt->hotenndgh}}</td>
                                 <td class="active">{{$tt->hotenngh1}}</td>
                                 <td class="active">{{$tt->hotenngh2}}</td>
@@ -171,11 +149,12 @@
                                 @endif
                                 <td>
                                     <a href="{{url('dangkygiamho/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                    @if($tt->trangthai == 'Chờ duyệt')
+                                    <a href="{{url('dangkygiamho/'.$tt->id.'/printstokhai')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i> Tờ khai</a>
+
                                         @if(can('dkgiamho','edit'))
                                             <a href="{{url('dangkygiamho/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-
+                                    @if($tt->trangthai == 'Chờ duyệt')
                                         @if(can('dkgiamho','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
@@ -185,8 +164,10 @@
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
                                     @else
-                                        <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                            In</button>
+                                        <a href="{{url('dangkygiamho/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
+                                        <a href="{{url('dangkygiamho/'.$tt->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
+                                      @if($tt->phanloainhap == "Giám hộ")  <button type="button" onclick="getIdchamdut('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#chamdut-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
+                                            Chấm dứt</button> @endif
                                     @endif
                                 </td>
 
@@ -243,33 +224,67 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <!-- chức năng in chưa làm -->
-    <div class="modal fade" id="prints-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="chamdut-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                {!! Form::open(['url'=>'dangkygiamho/prints','id' => 'frm_prints','target'=>'_blank'])!!}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">In giấy khai sinh</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
+                {!! Form::open(['url'=>'dangkygiamho/chamdut','id' => 'frm_chamdut','target'=>'_blank'])!!}
+                <div class="row">
+                    <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
                         <div class="form-group">
-                            <label class="col-md-4 control-label"><b>Giấy khai sinh</b></label>
-                            <div class="col-md-6 ">
-                                {!! Form::select(
-                                'plgiayks',
-                                array(
-                                'Bản chính' => 'Bản chính',
-                                'Bản sao' => 'Bản sao'
-                                ),null,
-                                array('id' => 'plgiayks', 'class' => 'form-control'))
-                                !!}
+                            <label class="col-sm-4 control-label">Quận huyện<span class="require">*</span></label>
+                            <div class="col-sm-8 controls">
+                                <select name="mahuyen" class="form-control required" autofocus>
+                                    @foreach($huyens as $huyen)
+                                        <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="form-group" style="display:none;">
+                            <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
+                            <div class="col-sm-8 controls">
+                                @if(session('admin')->level == 'H' && session('admin')->name=="Phòng tư Pháp huyện Yên Minh")
+                                    <select name="maxa" class="form-control required">
+                                        <option value="tpym"></option>
+                                    </select>
+                                    @elseif(session('admin')->level == 'H' && session('admin')->name=="Phòng tư Pháp huyện Đồng Văn")
+                                    <select name="maxa" class="form-control required">
+                                        <option value="tpdv"></option>
+                                    </select>
+                                @else
+                                    <select name="maxa" class="form-control required">
+                                        @foreach($xas as $xa)
+                                            <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="idprints" id="idprints">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Chấm dứt giám hộ</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Ngày chấm dứt<span class="require">*</span></label>
+                            <div class="col-sm-8 controls">
+                                {!!Form::text('ngaychamdut',isset($model->ngaychamdut) ? date('d/m/Y',strtotime($model->ngaychamdut)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaychamdut','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Lý do chấm dứt<span class="require">*</span></label>
+                            <div class="col-sm-8 controls">
+                                {!!Form::text('lydochamdut', null, array('id' => 'lydochamdut','class' => 'form-control'))!!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="idchamdut" id="idchamdut">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

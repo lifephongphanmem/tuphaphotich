@@ -31,6 +31,10 @@ class CreateChameconTable extends Migration
 
             $table->date('ngaydangky')->nullable();
             $table->string('hotennk')->nullable();
+            $table->date('ngaysinhnk')->nullable();
+            $table->string('dantocnk')->nullable();
+            $table->string('quoctichnk')->nullable();
+            $table->string('noicutrunk')->nullable();
             $table->string('loaigiaytonk')->nullable();
             $table->string('sogiaytonk')->nullable();
             $table->string('noicapgtnk')->nullable();

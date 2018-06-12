@@ -98,7 +98,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <select name="select_nam" id="select_nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_start = intval(date('Y')) - 20 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 5 ) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $nam ? 'selected' : ''}}>Năm {{$i}}</option>
@@ -106,31 +106,6 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T')
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <select id="select_huyen" class="form-control">
-                                        @foreach ($huyens as $huyen)
-                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
-                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                @if(count($xas) > 0)
-                                    <select id="select_xa" class="form-control">
-                                        <option value="all">--Chọn xã phường--</option>
-                                        @foreach ($xas as $xa)
-                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                                </div>
-                            </div>
-                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -167,10 +142,11 @@
                                 @endif
                                 <td>
                                     <a href="{{url('khaisinh/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                    @if($tt->trangthai == 'Chờ duyệt')
+                                    <a href="{{url('khaisinh/'.$tt->id.'/printstokhai')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Tờ khai</a>
                                         @if(can('khaisinh','edit'))
                                             <a href="{{url('khaisinh/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
+                                    @if($tt->trangthai == 'Chờ duyệt')
                                         @if(can('khaisinh','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
@@ -180,6 +156,7 @@
                                         @endif
                                     @else
                                         <a href="{{url('khaisinh/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
+                                        <a href="{{url('khaisinh/'.$tt->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
                                     @endif
                                 </td>
 

@@ -137,7 +137,7 @@
                     <tr><td colspan="6"><b>Người đi đăng ký khải tử</b></td></tr>
                     <tr><td colspan="6">Họ, chữ đệm, tên: {{$kt->hotennk}}</td></tr>
                     <tr><td colspan="6">Giấy tờ tùy thân: {{$kt->giaytonk}}</td></tr>
-                    <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ người ký Trích lục khai tử: {{$kt->nguoikygct}}</b></td></tr>
+                    <tr><td colspan="6"><b>Họ, chữ đệm, tên, chức vụ người ký Trích lục khai tử: {{$kt->nguoikygct}} - {{$kt->chucvu}}</b></td></tr>
                     <tr style="text-align: center">
                         <td colspan="3" style="width: 50%"><b>Người đi khai tử</b></td>
                         <td colspan="3" style="width: 50%"><b>Người thực hiện</b></td>
@@ -176,7 +176,12 @@
                         <td><span  style="width: 16px; height: 16px; display: inline-block; border: 1px solid #ccc; border-radius: 2px; text-align:center"></span></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center"><b>Ghi chú</b></td>
+                        <p  style="text-align: center"><b>Ghi chú</b></p>
+                        @foreach($thaydoi as $td)
+                            @if($kt->masohoso == $td->mahs)
+                                <p>- Thay đổi từ {{$td->thaydoitu}} thành {{$td->thaydoithanh}}</p>
+                            @endif
+                        @endforeach
                     </tr>
                 </table>
             </td>

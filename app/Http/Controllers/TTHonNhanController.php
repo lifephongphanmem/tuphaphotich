@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\GeneralConfigs;
 use App\DanToc;
 use App\QuocTich;
 use App\TTHonNhan;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\ThongTinThayDoi;
 use App\Districts;
 use App\Towns;
-
+use App\SoHoTich;
 use App\Http\Requests;
 
 use App\Http\Controllers\Controller;
@@ -41,10 +41,12 @@ class TTHonNhanController extends Controller
                     $xa = $xadf;
                 }
 
-            }elseif(session('admin')->level == 'H'){
+            }elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh'){
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
-                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
-                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+                $xa = 'tpym';}
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = 'tpdv';
             }else{
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
@@ -111,8 +113,8 @@ class TTHonNhanController extends Controller
                 $xadf = $xas->where('maxa', session('admin')->maxa)->first()->maxa;
             }
 
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.tthonnhan.create')
                 ->with('action','create')
@@ -137,6 +139,10 @@ class TTHonNhanController extends Controller
     {
         if (Session::has('admin')) {
             $inputs = $request->all();
+            $modelsohotich =  SoHoTich::where('plhotich','Tình trạng hôn nhân')
+                ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
+            $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'TTHN'.date('Y');
+            $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
             $inputs['matinh'] = getmatinh();
             $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'TTHN'.getdate()[0];
             $inputs['ngayxn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngayxn'])));
@@ -153,6 +159,20 @@ class TTHonNhanController extends Controller
             return view('errors.notlogin');
     }
 
+    public function getSoHoTich($maxa,$mahuyen,$quyen){
+        $idmax = TTHonNhan::where('maxa',$maxa)
+            ->where('mahuyen',$mahuyen)
+            ->where('quyen',$quyen)
+            ->max('id');
+        if($idmax==null)
+            $stt = 1;
+        else{
+            $model =TTHonNhan::where('id', $idmax)->first();
+            $stt = $model->so + 1;
+        }
+        return $stt;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -164,7 +184,18 @@ class TTHonNhanController extends Controller
         if (Session::has('admin')) {
 
             $model = TTHonNhan::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            }
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
             $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
             return view('manage.tthonnhan.show')
@@ -194,8 +225,8 @@ class TTHonNhanController extends Controller
                 ->get();
             $xadf = $model->maxa;
 
-            $dantocs = DanToc::all();
-            $quoctichs = QuocTich::all();
+            $dantocs = getDanTocSelectOptions();
+            $quoctichs = getQuocTichSelectOptions();
 
             return view('manage.tthonnhan.edit')
                 ->with('action','edit')
@@ -268,13 +299,77 @@ class TTHonNhanController extends Controller
     public function prints($id){
         if (Session::has('admin')) {
             $model = TTHonNhan::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+                $tentt = substr($xa,4);
+            }
+            $tenxa = substr($xa,8);
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
                 return view('reports.tthonnhan.print')
                     ->with('model',$model)
                     ->with('xa',$xa)
+                    ->with('tenxa',$tenxa)
+                    ->with('tinh',$tinh)
+                    ->with('tencq',$tencq)
                     ->with('huyen',$huyen)
+                    ->with('tentt',$tentt)
                     ->with('pageTitle','In giấy xác nhận tình trạng hôn nhân');
+
+        }else
+            return view('errors.notlogin');
+    }
+    public function printstokhai($id){
+        if (Session::has('admin')) {
+            $model = TTHonNhan::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $tenxa = substr($xa,8);
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.tthonnhan.printtokhai')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tenxa',$tenxa)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In giấy đăng ký xác nhận tình trạng hôn nhân');
 
         }else
             return view('errors.notlogin');

@@ -35,6 +35,7 @@ class CreateKethonTable extends Migration
             $table->string('dantocvo')->nullable();
             $table->string('quoctichvo')->nullable();
             $table->string('diachivo')->nullable();
+            $table->string('lankhvo')->nullable();
 
             $table->string('hotenchong')->nullable();
             $table->string('loaigiaytochong')->nullable();
@@ -43,6 +44,7 @@ class CreateKethonTable extends Migration
             $table->string('dantocchong')->nullable();
             $table->string('quoctichchong')->nullable();
             $table->string('diachichong')->nullable();
+            $table->string('lankhchong')->nullable();
             $table->string('trangthai')->nullable();
             $table->timestamps();
         });

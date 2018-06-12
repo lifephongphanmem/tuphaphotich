@@ -44,10 +44,12 @@ class KhaiTuController extends Controller
                     $xa = $xadf;
                 }
 
-            }elseif(session('admin')->level == 'H'){
+            }elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh'){
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
-                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
-                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+                $xa = 'tpym';}
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = 'tpdv';
             }else{
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
@@ -129,7 +131,7 @@ class KhaiTuController extends Controller
             $inputs = $request->all();
             $khaitu = new KhaiTu();
             $modelsohotich =  SoHoTich::where('plhotich','Khai tử')
-                ->where('namso',date('Y'))->first()->quyenhotich;
+                ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
             $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
             $inputs['so'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['quyen'] );
             $inputs['trangthai'] = 'Chờ duyệt';
@@ -138,7 +140,24 @@ class KhaiTuController extends Controller
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
             $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
             $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
-            $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
+            if($inputs['ngaycapgbt'] == '')
+            {
+                $inputs['ngaycapgbt'] = NULL;
+            }
+            else
+            {
+                $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
+            }
+
+            if( $inputs['ngaycapnk'] == '')
+            {
+                $inputs['ngaycapnk'] = NULL;
+            }
+            else
+            {
+                $inputs['ngaycapnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapnk'])));
+            }
+
             $khaitu->create($inputs);
             return redirect('khaitu');
         }
@@ -163,7 +182,18 @@ class KhaiTuController extends Controller
     public function show($id){
         if (Session::has('admin')) {
             $khaitu = KhaiTu::find($id);
-            $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = Towns::where('maxa',$khaitu->maxa)->first()->tenxa;
+            }
             $huyen = Districts::where('mahuyen',$khaitu->mahuyen)->first()->tenhuyen;
             $thongtinthaydoi = ThongTinThayDoi::where('mahs',$khaitu->masohoso)->get();
             return view('manage.khaitu.show')
@@ -222,7 +252,23 @@ class KhaiTuController extends Controller
             $inputs['ngaydangkykt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangkykt'])));
             $inputs['ngaysinh'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinh'])));
             $inputs['ngaychet'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaychet'])));
-            $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
+            if($inputs['ngaycapgbt'] == '')
+            {
+                $inputs['ngaycapgbt'] = NULL;
+            }
+            else
+            {
+                $inputs['ngaycapgbt'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgbt'])));
+            }
+
+            if( $inputs['ngaycapnk'] == '')
+            {
+                $inputs['ngaycapnk'] = NULL;
+            }
+            else
+            {
+                $inputs['ngaycapnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapnk'])));
+            }
             $khaitu = KhaiTu::find($id);
             $khaitu->update($inputs);
             return redirect('khaitu');
@@ -259,11 +305,108 @@ class KhaiTuController extends Controller
         if (Session::has('admin')) {
             $model = KhaiTu::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $xa = $modelxa->tenxa;
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            $tinh = GeneralConfigs::first()->tendv;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $huyen = $modelhuyen->tenhuyen;
+            $tenxa = substr("$xa",8);
             return view('reports.khaitu.print')
                 ->with('model',$model)
                 ->with('xa',$xa)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('tinh',$tinh)
                 ->with('pageTitle','In giấy khai tử bản chính');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printsbansao($id){
+        if (Session::has('admin')) {
+            $model = KhaiTu::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $tenxa = substr("$xa",8);
+            $modelhuyen = Districts::where('mahuyen',$model->mahuyen)->first();
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            return view('reports.khaitu.printbansao')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('tinh',$tinh)
+                ->with('pageTitle','In giấy khai sinh bản sao');
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printstokhai($id){
+        if (Session::has('admin')) {
+            $model = KhaiTu::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            if($model->phanloaidk == "Ghi sổ việc khai tử tại nước ngoài")
+            {
+                return view('reports.khaitu.printtokhaigs')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tencq',$tencq)
+                    ->with('pageTitle','In giấy đăng ký khai tử');
+            }
+            else
+            {
+                return view('reports.khaitu.printtokhai')
+                    ->with('model',$model)
+                    ->with('xa',$xa)
+                    ->with('tencq',$tencq)
+                    ->with('pageTitle','In giấy đăng ký khai tử');
+            }
+
         }else
             return view('errors.notlogin');
     }

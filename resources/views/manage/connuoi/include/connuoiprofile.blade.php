@@ -10,12 +10,12 @@
                         <td width="50%"><b>Xã/phường:</b>&nbsp;{{$xa}}</td>
                     </tr>
                     <tr>
-                        <td width="50%"><b>Vào sổ khai sinh:</b>&nbsp;{{$connuoi->soso}}</td>
+                        <td width="50%"><b>Vào sổ khai sinh:</b>&nbsp;{{$connuoi->so}}</td>
                         <td width="50%"><b>Vào quyển khai sinh:</b>&nbsp;{{$connuoi->quyen}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Họ tên cha nuôi:</b>&nbsp;{{$connuoi->hotenchanuoi}}</td>
-                        <td width="50%"><b>Ngày sinh cha nuôi:</b>&nbsp;{{$connuoi->ngaysinhchanuoi}}</td>
+                        <td width="50%"><b>Ngày sinh cha nuôi:</b>&nbsp;{{getDayVn($connuoi->ngaysinhchanuoi)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Dân tộc cha nuôi:</b>&nbsp;{{$connuoi->dantocchanuoi}}</td>
@@ -23,7 +23,7 @@
                     </tr>
                     <tr>
                         <td width="50%"><b>Họ tên mẹ nuôi:</b>&nbsp;{{$connuoi->hotenmenuoi}}</td>
-                        <td width="50%"><b>Ngày sinh mẹ nuôi:</b>&nbsp;{{$connuoi->ngaysinhmenuoi}}</td>
+                        <td width="50%"><b>Ngày sinh mẹ nuôi:</b>&nbsp;{{getDayVn($connuoi->ngaysinhmenuoi)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Dân tộc mẹ nuôi:</b>&nbsp;{{$connuoi->dantocmenuoi}}</td>
@@ -34,7 +34,7 @@
                         <td width="50%"><b>Giới tính con nuôi:</b>&nbsp;{{$connuoi->gioitinhconnuoi}}</td>
                     </tr>
                     <tr>
-                        <td width="50%"><b>Ngày sinh con nuôi:</b>&nbsp;{{$connuoi->ngaysinhconnuoi}}</td>
+                        <td width="50%"><b>Ngày sinh con nuôi:</b>&nbsp;{{getDayVn($connuoi->ngaysinhconnuoi)}}</td>
                         <td width="50%"><b>Nơi sinh con nuôi:</b>&nbsp;{{$connuoi->noisinhconnuoi}}</td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td width="50%"><b>Họ tên cha giao:</b>&nbsp;{{$connuoi->hotenchagiao}}</td>
-                        <td width="50%"><b>Ngày sinh cha giao:</b>&nbsp;{{$connuoi->ngaysinhchagiao}}</td>
+                        <td width="50%"><b>Ngày sinh cha giao:</b>&nbsp;{{getDayVn($connuoi->ngaysinhchagiao)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Dân tộc cha giao:</b>&nbsp;{{$connuoi->dantocchagiao}}</td>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td width="50%"><b>Họ tên mẹ giao:</b>&nbsp;{{$connuoi->hotenmegiao}}</td>
-                        <td width="50%"><b>Ngày sinh mẹ giao:</b>&nbsp;{{$connuoi->ngaysinhmegiao}}</td>
+                        <td width="50%"><b>Ngày sinh mẹ giao:</b>&nbsp;{{getDayVn($connuoi->ngaysinhmegiao)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Dân tộc mẹ giao:</b>&nbsp;{{$connuoi->dantocmegiao}}</td>
@@ -67,7 +67,7 @@
                     </tr>
                     <tr>
                         <td width="50%"><b>Nơi đăng ký con nuôi:</b>&nbsp;{{$connuoi->noidkconnuoi}}</td>
-                        <td width="50%"><b>Ngày tháng đăng ký:</b>&nbsp;{{$connuoi->ngaythangdk}}</td>
+                        <td width="50%"><b>Ngày tháng đăng ký:</b>&nbsp;{{getDayVn($connuoi->ngaythangdk)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Người thực hiện:</b>&nbsp;{{$connuoi->nguoithuchien}}</td>
@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td width="50%"><b>Chức vụ người đăng ký:</b>&nbsp;{{$connuoi->chucvunguoidk}}</td>
-                        <td width="50%"><b>Ngày tháng quyết định:</b>&nbsp;{{$connuoi->ngaythangqd}}</td>
+                        <td width="50%"><b>Ngày tháng quyết định:</b>&nbsp;{{getDayVn($connuoi->ngaythangqd)}}</td>
                     </tr>
                     <tr>
                         <td width="50%"><b>Số quyết định:</b>&nbsp;{{$connuoi->soqd}}</td>

@@ -8,7 +8,7 @@ use App\SoHoTich;
 use App\Towns;
 use App\ThongTinThayDoi;
 use Illuminate\Http\Request;
-
+use App\GeneralConfigs;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -33,10 +33,12 @@ class chameconController extends Controller
                     $xa = $xadf;
                 }
 
-            }elseif(session('admin')->level == 'H'){
+            }elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh'){
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
-                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
-                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+                $xa = 'tpym';}
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = 'tpdv';
             }else{
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;
@@ -119,9 +121,8 @@ class chameconController extends Controller
             $inputs = $request->all();
 
             $modelsohotich =  SoHoTich::where('plhotich','Nhận cha mẹ con')
-                ->where('namso',date('Y'))->first()->quyenhotich;
+                ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
             $inputs['soquyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'GH'.date('Y');
-
             $inputs['soso'] = $this->getSoHoTich($inputs['maxa'],$inputs['mahuyen'],$inputs['soquyen'] );
             $inputs['matinh'] = getmatinh();
             $inputs['mahs'] = $inputs['matinh'].$inputs['mahuyen'].$inputs['maxa'].'CMC'.getdate()[0];
@@ -129,6 +130,7 @@ class chameconController extends Controller
             $inputs['ngaysinhndn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhndn'])));
             $inputs['ngaysinhnn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhnn'])));
             $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
+            $inputs['ngaysinhnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhnk'])));
             $inputs['trangthai'] = 'Chờ duyệt';
             $model = new chamecon();
             $model->create($inputs);
@@ -148,7 +150,7 @@ class chameconController extends Controller
             $stt = 1;
         else{
             $model = chamecon::where('id', $idmax)->first();
-            $stt = $model->so + 1;
+            $stt = $model->soso + 1;
         }
         return $stt;
     }
@@ -157,7 +159,18 @@ class chameconController extends Controller
         if (Session::has('admin')) {
 
             $model = chamecon::find($id);
-            $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = Towns::where('maxa',$model->maxa)->first()->tenxa;
+            }
             $huyen = Districts::where('mahuyen',$model->mahuyen)->first()->tenhuyen;
             $thongtinthaydoi = ThongTinThayDoi::where('mahs',$model->mahs)->get();
 
@@ -205,6 +218,7 @@ class chameconController extends Controller
             $inputs['ngaysinhndn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhndn'])));
             $inputs['ngaysinhnn'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhnn'])));
             $inputs['ngaycapgtnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaycapgtnk'])));
+            $inputs['ngaysinhnk'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhnk'])));
             $inputs['trangthai'] = 'Chờ duyệt';
             $model = chamecon::find($id);
             $model->update($inputs);
@@ -239,31 +253,101 @@ class chameconController extends Controller
             return view('errors.notlogin');
     }
 
-    //chưa làm
-    public function prints(Request $request){
+    public function prints($id){
         if (Session::has('admin')) {
-            $inputs = $request->all();
-            $id = $inputs['idprints'];
             $model = chamecon::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $xa = $modelxa->tenxa;
-            $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
+            $modelhuyen = Districts::where('mahuyen',$model->mahuyen)->first();
+            $huyen = $modelhuyen->tenhuyen;
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $tenxa = substr("$xa",8);
+            $tinh = GeneralConfigs::first()->tendv;
+            return view('reports.cmc.print')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('tinh',$tinh)
+                ->with('pageTitle','In trích lục nhận cha mẹ con(Bản chính)');
+
+        }else
+            return view('errors.notlogin');
+    }
+
+    public function printsbansao($id){
+        if (Session::has('admin')) {
+            $model = chamecon::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
+            }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $tenxa = substr("$xa",8);
+            $modelhuyen = Districts::where('mahuyen',$model->mahuyen)->first();
             $huyen = $modelhuyen->tenhuyen;
             $tinh = GeneralConfigs::first()->tendv;
+            return view('reports.cmc.printbansao')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tenxa',$tenxa)
+                ->with('huyen',$huyen)
+                ->with('tinh',$tinh)
+                ->with('pageTitle','In trích lục nhận cha mẹ con(Bản sao)');
+        }else
+            return view('errors.notlogin');
+    }
 
-            if($inputs['plgiayks']== 'Bản chính'){
-                return view('reports.khaisinh.print')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
-                    ->with('pageTitle','In giấy khai sinh bản chính');
-            }else{
-                return view('reports.khaisinh.printtrichluc')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
-                    ->with('huyen',$huyen)
-                    ->with('tinh',$tinh)
-                    ->with('pageTitle','In giấy khai sinh bản sao');
+    public function printstokhai($id){
+        if (Session::has('admin')) {
+            $model = chamecon::find($id);
+            $modelxa = Towns::where('maxa',$model->maxa)->first();
+            $modelhuyen = Towns::where('mahuyen',$model->mahuyen)->first();
+            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+            {
+                $xa = "tpym";
             }
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+            {
+                $xa = "tpdv";
+            }
+            else
+            {
+                $xa = $modelxa->tenxa;
+            }
+            $huyen = $modelhuyen->tenhuyen;
+            $tinh = GeneralConfigs::first()->tendv;
+            if($xa == "Thị Trấn Yên Minh")
+            {
+                $tencq = 'Thị trấn Yên Minh , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            else
+            {
+                $tencq = $xa.' , '.$huyen .' , Tỉnh '.$tinh;
+            }
+            return view('reports.cmc.printtokhai')
+                ->with('model',$model)
+                ->with('xa',$xa)
+                ->with('tencq',$tencq)
+                ->with('pageTitle','In tờ khai nhận cha mẹ con');
 
         }else
             return view('errors.notlogin');

@@ -13,14 +13,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Giấy tờ<span class="require">*</span></label>
-
                     <div class="col-sm-8 controls">
                         {!! Form::select(
                         'loaigiaytocha',
                         array(
-                        'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                        'CMND' => 'CMND',
                         'Hộ chiếu' => 'Hộ chiếu',
-                        'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                        'Thẻ CCCD'=>'Thẻ căn cước công dân',
+                        'Sổ hộ khẩu' => 'Sổ hộ khẩu'
                         ),null,
                         array('id' => 'loaigiaytocha', 'class' => 'form-control'))
                         !!}
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày sinh</label>
                     <div class="col-sm-8">
-                        {!!Form::text('ngaysinhcha',isset($model->ngaysinhcha) ? date('d/m/Y',strtotime($model->ngaysinhcha)) : null, array('id' => 'ngaysinhcha','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaysinhcha',null, array('id' => 'ngaysinhcha','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

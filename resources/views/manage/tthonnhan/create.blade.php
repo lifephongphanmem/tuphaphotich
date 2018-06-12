@@ -25,7 +25,7 @@
 
 @section('content')
     <h3 class="page-title">
-        Thông tin khai sinh<small> thêm mới</small>
+        Xác nhận tình trạng hôn nhân<small> thêm mới</small>
     </h3>
     <div class="row">
         {!! Form::open(['url'=>'tthonnhan','method'=>'post' , 'files'=>true, 'id' => 'create_tthonnhan','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
@@ -80,7 +80,7 @@
             <div style="text-align: center">
                 <a href="{{url('tthonnhan')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Hoàn thành</button>
+                <button type="submit" class="btn green" onclick="validateForm1()"><i class="fa fa-check"></i>Hoàn thành</button>
             </div>
             <div id="chameshow"></div>
         </div>

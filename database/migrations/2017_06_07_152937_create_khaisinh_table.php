@@ -83,6 +83,7 @@ class CreateKhaisinhTable extends Migration
             $table->string('tongiaoks')->nullable();
             $table->string('diachiht')->nullable();
             $table->string('thuongtru')->nullable();
+            $table->string('ghichu')->nullable();
 
             $table->timestamps();
         });

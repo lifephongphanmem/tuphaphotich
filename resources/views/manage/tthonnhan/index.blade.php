@@ -41,7 +41,7 @@
     <script>
         $(function(){
             $('#select_thang,#select_nam,#select_huyen, #select_xa').change(function() {
-                var current_path_url = '/khaisinh?';
+                var current_path_url = '/tthonnhan?';
                 var thang = '&thang=' + $('#select_thang').val();
                 var nam = '&nam=' + $('#select_nam').val();
                 if($(this).attr('id') == 'select_huyen'){
@@ -113,31 +113,6 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T')
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select id="select_huyen" class="form-control">
-                                        @foreach ($huyens as $huyen)
-                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
-                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                @if(count($xas) > 0)
-                                    <select id="select_xa" class="form-control">
-                                        <option value="all">--Chọn xã phường--</option>
-                                        @foreach ($xas as $xa)
-                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                                </div>
-                            </div>
-                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -174,6 +149,7 @@
                                 @endif
                                 <td>
                                     <a href="{{url('tthonnhan/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
+                                    <a href="{{url('tthonnhan/'.$tt->id.'/printstokhai')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Tờ khai</a>
                                     @if($tt->trangthai == 'Chờ duyệt')
                                         @if(can('tthonnhan','edit'))
                                             <a href="{{url('tthonnhan/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>

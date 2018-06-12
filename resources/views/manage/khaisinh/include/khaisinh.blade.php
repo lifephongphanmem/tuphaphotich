@@ -50,15 +50,7 @@
                     <label class="col-sm-4 control-label">Ngày sinh</label>
                     <div class="col-sm-8">
                         {!!Form::text('ngaysinhks',isset($model->ngaysinhks) ? date('d/m/Y',strtotime($model->ngaysinhks)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaysinhks','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
-                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Ngày sinh bằng chữ</label>
-                    <div class="col-sm-8">
-                        {!!Form::text('ngaysinhksbangchu',null, array('id' => 'ngaysinhksbangchu','class' => 'form-control required'))!!}
-                    </div>
                 </div>
             </div>
         </div>

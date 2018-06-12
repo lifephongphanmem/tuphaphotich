@@ -342,10 +342,22 @@
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',null, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',null, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label"><b>Chọn năm</b></label>
                         <div class="col-md-8">
                             <select  class="form-control" name="nam">
-                                <option selected value="{{$nam}}">{{$nam}}</option>
+                                <option selected value="">---</option>
                                 <option value="1999">1999</option>
                                 <option value="2000">2000</option>
                                 <option value="2001">2001</option>
@@ -382,6 +394,7 @@
                             {!! Form::select(
                                'kybaocao',
                                 array(
+                                ''=>'---',
                                 'Báo cáo 6 tháng đầu năm' => 'Báo cáo 6 tháng đầu năm',
                                 'Báo cáo năm' => 'Báo cáo năm',
                                 'Báo cáo năm chính thức' => 'Báo cáo năm chính thức',
@@ -448,15 +461,27 @@
             <div class="modal-header modal-header-primary">
                 <button type="button" data-dismiss="modal" aria-hidden="true"
                         class="close">&times;</button>
-                <h4 id="modal-header-primary-label" class="modal-title">Kết quả đăng ký Khai sinh, Khai tử, Kết hôn (Cấp Xã)</h4>
+                <h4 id="modal-header-primary-label" class="modal-title">Kết quả đăng ký nuôi con nuôi trong nước (Cấp Xã)</h4>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
                     <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',null, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',null, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label"><b>Chọn năm</b></label>
                         <div class="col-md-8">
                             <select  class="form-control" name="nam">
-                                <option selected value="{{$nam}}">{{$nam}}</option>
+                                <option selected value="">---</option>
                                 <option value="1999">1999</option>
                                 <option value="2000">2000</option>
                                 <option value="2001">2001</option>
@@ -493,6 +518,7 @@
                             {!! Form::select(
                                'kybaocao',
                                 array(
+                                ''=>'---',
                                 'Báo cáo 6 tháng đầu năm' => 'Báo cáo 6 tháng đầu năm',
                                 'Báo cáo năm' => 'Báo cáo năm',
                                 'Báo cáo năm chính thức' => 'Báo cáo năm chính thức',
@@ -508,6 +534,43 @@
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                 <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport12()">Đồng ý</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<!--Modal Thoại con nuôi Rp13-->
+<div id="SoConnuoi-thoai-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        {!! Form::open(['url'=>'/reports/soconnuoi','target'=>'_blank' , 'id' => 'frm_SoConnuoi', 'class'=>'form-horizontal form-validate']) !!}
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true"
+                        class="close">&times;</button>
+                <h4 id="modal-header-primary-label" class="modal-title">Sổ đăng ký nuôi con nuôi</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Từ ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngaytu',$som, array('id' => 'ngaytu','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><b>Đến ngày</b></label>
+                        <div class="col-md-8">
+                            {!!Form::text('ngayden',$eom, array('id' => 'ngayden','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="huyen" id="huyen" value="{{$mahuyen}}">
+                <input type="hidden" name="xa" id="xa" value="{{$maxa}}">
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
+                <button type="submit" data-dismiss="modal" class="btn btn-success" onclick="ClickReport13()">Đồng ý</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -550,5 +613,8 @@
     }
     function ClickReport12(){
         $('#frm_BCconnuoi').submit();
+    }
+    function ClickReport13(){
+        $('#frm_SoConnuoi').submit();
     }
 </script>

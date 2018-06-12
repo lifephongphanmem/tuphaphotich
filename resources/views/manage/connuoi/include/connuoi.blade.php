@@ -13,15 +13,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                <div class="form-group">
+            <div class="col-md-6" >
+                <div class="form-group" style="display:none;">
                     <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="maxa" class="form-control required">
-                            @foreach($xas as $xa)
-                                <option value="{{$xa->maxa}}" {{$huyen->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                            @endforeach
-                        </select>
+                        @if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+                            <select name="maxa" class="form-control required">
+                                <option value="tpym"></option>
+                            </select>
+                        @elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+                            <select name="maxa" class="form-control required">
+                                <option value="tpdv"></option>
+                            </select>
+                        @else
+                            <select name="maxa" class="form-control required">
+                                @foreach($xas as $xa)
+                                    <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -65,9 +75,9 @@
                     <label class="col-sm-4 control-label">Dân tộc <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!! Form::select(
-                        'dantocks',
+                        'dantocconnuoi',
                         $dantocs,null,
-                        array('id' => 'dantocks', 'class' => 'form-control'))
+                        array('id' => 'dantocconnuoi', 'class' => 'form-control'))
                         !!}
                     </div>
                 </div>
@@ -79,9 +89,9 @@
                     <label class="col-sm-4 control-label">Quốc tịch <span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!! Form::select(
-                        'quoctichks',
+                        'quoctichconnuoi',
                         $quoctichs,null,
-                        array('id' => 'quoctichks', 'class' => 'form-control'))
+                        array('id' => 'quoctichconnuoi', 'class' => 'form-control'))
                         !!}
                     </div>
                 </div>
@@ -106,9 +116,9 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Nơi sinh <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Nơi sinh </label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('noisinhconnuoi', null, array('id' => 'noisinhconnuoi','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('noisinhconnuoi', null, array('id' => 'noisinhconnuoi','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
@@ -148,4 +158,3 @@
         </div>
     </div>
 </div>
-

@@ -12,6 +12,23 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">Giới tính<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!! Form::select(
+                        'gioitinhnk',
+                        array(
+                        'Nam' => 'Nam',
+                        'Nữ' => 'Nữ'
+                        ),null,
+                        array('id' => 'gioitinhnk', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
                     <label class="col-sm-4 control-label">Giấy tờ<span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">
@@ -27,8 +44,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Số giấy tờ</label>
@@ -38,6 +53,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Nơi cấp <span class="require">*</span></label>
@@ -46,8 +63,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày cấp</label>
@@ -56,9 +71,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                <label class="col-sm-4 control-label">Quan hệ<span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Quan hệ<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!! Form::select(
                         'quanhenk',
@@ -76,12 +93,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Địa chỉ</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-4 control-label">Địa chỉ</label>
+                    <div class="col-sm-8">
                         {!!Form::text('diachink',null, array('id' => 'diachink','class' => 'form-control required'))!!}
                     </div>
                 </div>

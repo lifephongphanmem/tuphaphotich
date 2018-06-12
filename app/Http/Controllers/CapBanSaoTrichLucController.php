@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\CapBanSaoTrichLuc;
+use App\chamecon;
 use App\Districts;
 use App\GeneralConfigs;
 use App\KhaiSinh;
 use App\KhaiTu;
+use App\giamho;
 use App\SoHoTich;
 use App\Towns;
 use Illuminate\Http\Request;
@@ -46,22 +48,6 @@ class CapBanSaoTrichLucController extends Controller
             return view('errors.notlogin');
     }
 
-    public function create(){
-        if (Session::has('admin')) {
-            if(session('admin')->level == 'T') {
-                $quyenhotichs = getQuyenHoTichT('Khai sinh');
-            }elseif(session('admin')->level == 'H'){
-                $quyenhotichs = getQuyenHoTichH(session('admin')->mahuyen,'Khai sinh');
-            }else {
-                $quyenhotichs = getQuyenHoTichX(session('admin')->maxa,session('admin')->mahuyen, 'Khai sinh');
-            }
-            return view('manage.capbansaotrichluc.create')
-                ->with('quyenhotichs',$quyenhotichs)
-                ->with('pageTitle','Thêm mới thông tin cấp bản sao trích lục');
-        }else
-            return view('errors.notlogin');
-    }
-
     public function store(Request $request){
         if (Session::has('admin')) {
             $inputs = $request->all();
@@ -74,7 +60,7 @@ class CapBanSaoTrichLucController extends Controller
                 $inputs['level'] = 'T';
                 $inputs['quyentrichluc'] = $inputs['madv'].'TLBS'.date('Y');
                 $inputs['sotrichluc'] = $this->getSoHoTich($inputs['madv'],$inputs['quyentrichluc'] );
-            }elseif(session('admin')->levle == 'H'){
+            }elseif(session('admin')->level == 'H'){
                 $inputs['madv'] = session('admin')->mahuyen;
                 $inputs['level'] = 'H';
                 $inputs['quyentrichluc'] = $inputs['madv'].'TLBS'.date('Y');
@@ -199,12 +185,12 @@ class CapBanSaoTrichLucController extends Controller
                 $xa = $modelxa->tenxa;
                 $modelhuyen = Districts::where('mahuyen',$modelxa->mahuyen)->first();
                 $huyen = $modelhuyen->tenhuyen;
+                $tenxa = substr("$xa",8);
             }
             if($model->plbstrichluc == 'Khai sinh') {
                 $modeltt = KhaiSinh::where('quyen',$model->quyenhotich)
                     ->where('so',$model->sohotich)
                     ->first();
-
                 $noidkks = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
                 return view('reports.khaisinh.printtrichluc')
                     ->with('model', $model)
@@ -212,6 +198,7 @@ class CapBanSaoTrichLucController extends Controller
                     ->with('tinh', $tinh)
                     ->with('huyen', $huyen)
                     ->with('xa', $xa)
+                    ->with('tenxa', $tenxa)
                     ->with('noidkks',$noidkks)
                     ->with('pageTitle', 'In giấy khai sinh bản sao');
             }
@@ -228,10 +215,61 @@ class CapBanSaoTrichLucController extends Controller
                     ->with('tinh', $tinh)
                     ->with('huyen', $huyen)
                     ->with('xa', $xa)
+                    ->with('tenxa', $tenxa)
                     ->with('noidkkt',$noidkkt)
                     ->with('pageTitle', 'In giấy khai tử bản sao');
             }
 
+            if($model->plbstrichluc == 'Chấm dứt giám hộ') {
+                $modeltt = giamho::where('quyencd',$model->quyenhotich)
+                    ->where('socd',$model->sohotich)
+                    ->first();
+
+                $noidkcdgh = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
+                return view('reports.cdgiamho.printtrichluc')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('tinh', $tinh)
+                    ->with('huyen', $huyen)
+                    ->with('xa', $xa)
+                    ->with('tenxa', $tenxa)
+                    ->with('noidkkt',$noidkcdgh)
+                    ->with('pageTitle', 'In chấm dứt giám hộ bản sao');
+            }
+
+            if($model->plbstrichluc == 'Giám hộ') {
+                $modeltt = giamho::where('soquyen',$model->quyenhotich)
+                    ->where('soso',$model->sohotich)
+                    ->first();
+
+                $noidkcdgh = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
+                return view('reports.giamho.printtrichluc')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('tinh', $tinh)
+                    ->with('huyen', $huyen)
+                    ->with('xa', $xa)
+                    ->with('tenxa', $tenxa)
+                    ->with('noidkkt',$noidkcdgh)
+                    ->with('pageTitle', 'In chấm dứt giám hộ bản sao');
+            }
+
+            if($model->plbstrichluc == 'Nhận cha mẹ con') {
+                $modeltt = chamecon::where('soquyen',$model->quyenhotich)
+                    ->where('soso',$model->sohotich)
+                    ->first();
+
+                $noidkcdgh = Towns::where('maxa',$modeltt->maxa)->first()->tenxa;
+                return view('reports.cmc.printtrichluc')
+                    ->with('model', $model)
+                    ->with('modeltt',$modeltt)
+                    ->with('tinh', $tinh)
+                    ->with('huyen', $huyen)
+                    ->with('xa', $xa)
+                    ->with('tenxa', $tenxa)
+                    ->with('noidkkt',$noidkcdgh)
+                    ->with('pageTitle', 'In chấm dứt giám hộ bản sao');
+            }
         }else
             return view('errors.notlogin');
     }

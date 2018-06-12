@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Người ký<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('hotennk', null, array('id' => 'hotennk','class' => 'form-control required'))!!}
+                        {!!Form::text('hotennky', null, array('id' => 'hotennky','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -49,7 +49,15 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Chức vụ người ký<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('chucvunk', null, array('id' => 'chucvunk','class' => 'form-control required'))!!}
+                        {!!Form::text('chucvunky', null, array('id' => 'chucvunky','class' => 'form-control required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Người thực hiện<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!!Form::text('nguoithuchien', null, array('id' => 'nguoithuchien','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

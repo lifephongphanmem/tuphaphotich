@@ -18,18 +18,23 @@ class CreateGiamhoTable extends Migration
             $table->string('mahs')->nullable();
             $table->string('soso')->nullable();
             $table->string('soquyen')->nullable();
+            $table->string('socd')->nullable();
+            $table->string('quyencd')->nullable();
             $table->string('soqd')->nullable();
             $table->string('coquanqd')->nullable();
-            $table->string('phanloai')->nullable();//giam ho/chấm dứt giám hộ
+            $table->string('phanloai')->nullable();
             $table->string('cancu')->nullable();
             $table->text('lydo')->nullable();
+            $table->text('lydochamdut')->nullable();
             $table->string('phanloainhap')->nullable();//(Công nhận giám hộ mới, Cấp bản sao)
             $table->string('nguoiky')->nullable();
             $table->string('chucvu')->nullable();
             $table->string('nguoithuchien')->nullable();
 
             $table->date('ngaydangky')->nullable();
+            $table->date('ngaychamdut')->nullable();
             $table->string('hotennk')->nullable();
+            $table->string('gioitinhnk')->nullable();
             $table->string('loaigiaytonk')->nullable();
             $table->string('sogiaytonk')->nullable();
             $table->string('noicapgtnk')->nullable();

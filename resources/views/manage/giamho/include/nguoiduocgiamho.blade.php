@@ -12,6 +12,21 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">Giới tính<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!! Form::select(
+                        'gioitinhndgh',
+                        array(
+                        'Nam' => 'Nam',
+                        'Nữ' => 'Nữ'
+                        ),null,
+                        array('id' => 'gioitinhndgh', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     <label class="col-sm-4 control-label">Giấy tờ<span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">

@@ -13,15 +13,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group" style="display:none;">
                     <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        <select name="maxa" class="form-control required">
-                            @foreach($xas as $xa)
-                                <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                            @endforeach
-                        </select>
+                        @if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+                            <select name="maxa" class="form-control required">
+                                <option value="tpym"></option>
+                            </select>
+                        @elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+                            <select name="maxa" class="form-control required">
+                                <option value="tpdv"></option>
+                            </select>
+                        @else
+                            <select name="maxa" class="form-control required">
+                                @foreach($xas as $xa)
+                                    <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -36,7 +46,14 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Số qđ<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!!Form::text('soqd', null, array('id' => 'soqd','class' => 'form-control'))!!}
+                    </div>
+                </div>
+            </div>
         </div>
 
         @if($action == 'edit')
@@ -61,23 +78,6 @@
         @endif
 
         <div class="row">
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Phân loại</label>
-                    <div class="col-sm-8 controls">
-                        {!! Form::select(
-                        'phanloai',
-                        array(
-                        'Giám hộ' => 'Giám hộ',
-                        'Chấm dứt giám hộ' => 'Chấm dứt giám hộ',
-                        ),null,
-                        array('id' => 'phanloai', 'class' => 'form-control'))
-                        !!}
-                    </div>
-                </div>
-            </div>
-
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Loại đăng ký<span class="require">*</span></label>
@@ -85,10 +85,24 @@
                         {!! Form::select(
                         'phanloainhap',
                         array(
-                        'Công nhận giám hộ mới' => 'Công nhận giám hộ mới',
-                        'Cấp bản sao' => 'Cấp bản sao'
+                        'Giám hộ' => 'Giám hộ',
                         ),null,
                         array('id' => 'phanloainhap', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Phân loại</label>
+                    <div class="col-sm-8 controls">
+                        {!! Form::select(
+                        'phanloai',
+                        array(
+                        'Giám hộ cử' => 'Giám hộ cử',
+                        'Giám hộ đương nhiên' => 'Giám hộ đương nhiên',
+                        ),null,
+                        array('id' => 'phanloai', 'class' => 'form-control'))
                         !!}
                     </div>
                 </div>
@@ -121,6 +135,14 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Lý do<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!!Form::text('lydo', null, array('id' => 'lydo','class' => 'form-control'))!!}
+                    </div>
+                </div>
+            </div>
             <!--div class="col-md-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Số bản sao<span class="require">*</span></label>
@@ -129,6 +151,16 @@
                     </div>
                 </div>
             </div-->
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Ghi chú<span class="require">*</span></label>
+                    <div class="col-sm-8 controls">
+                        {!!Form::text('ghichu', null, array('id' => 'ghichu','class' => 'form-control'))!!}
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--div class="row">

@@ -27,6 +27,9 @@
         function getIdPrints(id){
             document.getElementById("idprints").value=id;
         }
+        function getIdPrintsgs(id){
+            document.getElementById("idprintsgs").value=id;
+        }
         function ClickDelete(){
             $('#frm_delete').submit();
         }
@@ -41,7 +44,7 @@
     <script>
         $(function(){
             $('#select_thang,#select_nam,#select_huyen, #select_xa').change(function() {
-                var current_path_url = '/khaisinh?';
+                var current_path_url = '/kethon?';
                 var thang = '&thang=' + $('#select_thang').val();
                 var nam = '&nam=' + $('#select_nam').val();
                 if($(this).attr('id') == 'select_huyen'){
@@ -105,7 +108,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <select name="select_nam" id="select_nam" class="form-control">
-                                    @if ($nam_start = intval(date('Y')) - 5 ) @endif
+                                    @if ($nam_start = intval(date('Y')) - 20 ) @endif
                                     @if ($nam_stop = intval(date('Y')) + 5 ) @endif
                                     @for($i = $nam_start; $i <= $nam_stop; $i++)
                                         <option value="{{$i}}" {{$i == $nam ? 'selected' : ''}}>Năm {{$i}}</option>
@@ -113,31 +116,6 @@
                                 </select>
                             </div>
                         </div>
-                        @if(session('admin')->level == 'T')
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <select id="select_huyen" class="form-control">
-                                        @foreach ($huyens as $huyen)
-                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        @endif
-                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                @if(count($xas) > 0)
-                                    <select id="select_xa" class="form-control">
-                                        <option value="all">--Chọn xã phường--</option>
-                                        @foreach ($xas as $xa)
-                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                                </div>
-                            </div>
-                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -173,10 +151,11 @@
                                 @endif
                                 <td>
                                     <a href="{{url('kethon/'.$tt->id.'/show')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-eye"></i>&nbsp;Xem chi tiết</a>
-                                    @if($tt->trangthai == 'Chờ duyệt')
+                                    <a href="{{url('kethon/'.$tt->id.'/printstokhai')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Tờ khai</a>
                                         @if(can('kethon','edit'))
                                             <a href="{{url('kethon/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
+                                    @if($tt->trangthai == 'Chờ duyệt')
                                         @if(can('kethon','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
@@ -184,9 +163,12 @@
                                         @if(can('kethon','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
-                                    @else
-                                        <button type="button" onclick="getIdPrints('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
-                                            In</button>
+                                    @elseif($tt->trangthai == 'Duyệt' && $tt->pldangky != 'Ghi sổ việc kết hôn tại nước ngoài')
+                                        <a href="{{url('kethon/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
+                                        <a href="{{url('kethon/'.$tt->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
+                                    @elseif($tt->trangthai == 'Duyệt' && $tt->pldangky == 'Ghi sổ việc kết hôn tại nước ngoài')
+                                        <button type="button" onclick="getIdPrintsgs('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modalgs" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
+                                            In trích lục ghi sổ</button>
                                     @endif
                                 </td>
 
@@ -268,6 +250,43 @@
                     </div>
                 </div>
                 <input type="hidden" name="idprints" id="idprints">
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Hủy</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="prints-modalgs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {!! Form::open(['url'=>'kethon/printsgs','id' => 'frm_printsgs','target'=>'_blank'])!!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">In trích lục ghi sổ kết hôn</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"><b>Phân loại in</b></label>
+                            <div class="col-md-6 ">
+                                {!! Form::select(
+                                'plgiaygs',
+                                array(
+                                'Bản chính' => 'Bản chính',
+                                'Bản sao' => 'Bản sao'
+                                ),null,
+                                array('id' => 'plgiaygs', 'class' => 'form-control'))
+                                !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="idprintsgs" id="idprintsgs">
                 <div class="modal-footer">
                     <button type="submit" class="btn blue" onclick="ClickPrints()" formtarget="_bank">Đồng ý</button>
                     <button type="button" class="btn default" data-dismiss="modal">Hủy</button>

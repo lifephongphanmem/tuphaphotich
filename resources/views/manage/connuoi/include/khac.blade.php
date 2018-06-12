@@ -21,17 +21,17 @@
         <div class="rơw">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Nơi đăng ký <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Nơi đăng ký</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('noidkconnuoi', null, array('id' => 'noidkconnuoi','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('noidkconnuoi', null, array('id' => 'noidkconnuoi','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Cơ sở nuôi dưỡng <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Cơ sở nuôi dưỡng</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('tencsnuoiduong', null, array('id' => 'tencsnuoiduong','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('tencsnuoiduong', null, array('id' => 'tencsnuoiduong','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
@@ -39,17 +39,17 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Người đại diện <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Người đại diện</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('nguoidaidiencsnd', null, array('id' => 'nguoidaidiencsnd','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('nguoidaidiencsnd', null, array('id' => 'nguoidaidiencsnd','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Chức vụ <span class="require">*</span></label>
+                    <label class="col-sm-4 control-label">Chức vụ</label>
                     <div class="col-sm-8 controls">
-                        {!!Form::text('chucvundd', null, array('id' => 'chucvundd','class' => 'form-control', 'required'=>'required'))!!}
+                        {!!Form::text('chucvundd', null, array('id' => 'chucvundd','class' => 'form-control'))!!}
                     </div>
                 </div>
             </div>
@@ -120,4 +120,3 @@
         </div>
     </div>
 </div>
-

@@ -92,7 +92,7 @@
             <div style="text-align: center">
                 <a href="{{url('khaisinh')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
                 <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn green" onclick="validateForm()"><i class="fa fa-check"></i>Hoàn thành</button>
+                <button type="submit" class="btn green" onclick="validateForm1()"><i class="fa fa-check"></i>Hoàn thành</button>
             </div>
             <div id="chameshow"></div>
         </div>
@@ -151,10 +151,7 @@
                 ok = false;
             }
             //b3
-            if($('#sodinhdanhcanhan').val()==''){
-                strb3 += ' - Số định danh cá nhân \n';
-                ok = false;
-            }
+
             if($('#hotenks').val()==''){
                 strb3 += '  - Họ tên \n';
                 ok = false;

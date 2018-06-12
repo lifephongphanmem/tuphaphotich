@@ -36,25 +36,25 @@
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
                     <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-6" {{!(session('admin')->level == 'T') ? 'style=display:none;' : '' }} >
-                                <div class="form-group">
-                                    <label class="control-label">Quận huyện<span class="require">*</span></label>
-                                    <select name="mahuyen" class="form-control required" autofocus>
-                                        @foreach($huyens as $huyen)
-                                            <option value="{{$huyen->mahuyen}}" {{ $huyen->mahuyen == $mahuyen ? 'selected' : ''}}>{{$huyen->tenhuyen}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6" {{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
-                                <div class="form-group">
-                                    <label class="control-label">Xã phường<span class="require">*</span></label>
-                                    <select name="maxa" class="form-control required">
-                                        @foreach($xas as $xa)
-                                            <option value="{{$xa->maxa}}" {{$huyen->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                                        @endforeach
-                                    </select>
+                        <div class="col-md-6" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
+                                <div class="col-sm-8 controls">
+                                    @if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
+                                        <select name="maxa" class="form-control required">
+                                            <option value="tpym"></option>
+                                        </select>
+                                    @elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
+                                        <select name="maxa" class="form-control required">
+                                            <option value="tpdv"></option>
+                                        </select>
+                                    @else
+                                        <select name="maxa" class="form-control required">
+                                            @foreach($xas as $xa)
+                                                <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
                         </div>

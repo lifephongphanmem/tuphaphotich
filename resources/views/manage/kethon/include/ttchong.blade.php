@@ -18,7 +18,8 @@
                         {!! Form::select(
                         'loaigiaytochong',
                         array(
-                        'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                        'CMND' => 'CMND',
+                        'Giấy xác nhận TTHN' => 'Giấy xác nhận TTHN',
                         'Hộ chiếu' => 'Hộ chiếu',
                         'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
                         ),null,
@@ -35,6 +36,23 @@
 
                     <div class="col-sm-8">
                         {!!Form::text('sogiaytochong',null, array('id' => 'sogiaytochong','class' => 'form-control required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Ngày cấp giấy tờ</label>
+                    <div class="col-sm-8">
+                        {!!Form::text('ngaycapchong',isset($model->ngaycapchong) ? date('d/m/Y',strtotime($model->ngaycapchong)) : null, array('id' => 'ngaycapchong','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Nơi cấp</label>
+
+                    <div class="col-sm-8">
+                        {!!Form::text('noicapchong',null, array('id' => 'noicapchong','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>
@@ -74,11 +92,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Địa chỉ</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-4 control-label">Địa chỉ</label>
+                    <div class="col-sm-8">
                         {!!Form::text('diachichong',null, array('id' => 'diachichong','class' => 'form-control required'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Số lần kết hôn</label>
+                    <div class="col-sm-8">
+                        {!!Form::text('lankhchong',null, array('id' => 'lankhchong','class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

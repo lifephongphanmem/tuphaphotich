@@ -17,9 +17,10 @@
                         {!! Form::select(
                         'loaigiaytonk',
                         array(
-                        'Chứng minh nhân dân' => 'Chứng minh nhân dân',
+                        'CMND' => 'CMND',
                         'Hộ chiếu' => 'Hộ chiếu',
-                        'Thẻ căn cước công dân'=>'Thẻ căn cước công dân'
+                        'Thẻ CCCD'=>'Thẻ căn cước công dân',
+                        'Sổ hộ khẩu' => 'Sổ hộ khẩu'
                         ),null,
                         array('id' => 'loaigiaytonk', 'class' => 'form-control'))
                         !!}
@@ -51,7 +52,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày cấp</label>
                     <div class="col-sm-8">
-                        {!!Form::text('ngaycapgtnk',null, array('id' => 'ngaycapgtnk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
+                        {!!Form::text('ngaycapgtnk',isset($model->ngaycapgtnk) ? date('d/m/Y',strtotime($model->ngaycapgtnk)) : date('d/m/Y',strtotime(date('Y-m-d'))), array('id' => 'ngaycapgtnk','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

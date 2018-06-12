@@ -30,10 +30,12 @@ class SoHoTichController extends Controller
                     $xa = $xadf;
                 }
 
-            }elseif(session('admin')->level == 'H'){
+            }elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh'){
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
-                $xadf = Towns:: where('mahuyen', $huyen)->first()->maxa;
-                $xa = isset($inputs['maxa']) ? $inputs['maxa'] : $xadf;
+                $xa = 'tpym';}
+            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn'){
+                $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
+                $xa = 'tpdv';
             }else{
                 $huyen = isset($inputs['mahuyen']) ? $inputs['mahuyen'] : session('admin')->mahuyen;
                 $xa = isset($inputs['maxa']) ? $inputs['maxa'] : session('admin')->maxa;

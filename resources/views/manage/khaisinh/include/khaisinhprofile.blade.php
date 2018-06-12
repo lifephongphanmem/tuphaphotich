@@ -19,7 +19,7 @@
                     </tr>
                     <tr>
                         <td><b>Người ký:</b>&nbsp;{{$model->nguoiky}}</td>
-                        <td><b>Chức vụ người ký:</b>&nbsp;{{$model->chucvunguoiky}}</td>
+                        <td><b>Chức vụ người ký:</b>&nbsp;{{$model->chucvu}}</td>
                     </tr>
                     <tr>
                         <td><b>Người thực hiện:</b>&nbsp;{{$model->nguoithuchien}}</td>
@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td><b>Họ tên mẹ:</b>&nbsp;{{$model->hotenme}}</td>
-                        <td><b>Năm sinh:</b>&nbsp;{{date('Y',strtotime($model->ngaysinhme))}}</td>
+                        <td><b>Năm sinh:</b>{{$model->ngaysinhme}}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachime}}</td>
@@ -51,7 +51,7 @@
 
                     <tr>
                         <td><b>Họ tên cha:</b>&nbsp;{{$model->hotencha}}</td>
-                        <td><b>Năm sinh:</b>&nbsp;{{date('Y',strtotime($model->ngaysinhcha))}}</td>
+                        <td><b>Năm sinh:</b>{{$model->ngaysinhcha}}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><b>Địa chỉ:</b>&nbsp;{{$model->diachicha}}</td>
