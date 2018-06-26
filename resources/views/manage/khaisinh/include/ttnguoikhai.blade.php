@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Họ và tên</label>
+                    <label class="col-sm-4 control-label">Họ và tên<span class="require">*</span></label>
 
                     <div class="col-sm-8 controls">
                         {!!Form::text('hotennk', null, array('id' => 'hotennk','class' => 'form-control'))!!}

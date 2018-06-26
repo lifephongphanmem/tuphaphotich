@@ -45,7 +45,7 @@ class CreateGiamhoTable extends Migration
             $table->string('mangh1')->nullable();
             $table->string('hotenngh1')->nullable();
             $table->string('gioitinhngh1')->nullable();
-            $table->string('ngaysinhngh1')->nullable();
+            $table->date('ngaysinhngh1')->nullable();
             $table->string('dantocngh1')->nullable();
             $table->string('quoctichngh1')->nullable();
             $table->string('tamtrutamvangngh1')->nullable();

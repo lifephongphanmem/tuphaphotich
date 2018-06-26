@@ -286,7 +286,7 @@ class ConNuoiController extends Controller
         if (Session::has('admin')) {
             $model = ConNuoi::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Chứng Nhận Nuôi Con Nuôi')->first();
+            /*$toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Chứng Nhận Nuôi Con Nuôi')->first();*/
             $huyen=$modelxa->tenhuyen;
             if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
             {
@@ -300,18 +300,55 @@ class ConNuoiController extends Controller
             {
                 $xa = $modelxa->tenxa;
             }
+            if(session('admin')->level == 'T'){
+                $kttoado = toado::where('level','T')
+                    ->where('phanloai','GCNCN')
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadocn = $kttoado;
+                }else{
+                    $toadocn = toado::where('phanloai','GCNCN')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }elseif(session('admin')->level == 'H'){
+                $kttoado = toado::where('level','H')
+                    ->where('phanloai','GCNCN')
+                    ->where('mahuyen',session('admin')->mahuyen)
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadocn = $kttoado;
+                }else{
+                    $toadocn = toado::where('phanloai','GCNCN')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }else {
+                $kttoado = toado::where('level', 'X')
+                    ->where('phanloai', 'GCNCN')
+                    ->where('mahuyen', session('admin')->mahuyen)
+                    ->where('maxa', session('admin')->maxa)
+                    ->first();
+                if (count($kttoado) > 0) {
+                    $toadocn = $kttoado;
+                } else {
+                    $toadocn = toado::where('phanloai', 'GCNCN')
+                        ->where('level', 'DF')
+                        ->first();
+                }
+            }
             return view('reports.connuoi.print')
                 ->with('model',$model)
                 ->with('xa',$xa)
                 ->with('huyen',$huyen)
-                ->with('toado',$toado)
+                ->with('toadocn',$toadocn)
                 ->with('id',$id)
                 ->with('pageTitle','In giấy chứng nhận con nuôi bản chính');
         }else
             return view('errors.notlogin');
     }
 
-    public function printss(Request $request ,$id){
+   /*public function printss(Request $request ,$id){
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = ConNuoi::find($id);
@@ -394,7 +431,7 @@ class ConNuoiController extends Controller
                 ->with('pageTitle','In giấy kết hôn bản chính');
         }else
             return view('errors.notlogin');
-    }
+    }*/
 
     public function printsbansao($id){
         if (Session::has('admin')) {

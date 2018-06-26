@@ -253,7 +253,7 @@ class KetHonController extends Controller
         if (Session::has('admin')) {
             $model = KetHon::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Kết Hôn')->first();
+            //$toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Kết Hôn')->first();
             $huyen=$modelxa->tenhuyen;
             if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
             {
@@ -268,76 +268,52 @@ class KetHonController extends Controller
                 $xa = $modelxa->tenxa;
             }
 
+            if(session('admin')->level == 'T'){
+                $kttoado = toado::where('level','T')
+                    ->where('phanloai','GKH')
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadokh = $kttoado;
+                }else{
+                    $toadokh = toado::where('phanloai','GKH')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }elseif(session('admin')->level == 'H'){
+                $kttoado = toado::where('level','H')
+                    ->where('phanloai','GKH')
+                    ->where('mahuyen',session('admin')->mahuyen)
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadokh = $kttoado;
+                }else{
+                    $toadokh = toado::where('phanloai','GKH')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }else{
+                $kttoado = toado::where('level','X')
+                    ->where('phanloai','GKH')
+                    ->where('mahuyen',session('admin')->mahuyen)
+                    ->where('maxa',session('admin')->maxa)
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadokh = $kttoado;
+                }else{
+                    $toadokh = toado::where('phanloai','GKH')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }
+
                 return view('reports.kethon.print')
                     ->with('model',$model)
                     ->with('xa',$xa)
                     ->with('huyen',$huyen)
-                    ->with('toado',$toado)
+                    ->with('toadokh',$toadokh)
                     ->with('id',$id)
                     ->with('pageTitle','In giấy kết hôn bản chính');
 
-        }else
-            return view('errors.notlogin');
-    }
-
-    public function printss(Request $request ,$id){
-        if (Session::has('admin')) {
-            $inputs = $request->all();
-            $model = KetHon::find($id);
-            $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $kiemtratoado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Kết Hôn')->first();
-            $huyen=$modelxa->tenhuyen;
-            if($kiemtratoado != '')
-            {
-                $kiemtratoado->delete();
-            }
-            if($inputs != null)
-            {
-                $toado1 = $inputs['xa1']; $toado2 = $inputs['xa2'];$toado3 = $inputs['xa3']; $toado4 = $inputs['xa4'];$toado5 = $inputs['xa5']; $toado6 = $inputs['xa6'];$toado7 = $inputs['xa7']; $toado8 = $inputs['xa8'];$toado9 = $inputs['xa9']; $toado10 = $inputs['xa10'];
-                $toado11 = $inputs['xa11']; $toado12 = $inputs['xa12'];$toado13 = $inputs['xa13']; $toado14 = $inputs['xa14'];$toado15 = $inputs['xa15']; $toado16 = $inputs['xa16'];$toado17 = $inputs['xa17']; $toado18 = $inputs['xa18'];$toado19 = $inputs['xa19']; $toado20 = $inputs['xa20'];
-                $toado21 = $inputs['xa21']; $toado22 = $inputs['xa22'];$toado23 = $inputs['xa23']; $toado24 = $inputs['xa24'];$toado25 = $inputs['xa25']; $toado26 = $inputs['xa26'];$toado27 = $inputs['xa27']; $toado28 = $inputs['xa28'];$toado29 = $inputs['xa29']; $toado30 = $inputs['xa30'];
-                $toado31 = $inputs['xa31']; $toado32 = $inputs['xa32'];$toado33 = $inputs['xa33']; $toado34 = $inputs['xa34'];$toado35 = $inputs['xa35']; $toado36 = $inputs['xa36'];$toado37 = $inputs['xa37']; $toado38 = $inputs['xa38'];$toado39 = $inputs['xa39'];$toado40 = $inputs['xa40'];
-                $toado41 = $inputs['xa41'];$toado42 = $inputs['xa42'];
-
-                $toado = new toado();
-                $toado->toado1= $toado1;$toado->toado2= $toado2; $toado->toado3= $toado3;$toado->toado4= $toado4;$toado->toado5= $toado5;$toado->toado6= $toado6;$toado->toado7= $toado7;$toado->toado8= $toado8;$toado->toado9= $toado9;$toado->toado10= $toado10;$toado->toado11= $toado11;$toado->toado12= $toado12;
-                $toado->toado13= $toado13;$toado->toado14= $toado14;$toado->toado15= $toado15;$toado->toado16= $toado16;$toado->toado17= $toado17;$toado->toado18= $toado18;$toado->toado19= $toado19;$toado->toado20= $toado20;$toado->toado21= $toado21;$toado->toado22= $toado22;$toado->toado23= $toado23;$toado->toado24= $toado24;
-                $toado->toado25= $toado25;$toado->toado26= $toado26;$toado->toado27= $toado27;$toado->toado28= $toado28;$toado->toado29= $toado29;$toado->toado30= $toado30;$toado->toado31= $toado31;$toado->toado32= $toado32;$toado->toado33= $toado33;$toado->toado34= $toado34;$toado->toado35= $toado35;$toado->toado36= $toado36;
-                $toado->toado37= $toado37;$toado->toado38= $toado38;$toado->toado39= $toado39;$toado->toado40= $toado40;$toado->toado41= $toado41;$toado->toado42= $toado42;
-
-
-                $toado->mahuyen = $modelxa->mahuyen;
-                $toado->maxa = $modelxa->maxa;
-                $toado->phanloai = "Giấy Kết Hôn";
-                $toado->save();
-            }
-            else
-            {
-                $toado1 = $toado2 = $toado3 =$toado4 = $toado5 = $toado6= $toado7= $toado8= $toado9= $toado10= $toado11= $toado12= $toado13= $toado14= $toado15= $toado16= $toado17= $toado18= $toado19=
-                $toado20 =$toado21 = $toado22= $toado23= $toado24= $toado25= $toado26= $toado27= $toado28= $toado29= $toado30= $toado31= $toado32= $toado33= $toado34= $toado35= $toado36=$toado37= $toado38=$toado39=$toado40=$toado41=$toado42='';
-            }
-
-            if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
-            {
-                $xa = "tpym";
-            }
-            elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
-            {
-                $xa = "tpdv";
-            }
-            else
-            {
-                $xa = $modelxa->tenxa;
-            }
-                return view('reports.kethon.print')
-                    ->with('model',$model)
-                    ->with('xa',$xa)
-                    ->with('huyen',$huyen)
-                    ->with('id',$id)
-                    ->with('toado1',$toado1)
-                    ->with('toado2',$toado2)
-                    ->with('toado',$toado)
-                    ->with('pageTitle','In giấy kết hôn bản chính');
         }else
             return view('errors.notlogin');
     }

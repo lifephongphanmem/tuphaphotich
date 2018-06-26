@@ -28,7 +28,7 @@ class CreateTthonnhanTable extends Migration
             $table->string('quanhe')->nullable();
             $table->string('hotenxn')->nullable();
             $table->date('ngaysinh')->nullable();
-            $table->date('noisinh')->nullable();
+            $table->string('noisinh')->nullable();
             $table->string('gioitinh')->nullable();
             $table->string('dantoc')->nullable();
             $table->string('quoctich')->nullable();

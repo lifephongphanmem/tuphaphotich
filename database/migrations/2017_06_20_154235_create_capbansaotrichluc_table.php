@@ -16,6 +16,8 @@ class CreateCapbansaotrichlucTable extends Migration
         Schema::create('capbansaotrichluc', function (Blueprint $table) {
             $table->increments('id');
             $table->string('madv')->nullable();
+            $table->string('mahuyen')->nullable();
+            $table->string('maxa')->nullable();
             $table->string('level')->nullable();
             $table->date('ngaycap')->nullable();
             $table->string('sotrichluc')->nullable();

@@ -113,7 +113,31 @@
                                 </select>
                             </div>
                         </div>
-
+                        @if(session('admin')->level == 'T')
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select id="select_huyen" class="form-control">
+                                        @foreach ($huyens as $huyen)
+                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @if(count($xas) > 0)
+                                        <select id="select_xa" class="form-control">
+                                            <option value="all">--Chọn xã phường--</option>
+                                            @foreach ($xas as $xa)
+                                                <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -123,10 +147,10 @@
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
                             <th style="text-align: center">Ngày đăng ký</th>
-                            <th style="text-align: center">Phân loại đăng ký</th>
-                            <th style="text-align: center" width="15%">Người được giám hộ</th>
-                            <th style="text-align: center" width="15%">Người giám hộ thứ nhất</th>
-                            <th style="text-align: center" width="15%">Người giám hộ thứ hai</th>
+                            <th style="text-align: center">Phân loại <br>đăng ký</th>
+                            <th style="text-align: center" width="15%">Người được <br>giám hộ</th>
+                            <th style="text-align: center" width="15%">Người giám hộ<br> thứ nhất</th>
+                            <th style="text-align: center" width="15%">Người giám hộ<br>thứ hai</th>
                             <th style="text-align: center">Trạng thái</th>
                             <th style="text-align: center" width="20%">Thao tác</th>
                         </tr>
@@ -154,7 +178,7 @@
                                         @if(can('dkgiamho','edit'))
                                             <a href="{{url('dangkygiamho/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-                                    @if($tt->trangthai == 'Chờ duyệt')
+
                                         @if(can('dkgiamho','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
@@ -163,12 +187,12 @@
                                         @if(can('dkgiamho','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
-                                    @else
+
                                         <a href="{{url('dangkygiamho/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                         <a href="{{url('dangkygiamho/'.$tt->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
                                       @if($tt->phanloainhap == "Giám hộ")  <button type="button" onclick="getIdchamdut('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#chamdut-modal" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
                                             Chấm dứt</button> @endif
-                                    @endif
+
                                 </td>
 
                             </tr>

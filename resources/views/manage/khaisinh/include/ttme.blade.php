@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Ngày sinh</label>
                     <div class="col-sm-8">
-                        {!!Form::text('ngaysinhme',null, array('id' => 'ngaysinhme','class' => 'form-control required'))!!}
+                        {!!Form::text('ngaysinhme',isset($model->ngaysinhme) ? date('d/m/Y',strtotime($model->ngaysinhme)) : null, array('id' => 'ngaysinhme','data-inputmask'=>"'alias': 'date'",'class' => 'form-control required'))!!}
                     </div>
                 </div>
             </div>

@@ -14,8 +14,8 @@
 </style>
 <script>
     $(document).ready(function(){
-        $("button").click(function(){
-            var current_path_url = '/kethons/{{$id}}/printss?';
+        $("#luutoado").click(function(){
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var x = $("#flying").position();var x1 = $("#flying1").position();var x2 = $("#flying2").position();
             var x3 = $("#flying3").position();var x4 = $("#flying4").position();var x5 = $("#flying5").position();
             var x6 = $("#flying6").position();var x7 = $("#flying7").position();var x8 = $("#flying8").position();
@@ -23,8 +23,7 @@
             var x12 = $("#flying12").position();var x13 = $("#flying13").position();var x14 = $("#flying14").position();
             var x15 = $("#flying15").position();var x16 = $("#flying16").position();var x17 = $("#flying17").position();
             var x18 = $("#flying18").position();var x19 = $("#flying19").position();var x20 = $("#flying20").position();
-
-            var xa1  = '&xa1=' + x.top ;
+           /* var xa1  = '&xa1=' + x.top ;
             var xa2  = '&xa2=' + x.left ;
             var xa3  = '&xa3=' + x1.top ;
             var xa4  = '&xa4=' + x1.left ;
@@ -69,14 +68,43 @@
             var url = current_path_url;
             window.location.href = url+xa1+xa2+xa3+xa4+xa5+xa6+xa7+xa8+xa9+xa10+xa11+xa12+xa13+xa14+xa15+xa16+xa17+xa18+xa19+xa20+xa21+xa22+xa23+xa24+xa25+xa26
                 +xa27+xa28+xa29+xa30+xa31+xa32+xa33+xa34+xa35+xa36+xa37+xa38+xa39+xa40+xa41+xa42;
-        });
-
-        $('#Button1').click(function() {
-            location.reload();
+        });*/
+            $.ajax({
+                type: 'GET',
+                url: '/ajaxluutoado',
+                data: {
+                    _token: CSRF_TOKEN,
+                    toado: 'top:' + x.top + 'px;left:' + x.left + 'px',
+                    toado1:'top:'+x1.top+'px;left:'+x1.left+'px',
+                    toado2:'top:'+x2.top+'px;left:'+x2.left+'px',
+                    toado3:'top:'+x3.top+'px;left:'+x3.left+'px',
+                    toado4:'top:'+x4.top+'px;left:'+x4.left+'px',
+                    toado5:'top:'+x5.top+'px;left:'+x5.left+'px',
+                    toado6:'top:'+x6.top+'px;left:'+x6.left+'px',
+                    toado7:'top:'+x7.top+'px;left:'+x7.left+'px',
+                    toado8:'top:'+x8.top+'px;left:'+x8.left+'px',
+                    toado9:'top:'+x9.top+'px;left:'+x9.left+'px',
+                    toado10:'top:'+x10.top+'px;left:'+x10.left+'px',
+                    toado11:'top:'+x11.top+'px;left:'+x11.left+'px',
+                    toado12:'top:'+x12.top+'px;left:'+x12.left+'px',
+                    toado13:'top:'+x13.top+'px;left:'+x13.left+'px',
+                    toado14:'top:'+x14.top+'px;left:'+x14.left+'px',
+                    toado15:'top:'+x15.top+'px;left:'+x15.left+'px',
+                    toado16:'top:'+x16.top+'px;left:'+x16.left+'px',
+                    toado17:'top:'+x17.top+'px;left:'+x17.left+'px',
+                    toado18:'top:'+x18.top+'px;left:'+x18.left+'px',
+                    toado19:'top:'+x19.top+'px;left:'+x19.left+'px',
+                    toado20:'top:'+x20.top+'px;left:'+x20.left+'px',
+                    phanloai: 'GKH'
+                },
+                success: function (respond) {
+                    location.reload();
+                }
+            });
         });
     });
 </script>
-<button class="noPrint">Lưu tọa độ</button>
+<button class="noPrint" id="luutoado">Lưu tọa độ</button>
 <style>
     #flying,#flying1 ,#flying2, #flying3, #flying4,#flying5,#flying6,#flying7,#flying8,#flying9,#flying10,
     #flying11,#flying12,#flying13,#flying14,#flying15,#flying16,#flying17,#flying18,#flying19,#flying20 {  position: absolute;  }
@@ -158,9 +186,9 @@
             <img class="noPrint" src="{{url('images/quochuy.png')}}" width="80">
         </td>
         <td>
-            <p style="text-align:left"><span class="noPrint">Số:</span> <label class="noPrint" @if($toado != null)style="left: 884px; top: 109px;" @endif id="flying">lock</label></p>
+            <p style="text-align:left"><span class="noPrint">Số:</span> <label style="{{$toadokh->toado}}" id="flying">lock</label></p>
         </td>
-        <td style="font-size:29px;vertical-align: bottom"><label @if($toado != null)style="left: {{$toado->toado38}}px; top: {{$toado->toado37}}px;" @endif id="flying18"><b>{{$model->sokethon}}</b></label></td>
+        <td style="font-size:29px;vertical-align: bottom"><label style="{{$toadokh->toado18}}" id="flying18"><b>{{$model->sokethon}}</b></label></td>
     </tr>
     <tr>
     </tr>
@@ -184,7 +212,7 @@
                 <tr>
                     <td>
                         <b style="visibility: hidden">x</b>
-                        <label @if($toado != null)style="left: {{$toado->toado4}}px; top: {{$toado->toado3}}px;" @endif  id="flying1">
+                        <label style="{{$toadokh->toado1}}"  id="flying1">
                             <span  style="text-transform: uppercase">{{$model->hotenvo}}</span>
                         </label>
                     </td>
@@ -194,18 +222,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <span style="visibility: hidden;">Ngày, tháng, năm sinh:</span>
-                        <label @if($toado != null)style="left: {{$toado->toado6}}px; top: {{$toado->toado5}}px;" @endif  id="flying2">{{getDayVn($model->ngaysinhvo)}}</label>
+                        <span style="visibility: hidden;" class="noPrint">Ngày, tháng, năm sinh:</span>
+                        <label style="{{$toadokh->toado2}}"  id="flying2">{{getDayVn($model->ngaysinhvo)}}</label>
                     </td>
                 </tr>
-                <tr><td><span style="visibility: hidden;">Dân tộc:</span>  <label @if($toado != null)style="left: {{$toado->toado8}}px; top: {{$toado->toado7}}px;" @endif id="flying3">{{$model->dantocvo}}</label></td> </tr>
-                <tr><td><span style="visibility: hidden;">Quốc tịch:</span> <label @if($toado != null)style="left: {{$toado->toado10}}px; top: {{$toado->toado9}}px;" @endif id="flying4">{{$model->quoctichvo}}</label></td> </tr>
-                <tr><td><span style="visibility: hidden;">Nơi cư trú:</span> <label @if($toado != null)style="left: {{$toado->toado12}}px; top: {{$toado->toado11}}px;" @endif id="flying5"><p style="line-height: 160%;width: 300px;word-wrap: break-word;">{{$model->diachivo}}</p></label></td> </tr>
+                <tr><td><span style="visibility: hidden;">Dân tộc:</span>  <label style="{{$toadokh->toado3}}" id="flying3">{{$model->dantocvo}}</label></td> </tr>
+                <tr><td><span style="visibility: hidden;">Quốc tịch:</span> <label style="{{$toadokh->toado4}}"  id="flying4">{{$model->quoctichvo}}</label></td> </tr>
+                <tr><td><span style="visibility: hidden;">Nơi cư trú:</span> <label style="{{$toadokh->toado5}}" id="flying5"><p style="line-height: 160%;width: 300px;word-wrap: break-word;">{{$model->diachivo}}</p></label></td> </tr>
                 <tr><td></td></tr>
                 <tr><td></td></tr>
                 <tr><td><span style="visibility: hidden;">Giấy tờ tùy thân:</span>
-                        <label @if($toado != null)style="left: {{$toado->toado14}}px; top: {{$toado->toado13}}px;" @endif id="flying6">@if($model->sogiaytovo =='') @else{{$model->loaigiaytovo}} số {{$model->sogiaytovo}} do @endif</label></td> </tr>
-                        <label @if($toado != null)style="left: {{$toado->toado42}}px; top: {{$toado->toado41}}px;" @endif id="flying20">@if($model->sogiaytovo =='') @else {{$model->noicapvo}} cấp ngày {{getDayVn($model->ngaycapvo)}} @endif</label></td> </tr>
+                        <label style="{{$toadokh->toado6}}" id="flying6">@if($model->sogiaytovo =='') @else{{$model->loaigiaytovo}} số {{$model->sogiaytovo}} do @endif</label></td> </tr>
+                        <label style="{{$toadokh->toado20}}" id="flying20">@if($model->sogiaytovo =='') @else {{$model->noicapvo}} cấp ngày {{getDayVn($model->ngaycapvo)}} @endif</label></td> </tr>
             </table>
         </td>
         <td style="width: 50%">
@@ -217,21 +245,21 @@
                 </tr>
                 <tr>
                     <td>
-                        <b style="visibility: hidden">x</b><label @if($toado != null)style="left: {{$toado->toado16}}px; top: {{$toado->toado15}}px;" @endif id="flying7" ><span style="text-transform: uppercase">{{$model->hotenchong}}</span></label>
+                        <b style="visibility: hidden">x</b><label style="{{$toadokh->toado7}}" id="flying7" ><span style="text-transform: uppercase">{{$model->hotenchong}}</span></label>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                 </tr>
-                <tr><td><span style="visibility: hidden;">Ngày, tháng, năm sinh:</span> <label @if($toado != null)style="left: {{$toado->toado18}}px; top: {{$toado->toado17}}px;" @endif id="flying8">{{getDayVn($model->ngaysinhchong)}}</label></td></tr>
-                <tr><td><span style="visibility: hidden;">Dân tộc:</span> <label @if($toado != null)style="left: {{$toado->toado20}}px; top: {{$toado->toado19}}px;" @endif id="flying9">{{$model->dantocchong}}</label></td></tr>
-                <tr><td><span style="visibility: hidden;">Quốc tịch:</span> <label @if($toado != null)style="left: {{$toado->toado22}}px; top: {{$toado->toado21}}px;" @endif id="flying10">{{$model->quoctichchong}}</label> </td></tr>
-                <tr><td><span style="visibility: hidden;">Nơi cư trú:</span> <label @if($toado != null)style="line-height: 160%;left: {{$toado->toado24}}px; top: {{$toado->toado23}}px;" @endif id="flying11">{{$model->diachichong}}</label></td></tr>
+                <tr><td><span style="visibility: hidden;">Ngày, tháng, năm sinh:</span> <label style="{{$toadokh->toado8}}" id="flying8">{{getDayVn($model->ngaysinhchong)}}</label></td></tr>
+                <tr><td><span style="visibility: hidden;">Dân tộc:</span> <label style="{{$toadokh->toado9}}" id="flying9">{{$model->dantocchong}}</label></td></tr>
+                <tr><td><span style="visibility: hidden;">Quốc tịch:</span> <label style="{{$toadokh->toado10}}" id="flying10">{{$model->quoctichchong}}</label> </td></tr>
+                <tr><td><span style="visibility: hidden;">Nơi cư trú:</span> <label style="{{$toadokh->toado11}}" id="flying11">{{$model->diachichong}}</label></td></tr>
                 <tr><td></td></tr>
                 <tr><td></td></tr>
                 <tr><td><span style="visibility: hidden;">Giấy tờ tùy thân:</span>
-                        <label @if($toado != null)style="left: {{$toado->toado26}}px; top: {{$toado->toado25}}px;" @endif id="flying12">@if($model->sogiaytochong =="" ) @else {{$model->loaigiaytochong}} số {{$model->sogiaytochong}} do @endif</label>
-                        <label @if($toado != null)style="left: {{$toado->toado40}}px; top: {{$toado->toado39}}px;" @endif id="flying19">@if($model->sogiaytochong =="" ) @else {{$model->noicapchong}} cấp ngày {{getDayVn($model->ngaycapchong)}} @endif</label>
+                        <label style="{{$toadokh->toado12}}" id="flying12">@if($model->sogiaytochong =="" ) @else {{$model->loaigiaytochong}} số {{$model->sogiaytochong}} do @endif</label>
+                        <label style="{{$toadokh->toado19}}" id="flying19">@if($model->sogiaytochong =="" ) @else {{$model->noicapchong}} cấp ngày {{getDayVn($model->ngaycapchong)}} @endif</label>
                     </td></tr>
             </table>
         </td>
@@ -239,7 +267,7 @@
 </table>
 <table width="60%" border="0" cellspacing="0" cellpadding="8" style="font-size:25px;;border-collapse: collapse; margin:20px auto">
     <tr><td><span style="visibility: hidden;">Nơi đăng ký kết hôn: </span>
-            <label @if($toado != null)style="left: {{$toado->toado28}}px; top: {{$toado->toado27}}px;" @endif id="flying13">
+            <label style="{{$toadokh->toado13}}" id="flying13">
                 @if(session('admin')->name=="Phòng tư Pháp huyện Yên Minh")
                     {{"Phòng tư Pháp huyện Yên Minh"}}
                 @elseif(session('admin')->name=="Phòng tư Pháp huyện Đồng Văn")
@@ -250,7 +278,7 @@
             </label></td></tr>
     <tr><td></td></tr>
     <tr><td></td></tr>
-    <tr><td><span style="visibility: hidden;">Ngày tháng đăng ký:</span> <label @if($toado != null)style="left: {{$toado->toado30}}px; top: {{$toado->toado29}}px;" @endif id="flying14">{{getDayVn($model->ngaydangky)}}</label></td></tr>
+    <tr><td><span style="visibility: hidden;">Ngày tháng đăng ký:</span> <label style="{{$toadokh->toado14}}" id="flying14">{{getDayVn($model->ngaydangky)}}</label></td></tr>
 </table>
 <table border="0" width="95%" style="font-size:25px;margin:auto; text-align: center;" cellspacing="0" cellpadding="8">
     <tr>
@@ -269,10 +297,10 @@
     </tr>
     <tr style="height: 100px">
         <td>
-            <label @if($toado != null)style="left: {{$toado->toado32}}px; top: {{$toado->toado31}}px;" @endif id="flying15"><b>{{$model->hotenvo}}</b></label>
+            <label style="{{$toadokh->toado15}}" id="flying15"><b>{{$model->hotenvo}}</b></label>
         </td>
         <td>
-            <label @if($toado != null)style="left: {{$toado->toado34}}px; top: {{$toado->toado33}}px;" @endif id="flying16"><b>{{$model->hotenchong}}</b></label>
+            <label style="{{$toadokh->toado16}}" id="flying16"><b>{{$model->hotenchong}}</b></label>
         </td>
     </tr>
     <tr>
@@ -286,7 +314,7 @@
     </tr>
     <tr style="height: 100px;text-align: center">
         <td style="width: 40%;vertical-align: bottom"><b></b></td>
-        <td style=";vertical-align: bottom"><label @if($toado != null)style="left: {{$toado->toado36}}px; top: {{$toado->toado35}}px;" @endif id="flying17"><b>{{$model->nguoiky}}</b></label></td>
+        <td style=";vertical-align: bottom"><label style="{{$toadokh->toado17}}" id="flying17"><b>{{$model->nguoiky}}</b></label></td>
     </tr>
 </table>
 </body>

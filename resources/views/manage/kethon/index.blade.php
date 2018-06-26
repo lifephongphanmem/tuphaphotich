@@ -116,6 +116,33 @@
                                 </select>
                             </div>
                         </div>
+                        @if(session('admin')->level == 'T')
+                            <div class="col-md-1">
+                                <div class="form-control-static" style="white-space: nowrap;">Quận/Huyện</div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="select_huyen" class="form-control">
+                                    @foreach ($huyens as $huyen)
+                                        <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
+                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
+                            <div class="col-md-1">
+                                <div class="form-control-static" style="white-space: nowrap;">Xã/Phường</div>
+                            </div>
+                            <div class="col-md-3">
+                                @if(count($xas) > 0)
+                                    <select id="select_xa" class="form-control">
+                                        <option value="all">--Chọn xã phường--</option>
+                                        @foreach ($xas as $xa)
+                                            <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
@@ -155,7 +182,7 @@
                                         @if(can('kethon','edit'))
                                             <a href="{{url('kethon/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
                                         @endif
-                                    @if($tt->trangthai == 'Chờ duyệt')
+
                                         @if(can('kethon','delete'))
                                             <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
                                                 Xóa</button>
@@ -163,13 +190,13 @@
                                         @if(can('kethon','approve'))
                                             <button type="button" onclick="getIdDuyet('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#duyet-modal" data-toggle="modal"><i class="fa fa-check"></i>&nbsp;Duyệt</button>
                                         @endif
-                                    @elseif($tt->trangthai == 'Duyệt' && $tt->pldangky != 'Ghi sổ việc kết hôn tại nước ngoài')
+
                                         <a href="{{url('kethon/'.$tt->id.'/prints')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;In</a>
                                         <a href="{{url('kethon/'.$tt->id.'/printsbansao')}}" target="_blank" class="btn btn-default btn-xs mbs"><i class="fa fa-print"></i>&nbsp;Bản sao</a>
-                                    @elseif($tt->trangthai == 'Duyệt' && $tt->pldangky == 'Ghi sổ việc kết hôn tại nước ngoài')
+
                                         <button type="button" onclick="getIdPrintsgs('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#prints-modalgs" data-toggle="modal"><i class="fa fa-print"></i>&nbsp;
                                             In trích lục ghi sổ</button>
-                                    @endif
+
                                 </td>
 
                             </tr>

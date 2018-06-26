@@ -56,7 +56,7 @@ class CreateKhaisinhTable extends Migration
             $table->string('hotenme')->nullable();
             $table->string('loaigiaytome')->nullable();
             $table->string('sogiaytome')->nullable();
-            $table->string('ngaysinhme')->nullable();
+            $table->date('ngaysinhme')->nullable();
             $table->string('dantocme')->nullable();
             $table->string('quoctichme')->nullable();
             $table->string('diachime')->nullable();
@@ -66,7 +66,7 @@ class CreateKhaisinhTable extends Migration
             $table->string('hotencha')->nullable();
             $table->string('loaigiaytocha')->nullable();
             $table->string('sogiaytocha')->nullable();
-            $table->string('ngaysinhcha')->nullable();
+            $table->date('ngaysinhcha')->nullable();
             $table->string('dantoccha')->nullable();
             $table->string('quoctichcha')->nullable();
             $table->string('diachicha')->nullable();

@@ -124,6 +124,7 @@ class KhaiSinhController extends Controller
         if (Session::has('admin')) {
 
             $inputs = $request->all();
+            //dd($inputs);
             $modelsohotich =  SoHoTich::where('plhotich','Khai sinh')
                 ->where('namso',date('Y'))->where('mahuyen',$inputs['mahuyen'])->where('maxa',$inputs['maxa'])->first()->quyenhotich;
             $inputs['quyen'] = (isset($modelsohotich)) ? $modelsohotich : getmatinh().$inputs['mahuyen'].$inputs['maxa'].'KS'.date('Y');
@@ -216,6 +217,7 @@ class KhaiSinhController extends Controller
     public function update(Request $request,$id){
         if (Session::has('admin')) {
             $inputs = $request->all();
+            //dd($inputs);
             $inputs['ngaydangky'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaydangky'])));
             $inputs['ngaysinhks'] = date('Y-m-d', strtotime(str_replace('/', '-', $inputs['ngaysinhks'])));
             $inputs['ngaysinhksbangchu'] = getDateText($inputs['ngaysinhks']);
@@ -257,7 +259,7 @@ class KhaiSinhController extends Controller
         if (Session::has('admin')) {
             $model = KhaiSinh::find($id);
             $modelxa = Towns::where('maxa',$model->maxa)->first();
-            $toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Khai Sinh')->first();
+
             $huyen=$modelxa->tenhuyen;
 
             if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
@@ -281,18 +283,56 @@ class KhaiSinhController extends Controller
             // }
             // else
             //  {
+            if(session('admin')->level == 'T'){
+                $kttoado = toado::where('level','T')
+                    ->where('phanloai','GKS')
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadoks = $kttoado;
+                }else{
+                    $toadoks = toado::where('phanloai','GKS')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }elseif(session('admin')->level == 'H'){
+                $kttoado = toado::where('level','H')
+                    ->where('phanloai','GKS')
+                    ->where('mahuyen',session('admin')->mahuyen)
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadoks = $kttoado;
+                }else{
+                    $toadoks = toado::where('phanloai','GKS')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }else{
+                $kttoado = toado::where('level','X')
+                    ->where('phanloai','GKS')
+                    ->where('mahuyen',session('admin')->mahuyen)
+                    ->where('maxa',session('admin')->maxa)
+                    ->first();
+                if(count($kttoado) >0){
+                    $toadoks = $kttoado;
+                }else{
+                    $toadoks = toado::where('phanloai','GKS')
+                        ->where('level','DF')
+                        ->first();
+                }
+            }
+                //$toado = toado::where('maxa',$model->maxa)->where('phanloai','Giấy Khai Sinh')->first();
                 return view('reports.khaisinh.print')
                     ->with('model',$model)
                     ->with('xa',$xa)
                     ->with('id',$id)
                     ->with('huyen',$huyen)
-                    ->with('toado',$toado)
+                    ->with('toadoks',$toadoks)
                     ->with('pageTitle','In giấy khai sinh bản chính');
             // }
         }else
             return view('errors.notlogin');
     }
-    public function printss(Request $request ,$id){
+    /*public function printss(Request $request ,$id){
         if (Session::has('admin')) {
             $inputs = $request->all();
             $model = KhaiSinh::find($id);
@@ -365,7 +405,7 @@ class KhaiSinhController extends Controller
             }
         }else
             return view('errors.notlogin');
-    }
+    }*/
 
     public function printsbansao($id){
         if (Session::has('admin')) {

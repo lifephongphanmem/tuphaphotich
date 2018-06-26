@@ -8,6 +8,7 @@ use App\KetHon;
 use App\KhaiSinh;
 use App\KhaiTu;
 use App\SoHoTich;
+use App\toado;
 use App\Towns;
 use App\TTHonNhan;
 use App\Users;
@@ -85,6 +86,63 @@ class AjaxController extends Controller
             $result['status'] = 'success';
         }
 
+        die(json_encode($result));
+    }
+    public function luutoado(Request$request)
+    {
+        $result = array(
+            'status' => 'fail',
+            'message' => 'error',
+        );
+        if (!Session::has('admin')) {
+            $result = array(
+                'status' => 'fail',
+                'message' => 'permission denied',
+            );
+            die(json_encode($result));
+        }
+
+        $inputs = $request->all();
+        //dd($inputs);
+        if ($inputs['phanloai'] != '') {
+            if (session('admin')->level == 'T') {
+                $modeltd = toado::where('level', 'T')->first();
+                if (count($modeltd) > 0) {
+                    $modeltd->update($inputs);
+                } else {
+                    $inputs['level'] = 'T';
+                    $model = new toado();
+                    $model->create($inputs);
+                }
+            } elseif (session('admin')->level == 'H') {
+                $modeltd = toado::where('mahuyen', session('admin')->mahuyen)
+                    ->where('level', 'H')
+                    ->first();
+                if (count($modeltd) > 0) {
+                    $modeltd->update($inputs);
+                } else {
+                    $inputs['level'] = 'H';
+                    $inputs['mahuyen'] = session('admin')->mahuyen;
+                    $model = new toado();
+                    $model->create($inputs);
+                }
+            } else {
+                $modeltd = toado::where('mahuyen', session('admin')->mahuyen)
+                    ->where('maxa', session('admin')->maxa)
+                    ->where('level', 'X')
+                    ->first();
+                if (count($modeltd) > 0) {
+                    $modeltd->update($inputs);
+                } else {
+                    $inputs['level'] = 'X';
+                    $inputs['mahuyen'] = session('admin')->mahuyen;
+                    $inputs['maxa'] = session('admin')->maxa;
+                    $model = new toado();
+                    $model->create($inputs);
+                }
+            }
+            $result['status'] = 'success';
+        }
         die(json_encode($result));
     }
 }

@@ -31,6 +31,8 @@ class CreateKethonTable extends Migration
             $table->string('hotenvo')->nullable();
             $table->string('loaigiaytovo')->nullable();
             $table->string('sogiaytovo')->nullable();
+            $table->string('ngaycapvo')->nullable();
+            $table->string('noicapvo')->nullable();
             $table->string('ngaysinhvo')->nullable();
             $table->string('dantocvo')->nullable();
             $table->string('quoctichvo')->nullable();
@@ -40,6 +42,8 @@ class CreateKethonTable extends Migration
             $table->string('hotenchong')->nullable();
             $table->string('loaigiaytochong')->nullable();
             $table->string('sogiaytochong')->nullable();
+            $table->string('ngaycapchong')->nullable();
+            $table->string('noicapchong')->nullable();
             $table->string('ngaysinhchong')->nullable();
             $table->string('dantocchong')->nullable();
             $table->string('quoctichchong')->nullable();

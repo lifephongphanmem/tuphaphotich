@@ -35,7 +35,7 @@
                         @elseif($xa=="tpdv")
                             <td colspan="3"><span style="text-transform: uppercase"><u>Phòng Tư Pháp Huyện Đồng Văn</u></span></td>
                         @else
-                            <td colspan="3"><span style="text-transform: uppercase">UBND XÃ {{$tenxa}}</span></td>
+                            <td colspan="3"><span style="text-transform: uppercase">UBND XÃ {{$xa}}</span></td>
                             <a style="position : relative; top:70px;">__________</a>
                         @endif
                     </tr>
@@ -62,7 +62,7 @@
         <td>@if($xa=="Thị Trấn Yên Minh"){{$xa}}
             @elseif($xa=="tpym") {{"Phòng Tư Pháp Huyện Yên Minh"}}
             @elseif($xa=="tpdv") {{"Phòng Tư Pháp Huyện Đồng Văn"}}
-            @else{{$tenxa}}@endif, ngày {{date('d',strtotime($model->ngaydangky))}} tháng {{date('m',strtotime($model->ngaydangky))}} năm  {{date('Y',strtotime($model->ngaydangky))}}
+            @else{{$xa}}@endif, ngày {{date('d',strtotime($model->ngaydangky))}} tháng {{date('m',strtotime($model->ngaydangky))}} năm  {{date('Y',strtotime($model->ngaydangky))}}
         </td>
     </tr>
 </table>
@@ -71,8 +71,7 @@
         <td><b>TRÍCH LỤC KHAI SINH</b></td>
     </tr>
     <tr>
-        <td>(BẢN SAO)</td>
-        <a style="position : relative; top:52px; left:323px">________</a>
+        <td><u>(BẢN SAO)</u></td>
     </tr>
 </table>
 <table width="95%" border="0" cellspacing="0" cellpadding="8" style="border-collapse: collapse; margin:20px auto">

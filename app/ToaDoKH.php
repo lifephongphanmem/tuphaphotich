@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class toado extends Model
+class ToaDoKH extends Model
 {
-    protected $table="toado";
+    protected $table="toado1";
     protected $fillable = [
         'id',
         'mahuyen',

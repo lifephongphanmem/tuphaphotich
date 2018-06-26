@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group" style="display:none;">
+                <div class="col-md-6"{{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
                     <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         @if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
@@ -119,8 +119,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Quan hệ<span class="require">*</span></label>
+                <div class="form-group"><label class="col-sm-4 control-label">Quan hệ<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
                         {!!Form::text('quanhe', null, array('id' => 'quanhe','class' => 'form-control required'))!!}
                     </div>

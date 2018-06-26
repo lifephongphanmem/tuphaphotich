@@ -35,7 +35,7 @@
                         @elseif($xa=="tpdv")
                             <td colspan="3"><span style="text-transform: uppercase"><u>Phòng Tư Pháp Huyện Đồng Văn</u></span></td>
                         @else
-                            <td colspan="3"><span style="text-transform: uppercase"><u>XÃ {{$tenxa}}</u></span></td>
+                            <td colspan="3"><span style="text-transform: uppercase"><u>XÃ {{$xa}}</u></span></td>
                         @endif
                     </tr>
                 @endif
@@ -60,7 +60,7 @@
         <td>@if($xa=="Thị Trấn Yên Minh"){{$xa}}
             @elseif($xa=="tpym") {{"Phòng Tư Pháp Huyện Yên Minh"}}
             @elseif($xa=="tpdv") {{"Phòng Tư Pháp Huyện Đồng Văn"}}
-            @else{{$tenxa}}@endif, ngày {{date('d',strtotime($model->ngaydangky))}} tháng {{date('m',strtotime($model->ngaydangky))}} năm  {{date('Y',strtotime($model->ngaydangky))}}
+            @else{{$xa}}@endif, ngày {{date('d',strtotime($model->ngaydangky))}} tháng {{date('m',strtotime($model->ngaydangky))}} năm  {{date('Y',strtotime($model->ngaydangky))}}
         </td>
     </tr>
 </table>

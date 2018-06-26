@@ -10,6 +10,8 @@ class CapBanSaoTrichLuc extends Model
     protected $table = 'capbansaotrichluc';
     protected $fillable = [
         'id',
+        'mahuyen',
+        'maxa',
         'madv',
         'ngaycap',
         'level',

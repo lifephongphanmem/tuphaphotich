@@ -13,25 +13,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group" style="display:none;">
+            <div class="col-md-6"{{!(session('admin')->level == 'T' || session('admin')->level == 'H') ? 'style=display:none;' : '' }}>
+                <div class="form-group">
                     <label class="col-sm-4 control-label">Xã phường<span class="require">*</span></label>
                     <div class="col-sm-8 controls">
-                        @if(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Yên Minh')
-                            <select name="maxa" class="form-control required">
-                                    <option value="tpym"></option>
-                            </select>
-                        @elseif(session('admin')->level == 'H' && session('admin')->name == 'Phòng tư Pháp huyện Đồng Văn')
-                            <select name="maxa" class="form-control required">
-                                <option value="tpdv"></option>
-                            </select>
-                        @else
-                            <select name="maxa" class="form-control required">
-                                @foreach($xas as $xa)
-                                    <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
-                                @endforeach
-                            </select>
-                        @endif
+                        <select name="maxa" class="form-control required">
+                            @foreach($xas as $xa)
+                                <option value="{{$xa->maxa}}" {{$xa->maxa == $maxa ? 'selected' : ''}}>{{$xa->tenxa}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
                         <td colspan="3"><span style="text-transform: uppercase">TỈNH {{$tinh}}</span></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><span style="text-transform: uppercase">{{$huyen}}</span></td>
+                        <td colspan="3"><span style="text-transform: uppercase">Huyện {{$huyen}}</span></td>
                     </tr>
                     <tr>
                         @if($xa=="Thị Trấn Yên Minh")
@@ -35,7 +35,7 @@
                         @elseif($xa=="tpdv")
                             <td colspan="3"><span style="text-transform: uppercase"><u>Phòng Tư Pháp Huyện Đồng Văn</u></span></td>
                         @else
-                            <td colspan="3"><span style="text-transform: uppercase">UBND XÃ {{$tenxa}}</span></td>
+                            <td colspan="3"><span style="text-transform: uppercase">UBND XÃ {{$xa}}</span></td>
                             <a style="position : relative; top:68px;">__________</a>
                         @endif
                     </tr>
@@ -62,7 +62,7 @@
         <td>@if($xa=="Thị Trấn Yên Minh"){{$xa}}
             @elseif($xa=="tpym") {{"Phòng Tư Pháp Huyện Yên Minh"}}
             @elseif($xa=="tpdv") {{"Phòng Tư Pháp Huyện Đồng Văn"}}
-            @else{{$tenxa}}@endif, ngày {{date('d',strtotime($model->ngaydangkykt))}} tháng {{date('m',strtotime($model->ngaydangkykt))}} năm  {{date('Y',strtotime($model->ngaydangkykt))}}
+            @else{{$xa}}@endif, ngày {{date('d',strtotime($model->ngaydangkykt))}} tháng {{date('m',strtotime($model->ngaydangkykt))}} năm  {{date('Y',strtotime($model->ngaydangkykt))}}
         </td>
     </tr>
 </table>

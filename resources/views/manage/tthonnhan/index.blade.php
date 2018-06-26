@@ -113,6 +113,31 @@
                                 </select>
                             </div>
                         </div>
+                        @if(session('admin')->level == 'T')
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select id="select_huyen" class="form-control">
+                                        @foreach ($huyens as $huyen)
+                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
+                        @if(count($xas) > 0 && (session('admin')->level == 'T' || session('admin')->level == 'H'))
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    @if(count($xas) > 0)
+                                        <select id="select_xa" class="form-control">
+                                            <option value="all">--Chọn xã phường--</option>
+                                            @foreach ($xas as $xa)
+                                                <option {{ ($xa->maxa == $maxa) ? 'selected' : '' }} value="{{ $xa->maxa }}">{{ $xa->tenxa }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">

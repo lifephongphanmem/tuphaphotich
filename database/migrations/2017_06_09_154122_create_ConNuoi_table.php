@@ -26,7 +26,7 @@ class CreateConNuoiTable extends Migration
             $table->string('hotenchanuoi')->nullable();
             $table->string('macdchanuoi')->nullable();
             $table->date('ngaysinhchanuoi')->nullable();
-            $table->date('noisinhcn')->nullable();
+            $table->string('noisinhcn')->nullable();
             $table->string('dantocchanuoi')->nullable();
             $table->string('quoctichchanuoi')->nullable();
             $table->string('cmndchanuoi')->nullable();
@@ -38,7 +38,7 @@ class CreateConNuoiTable extends Migration
             $table->string('hotenmenuoi')->nullable();
             $table->string('macdmenuoi')->nullable();
             $table->date('ngaysinhmenuoi')->nullable();
-            $table->date('noisinhmn')->nullable();
+            $table->string('noisinhmn')->nullable();
             $table->string('dantocmenuoi')->nullable();
             $table->string('quoctichmenuoi')->nullable();
             $table->string('cmndmenuoi')->nullable();
